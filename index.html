@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Basic Mappa Tutorial</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js" type="text/javascript"></script>
+  <script src="https://unpkg.com/mappa-mundi@0.0.5/dist/mappa.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <script>
+let myMap;
+let canvas;
+const mappa = new Mappa('Leaflet');
+const options = {
+  lat: 53.53071,
+  lng: -1.10983,
+  zoom: 4,
+  style: "http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+}
+
+function setup(){
+  canvas = createCanvas(640,640);
+  myMap = mappa.tileMap(options); 
+  myMap.overlay(canvas) 
+
+  fill(0, 0, 100);
+  
+  // Only redraw the point when the map changes and not every frame.
+  myMap.onChange(drawPoint);
+}
+
+function draw(){
+}
+
+function drawPoint(){
+  clear();
+
+  const hospital = myMap.latLngToPixel(53.53071, -1.10983); 
+  ellipse(hospital.x, hospital.y, 20, 20);
+}
+  </script>
+</body>
+
+</html>
