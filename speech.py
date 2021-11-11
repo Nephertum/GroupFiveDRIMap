@@ -11,7 +11,7 @@ with sr.Microphone() as source:
     audio = r.listen(source)
 
     try:
-        text = r.recognize_google(audio)
+        text = r.recognize_google(audio). # apparently this can be changed to a quicker recognizer
         print('You said: {}'.format(text))
     except:
         print('Sorry could not recognize your voice')
