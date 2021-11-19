@@ -1,3 +1,39 @@
 body {
     margin: 0;
 }
+
+.formType1 {
+    padding: 10px 10px 15px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.637);
+    border-radius: 5px;
+    max-width: 350px;
+    background-color: rgba(240, 240, 240, 0.767);
+}
+
+.submitBtn{
+    padding: 5px 15px;
+    background-image: linear-gradient(to bottom right, rgb(202, 34, 188), rgb(240, 36, 87));
+    border: 1px solid rgb(156, 11, 132);
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+}
+
+input[type=text] {
+    width: 80%;
+    padding: 5px 10px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+.placeholder {
+    color: #65657b;
+    font-family: sans-serif;
+    left: 20px;
+    line-height: 14px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 200ms, color 200ms;
+    top: 20px;
+  }
