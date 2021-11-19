@@ -19,14 +19,16 @@ let myMap;
 var mouseIsDown = false;
 let start = 0;
 let dest = 0;
+let pin = 0;
 window.addEventListener('mousedown', function() {
   mouseIsDown = true;
   setTimeout(function() {
     if(mouseIsDown) {
       // mouse was held down for > 3 seconds
       console.log("hold");
+      updatePinLocation();
     }
-  }, 3000);
+  }, 2000);
 });
 window.addEventListener('mouseup', function() {
   mouseIsDown = false;
@@ -733,6 +735,7 @@ function updateMap() {
   // clears anything currently drawn on the map
   clear()
   drawNodes();
+  placePin();
   if (start != 0 && dest != 0) {
     highlight_path(navigate(generateGraph(),start,dest));
   }
@@ -764,6 +767,18 @@ function drawRoute(node) {
   text(node.name,(start.x + end.x) / 2,(start.y + end.y) / 2)
   
 }
+function updatePinLocation() {
+  pin = myMap.pixelToLatLng(mouseX,mouseY);
+  updateMap();
+}
+function placePin() {
+  fill(255,0,0);
+  strokeWeight(1);
+  if (pin !== 0) {
+      let center = myMap.latLngToPixel(pin.lat,pin.lng);
+      triangle(center.x-8,center.y - 8,center.x + 8, center.y - 8, center.x, center.y + 8)
+  }
+}
 function drawEntrances(node) {
   textAlign(LEFT, BOTTOM);
   strokeWeight(1);
@@ -789,14 +804,18 @@ function drawBuildings(node) {
 }
 function generateGraph() {
   let graph = []
+  // loops through each cooridoor node
   for (let i = 0; i< 33; i++) {
     let current = [];
     let nodes = cooridoorIndex[i].neighbors;
+    // loops through every other cooridoor
     for (let j = 0; j< 33; j++) {
+      // if the jth cooridoor is a neighbour of the ith cooridoor then store a one
       if (nodes.includes(j+1)) {
-        current.push(1)
+        current.push(1);
       } else {
-        current.push(0)
+        // otherwise store a zero to signal no connection between nodes
+        current.push(0);
       }
     }
     graph.push(current)
@@ -864,7 +883,9 @@ function mouseClicked() {
   checkMouseClickForLocation(mouseX,mouseY);
   // checks if mouse was clicked over any of the location nodes and zooms in on them
 }
-
+function mouseDragged() {
+  mouseIsDown = false;
+}
 
 
 // work in progress for now
