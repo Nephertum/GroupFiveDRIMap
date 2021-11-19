@@ -888,7 +888,6 @@ function checkMouseClickForLocation(mouseX,mouseY) {
               .setHTML(description)
               .addTo(myMap.map)
           }
-	  console.log(pop);
         }
       }
     })
