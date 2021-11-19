@@ -241,6 +241,12 @@ var TileMap = function () {
     value: function accessMapBox() {
       return this.accessMap();
     }
+  },
+  {
+    key: 'addPopup',
+    value: function addPopup(location, text) {
+      return this.addPopupToMap(location, text);
+    }
   }, 
   {
     key: 'latLngToPixel',
@@ -1363,6 +1369,16 @@ var MapboxGL = function (_TileMap) {
     key: 'accessMap',
     value: function accessMap() {
       return this.map
+    }
+  },
+  {
+    key: 'addPopupToMap',
+    value: function addPopupToMap(location,text) {
+      console.log(text);
+      const pop = new mapboxgl.Popup({ closeOnClick: false })
+        .setLngLat([location[1],location[0]])
+        .setHTML(text)
+        .addTo(this.map)
     }
   },
   {

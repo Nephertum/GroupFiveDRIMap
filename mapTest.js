@@ -703,6 +703,7 @@ const drawFunctions = {
   "route" : drawRoute,
   "entrance" : drawEntrances
 }
+let loaded = false;
 function setup() {
   const canvas = createCanvas(window.innerWidth, 700);
   // Create a tile map and overlay the canvas on top.
@@ -737,6 +738,11 @@ function setupButton() {
   })
 }
 function updateMap() {
+  if (!loaded) {
+    myMap.accessMapBox().addControl(new mapboxgl.FullscreenControl());
+    loaded = true;
+  }
+  
   // clears anything currently drawn on the map
   clear()
   drawNodes();
@@ -884,9 +890,11 @@ function checkMouseClickForLocation(mouseX,mouseY) {
             //console.log(myMap)
             //console.log(myMap.map)
             const pop = new mapboxgl.Popup()
-              .setLngLat(location.location)
-              .setHTML(description)
-              .addTo(myMap.map)
+            pop.setLngLat([location.location[1],location.location[0]])
+            pop.setHTML(description)
+            // because of the library we are using I had to add a function to get to the map object, to do this use myMap.accessMapBox()
+            pop.addTo(myMap.accessMapBox())
+            // myMap.addPopup(location.location, description);
           }
         }
       }
