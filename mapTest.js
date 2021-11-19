@@ -647,7 +647,8 @@ const rooms = [
     focusZoom: 20,
     maxZoom: 100,
     minZoom: 18,
-    location: [53.53036640939672,-1.111265543620732]
+    location: [53.53036640939672,-1.111265543620732],
+    description: "MRI room"
   },
   {
     name: "Fracture Clinic",
@@ -657,7 +658,8 @@ const rooms = [
     focusZoom: 20,
     maxZoom: 100,
     minZoom: 18,
-    location: [53.53080208149055,-1.1111481473436413]
+    location: [53.53080208149055,-1.1111481473436413],
+    description: "Clinic for fractures"
   },
   {
     name: "X-Ray",
@@ -667,7 +669,8 @@ const rooms = [
     focusZoom: 20,
     maxZoom: 100,
     minZoom: 18,
-    location: [53.53036425859261,-1.1099108784393081]
+    location: [53.53036425859261,-1.1099108784393081],
+    description: "X-ray room"
   },
   {
     name: "East Dining Room",
@@ -677,7 +680,8 @@ const rooms = [
     focusZoom: 20,
     maxZoom: 100,
     minZoom: 18,
-    location: [53.53142886029542, -1.1068973618855011]
+    location: [53.53142886029542, -1.1068973618855011],
+    description: "Dining room"
   },
   {
     name: "Eye Clinic",
@@ -687,7 +691,8 @@ const rooms = [
     focusZoom: 20,
     maxZoom: 100,
     minZoom: 18,
-    location: [53.53082831322658,-1.109475816718657]
+    location: [53.53082831322658,-1.109475816718657],
+    description: "Clinic for eyes"
   }
 ]
 const locations = [entrances, buildings, rooms, cooridoorIndex]
@@ -872,6 +877,18 @@ function checkMouseClickForLocation(mouseX,mouseY) {
         // if the distance between the mouse click and the center of the node is within the node's radius then zoom in one it
         if (distanceX <= location.width / 2 && distanceY <= location.height / 2) {
           zoomOnLocation(location);
+	  description = location.description
+          if (typeof description !== 'undefined') {
+            //console.log(location.location)
+            //console.log(description)
+            //console.log(myMap)
+            //console.log(myMap.map)
+            const pop = new mapboxgl.Popup()
+              .setLngLat(location.location)
+              .setHTML(description)
+              .addTo(myMap.map)
+          }
+	  console.log(pop);
         }
       }
     })
