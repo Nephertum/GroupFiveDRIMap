@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    height: 100%;
 }
 
 .formType1 {
@@ -8,6 +9,15 @@ body {
     border-radius: 5px;
     max-width: 350px;
     background-color: rgba(240, 240, 240, 0.767);
+    position: absolute;
+    left: 20px;
+    z-index: 10;
+}
+#locationInput {
+    top: 20px;
+}
+#navigationInput {
+    top: 200px;
 }
 
 .submitBtn{

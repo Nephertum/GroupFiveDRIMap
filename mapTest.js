@@ -174,10 +174,11 @@ const cooridoorIndex = [
     minZoom: 18,
     maxZoom: 100,
     location: [
-      [53.5305514012573,-1.1118940672101587],
+      // [53.5305514012573,-1.1118940672101587],
+      [53.530748148999805, -1.111076466914085],
       [53.530844581102656,-1.110673662452001]
     ],
-    neighbors : [2,4]
+    neighbors : [2,4,34,38]
   },
   {
     name: "cooridoor 2",
@@ -408,7 +409,7 @@ const cooridoorIndex = [
       [53.530650735402304, -1.1088684885899056],
       [53.530820419733885, -1.108162104422263]
     ],
-    neighbors : [11,12,23,27]
+    neighbors : [11,12,23,27,35]
   },
   {
     name: "cooridoor 23",
@@ -419,7 +420,7 @@ const cooridoorIndex = [
       [53.530820419733885, -1.108162104422263],
       [53.530935661881955, -1.1082405960221422]
     ],
-    neighbors : [22,24,27]
+    neighbors : [22,24,27,35]
   },
   {
     name: "cooridoor 24",
@@ -463,7 +464,7 @@ const cooridoorIndex = [
       [53.530820419733885, -1.108162104422263],
       [53.53103806694804, -1.1072551110367215]
     ],
-    neighbors : [22,23,28,29]
+    neighbors : [22,23,28,29,35]
   },
   {
     name: "cooridoor 28",
@@ -531,7 +532,161 @@ const cooridoorIndex = [
     ],
     neighbors : [31,32,25,26]
   },
-
+  {
+    name: "cooridoor 34",
+    category: "route",
+    minZoom: 18,
+    maxZoom: 100,
+    location: [
+      [53.530748148999805, -1.111076466914085],
+      [53.53101519083785, -1.1112598047257904]
+    ],
+    neighbors : [1,38]
+  },
+  {
+    name: "cooridoor 35",
+    category: "route",
+    minZoom: 18,
+    maxZoom: 100,
+    location: [
+      [53.530820723689885, -1.1081618131735524],
+      [53.53041501602408, -1.1078864253288714]
+    ],
+    neighbors : [22,23,27,36]
+  },
+  {
+    name: "cooridoor 36",
+    category: "route",
+    minZoom: 18,
+    maxZoom: 100,
+    location: [
+      [53.53041501602408, -1.1078864253288714],
+      [53.530378919632625, -1.108040880030842]
+    ],
+    neighbors : [35,37]
+  },
+  {
+    name: "cooridoor 37",
+    category: "route",
+    minZoom: 18,
+    maxZoom: 100,
+    location: [
+      [53.530378919632625, -1.108040880030842],
+      [53.53034341037673, -1.1080149430218]
+    ],
+    neighbors : [36]
+  },
+  {
+    name: "cooridoor 38",
+    category: "route",
+    minZoom: 18,
+    maxZoom: 100,
+    location: [
+      [53.53071936301157, -1.1111979405818886],
+      [53.530748148999805, -1.111076466914085]
+    ],
+    neighbors : [1,34,39,40]
+  },
+  {
+    name: "cooridoor 39",
+    category: "route",
+    minZoom: 18,
+    maxZoom: 100,
+    location: [
+      [53.53071936301157, -1.1111979405818886],
+      [53.53056824969869, -1.1110965526628718]
+    ],
+    neighbors : [38,40]
+  },
+  {
+    name: "cooridoor 40",
+    category: "route",
+    minZoom: 18,
+    maxZoom: 100,
+    location: [
+      [53.530622979926136, -1.1116023034899172],
+      [53.53071936301157, -1.1111979405818886]
+    ],
+    neighbors : [38,39,41,42]
+  },
+  {
+    name: "cooridoor 41",
+    category: "route",
+    minZoom: 18,
+    maxZoom: 100,
+    location: [
+      [53.5305514012573,-1.1118940672101587],
+      [53.530622979926136, -1.1116023034899172]
+    ],
+    neighbors : [40,42]
+  },
+  {
+    name: "cooridoor 42",
+    category: "route",
+    minZoom: 18,
+    maxZoom: 100,
+    location: [
+      [53.530622979926136, -1.1116023034899172],
+      [53.53040628421115, -1.1114543994908104]
+    ],
+    neighbors : [41,40,43,44]
+  },
+  
+  {
+    name: "cooridoor 43",
+    category: "route",
+    minZoom: 18,
+    maxZoom: 100,
+    location: [
+      [53.53031877405246, -1.1118100217006486],
+      [53.53040628421115, -1.1114543994908104]
+    ],
+    neighbors : [42,44]
+  },
+  {
+    name: "cooridoor 44",
+    category: "route",
+    minZoom: 18,
+    maxZoom: 100,
+    location: [
+      [53.53040628421115, -1.1114543994908104],
+      [53.53025573906061, -1.111352921613502]
+    ],
+    neighbors : [42,43,45,46]
+  },
+  {
+    name: "cooridoor 45",
+    category: "route",
+    minZoom: 18,
+    maxZoom: 100,
+    location: [
+      [53.53025573906061, -1.111352921613502],
+      [53.53029529259007, -1.111187396197323]
+    ],
+    neighbors : [44,46,47]
+  },
+  {
+    name: "cooridoor 46",
+    category: "route",
+    minZoom: 18,
+    maxZoom: 100,
+    location: [
+      [53.53025573906061, -1.111352921613502],
+      [53.53021814070331, -1.111327472504854]
+    ],
+    neighbors : [44,45]
+  },
+  {
+    name: "cooridoor 47",
+    category: "route",
+    minZoom: 18,
+    maxZoom: 100,
+    location: [
+      [53.53029529259007, -1.111187396197323],
+      [53.53026183027555, -1.1111640689963735]
+    ],
+    neighbors : [45]
+  },
 ]
 // first array element is latitude
 const buildings = [
@@ -648,7 +803,8 @@ const rooms = [
     maxZoom: 100,
     minZoom: 18,
     location: [53.53036640939672,-1.111265543620732],
-    description: "MRI room"
+    description: "MRI room",
+    cooridoor: 44
   },
   {
     name: "Fracture Clinic",
@@ -658,8 +814,9 @@ const rooms = [
     focusZoom: 20,
     maxZoom: 100,
     minZoom: 18,
-    location: [53.53080208149055,-1.1111481473436413],
-    description: "Clinic for fractures"
+    location: [53.53078921165692, -1.1111900054947057],
+    description: "Clinic for fractures",
+    cooridoor: 34
   },
   {
     name: "X-Ray",
@@ -670,7 +827,8 @@ const rooms = [
     maxZoom: 100,
     minZoom: 18,
     location: [53.53036425859261,-1.1099108784393081],
-    description: "X-ray room"
+    description: "X-ray room",
+    cooridoor: 9
   },
   {
     name: "East Dining Room",
@@ -681,7 +839,8 @@ const rooms = [
     maxZoom: 100,
     minZoom: 18,
     location: [53.53142886029542, -1.1068973618855011],
-    description: "Dining room"
+    description: "Dining room",
+    cooridoor: 30
   },
   {
     name: "Eye Clinic",
@@ -692,7 +851,8 @@ const rooms = [
     maxZoom: 100,
     minZoom: 18,
     location: [53.53082831322658,-1.109475816718657],
-    description: "Clinic for eyes"
+    description: "Clinic for eyes",
+    cooridoor: 17
   }
 ]
 const locations = [entrances, buildings, rooms, cooridoorIndex]
@@ -720,11 +880,7 @@ function setupButton() {
     let room = Searchinput.value;
     rooms.forEach(element => {
       if (element.name == room) {
-        myMap.accessMapBox().flyTo({
-          center: [element.location[1], element.location[0]],
-          zoom: element.focusZoom
-        });
-        document.getElementById("locationDisplay").innerText = "Selected node: " + element.name; 
+        zoomOnLocation(element)
       }
     })
   })
@@ -732,14 +888,13 @@ function setupButton() {
   const input1 = document.getElementById("path1");
   const input2 = document.getElementById("path2");
   navigateButton.addEventListener("click", () => {
-    start = parseInt(input1.value);
-    dest = parseInt(input2.value)
+    setNavigation(input1.value, input2.value)
     updateMap();
   })
 }
 function updateMap() {
   if (!loaded) {
-    myMap.accessMapBox().addControl(new mapboxgl.FullscreenControl());
+    myMap.map.addControl(new mapboxgl.FullscreenControl());
     loaded = true;
   }
   
@@ -751,6 +906,26 @@ function updateMap() {
     highlight_path(navigate(generateGraph(),start,dest));
   }
   
+}
+
+function setNavigation(source, destination) {
+  console.log('ahh')
+  let newStart = 0;
+  let newDest = 0;
+  rooms.forEach(element => {
+    if (element.name == source) {
+      newStart = element.cooridoor;
+    }
+    if (element.name == destination) {
+      newDest = element.cooridoor;
+    }
+  });
+  if (newStart === 0 || newDest === 0) {
+    alert('invalid locations')
+  } else {
+    start = newStart;
+    dest = newDest;
+  }
 }
 
 function drawNodes(){
@@ -787,7 +962,7 @@ function placePin() {
   strokeWeight(1);
   if (pin !== 0) {
       let center = myMap.latLngToPixel(pin.lat,pin.lng);
-      triangle(center.x-8,center.y - 8,center.x + 8, center.y - 8, center.x, center.y + 8)
+      triangle(center.x-8,center.y - 16,center.x + 8, center.y - 16, center.x, center.y)
   }
 }
 function drawEntrances(node) {
@@ -816,11 +991,12 @@ function drawBuildings(node) {
 function generateGraph() {
   let graph = []
   // loops through each cooridoor node
-  for (let i = 0; i< 33; i++) {
+  for (let i = 0; i< cooridoorIndex.length; i++) {
     let current = [];
+    
     let nodes = cooridoorIndex[i].neighbors;
     // loops through every other cooridoor
-    for (let j = 0; j< 33; j++) {
+    for (let j = 0; j< cooridoorIndex.length; j++) {
       // if the jth cooridoor is a neighbour of the ith cooridoor then store a one
       if (nodes.includes(j+1)) {
         current.push(1);
@@ -836,6 +1012,7 @@ function generateGraph() {
 // highlights a cooridoor red, to be used for navigation
 function highlight_path(cooridoor_list) {
   cooridoor_list.forEach(path => {
+    console.log(path);
     highlight_cooridoor(path);
   });
 }
@@ -865,7 +1042,7 @@ function draw() {
   cursor(CROSS)
 }
 function zoomOnLocation(location) {
-  myMap.accessMapBox().flyTo({
+  myMap.map.flyTo({
     center: [location.location[1], location.location[0]],
     zoom: location.focusZoom
   });
@@ -893,7 +1070,7 @@ function checkMouseClickForLocation(mouseX,mouseY) {
             pop.setLngLat([location.location[1],location.location[0]])
             pop.setHTML(description)
             // because of the library we are using I had to add a function to get to the map object, to do this use myMap.accessMapBox()
-            pop.addTo(myMap.accessMapBox())
+            pop.addTo(myMap.map)
             // myMap.addPopup(location.location, description);
           }
         }
@@ -990,7 +1167,7 @@ function navigate(adjacencyMatrix,startVertex,destination)
 
 			// Update dist value of the
 			// adjacent vertices of the
-			// picked vertex.
+      // picked vertex.
 			for (let vertexIndex = 0;
 					vertexIndex < nVertices;
 					vertexIndex++)

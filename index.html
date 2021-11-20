@@ -16,19 +16,17 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <h1>DRI Map</h1>
-    <script src="mapTest.js"></script>
-    <div class="formType1">
-      <p id="locationDisplay">Selected node: </p>
-      <input id ="roomSearch" type="text" placeholder="Enter room..."><br>
-      <button id="SearchBtn" class="submitBtn">Find</button>
-    </div><hr><br>
-    <div class="formType1">
-      <input id="path1" type="text" placeholder="Enter your current location..." /><br>
-      <input id="path2" type="text" placeholder="Enter your destination..."/><br>
-      <button id="navigateBtn" class="submitBtn">Navigate</button>
-    </div><br>
+  <!-- <h1>DRI Map</h1> -->
+  <script src="mapTest.js"></script>
+  <div class="formType1" id="locationInput">
+    <p id="locationDisplay">Selected node: </p>
+    <input id ="roomSearch" type="text" placeholder="Enter room..."><br>
+    <button id="SearchBtn" class="submitBtn">Find</button>
+  </div>
+  <div class="formType1" id='navigationInput'>
+    <input id="path1" type="text" placeholder="Current location" /><br>
+    <input id="path2" type="text" placeholder="Destination"/><br>
+    <button id="navigateBtn" class="submitBtn">Navigate</button>
   </div>
 </body>
 
