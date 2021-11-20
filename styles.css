@@ -25,15 +25,28 @@ input[type=text] {
     border-radius: 5px;
     border: 1px solid grey;
 }
+.fit-image{
+    width: 100%;
+    object-fit: cover
+    }
 
-.placeholder {
-    color: #65657b;
-    font-family: sans-serif;
-    left: 20px;
-    line-height: 14px;
-    pointer-events: none;
-    position: absolute;
-    transform-origin: 0 50%;
-    transition: transform 200ms, color 200ms;
-    top: 20px;
-  }
+.mapboxgl-popup-content{
+    color: rgb(9, 11, 116);
+    max-width: 250px;
+}
+
+.mapboxgl-popup-content-wrapper{
+    padding: 1%;
+}
+
+.popupBtn-wrapper{
+    text-align: right;
+}
+
+.popupBtn{
+    padding: 4px 10px;
+    background-image: linear-gradient(to bottom right, rgba(30, 38, 59, 0.829), rgba(36, 84, 240, 0.781));
+    border: 1px solid rgba(35, 37, 179, 0.651);
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+}
