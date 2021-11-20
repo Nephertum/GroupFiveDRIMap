@@ -650,7 +650,7 @@ const rooms = [
     minZoom: 18,
     location: [53.53036640939672,-1.111265543620732],
     info: [
-      "Doncaster Royal Infirmiry's MRI room", // description
+      "Doncaster Royal Infirmary's MRI room", // description
       [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]], // opening hours
       "default.jpeg" // image
 ]
@@ -666,7 +666,7 @@ const rooms = [
     minZoom: 18,
     location: [53.53080208149055,-1.1111481473436413],
     info: [
-      "Doncaster Royal Infirmiry's fracture clinic",
+      "Doncaster Royal Infirmary's fracture clinic",
       [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
       "default.jpeg"
 ]
@@ -682,7 +682,7 @@ const rooms = [
     minZoom: 18,
     location: [53.53036425859261,-1.1099108784393081],
     info: [
-      "Doncaster Royal Infirmiry's X-ray room",
+      "Doncaster Royal Infirmary's X-ray room",
       [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
       "default.jpeg"
 ]
