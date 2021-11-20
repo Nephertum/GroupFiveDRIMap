@@ -909,15 +909,14 @@ function checkMouseClickForLocation(mouseX,mouseY) {
         // if the distance between the mouse click and the center of the node is within the node's radius then zoom in one it
         if (distanceX <= location.width / 2 && distanceY <= location.height / 2) {
           zoomOnLocation(location);
-	        description = location.description
           if (typeof location.info !== 'undefined') {
             if (popupExists == true){
-              popup.remove()
+              popup.remove() // remove any existing popups
             }
             popup = new mapboxgl.Popup({closeOnClick: false})
             .setLngLat([location.location[1],location.location[0]])
             .setHTML(popupHTML(location.id, location.name, location.info))
-            .addTo(myMap.accessMapBox())
+            .addTo(myMap.accessMapBox();
             popupBtnFunc(location.id, location.name)
             // myMap.addPopup(location.location, description);
             popupExists = true
@@ -938,6 +937,7 @@ function mouseDragged() {
   mouseIsDown = false;
 }
 
+// function renders HTML for popup
 function popupHTML(id, name, info){
   const description = info[0]
   const openhours = info[1]
@@ -959,11 +959,12 @@ function popupHTML(id, name, info){
   return(html)
 }
 
+// function gives the 'get directions' buttons in the popups their functionality
 function popupBtnFunc(id, name){
   newNavBtn = document.getElementById("navHere"+id)
   
   newNavBtn.addEventListener("click", () => {
-    document.getElementById("path2").value = name
+    document.getElementById("path2").value = name // Just autofills destination for now
   })
 }
 
