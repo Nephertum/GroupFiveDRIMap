@@ -640,6 +640,7 @@ location: [latitude, longitude]
 */
 const rooms = [
   {
+    id: "r0",
     name: "MRI",
     category: "room",
     width: 80,
@@ -648,9 +649,14 @@ const rooms = [
     maxZoom: 100,
     minZoom: 18,
     location: [53.53036640939672,-1.111265543620732],
-    description: "MRI room"
+    info: [
+      "Doncaster Royal Infirmiry's MRI room", // description
+      [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]], // opening hours
+      "default.jpeg" // image
+]
   },
   {
+    id: "r1",
     name: "Fracture Clinic",
     category: "room",
     width: 80,
@@ -659,9 +665,14 @@ const rooms = [
     maxZoom: 100,
     minZoom: 18,
     location: [53.53080208149055,-1.1111481473436413],
-    description: "Clinic for fractures"
+    info: [
+      "Doncaster Royal Infirmiry's fracture clinic",
+      [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
+      "default.jpeg"
+]
   },
   {
+    id: "r2",
     name: "X-Ray",
     category: "room",
     width: 80,
@@ -670,9 +681,14 @@ const rooms = [
     maxZoom: 100,
     minZoom: 18,
     location: [53.53036425859261,-1.1099108784393081],
-    description: "X-ray room"
+    info: [
+      "Doncaster Royal Infirmiry's X-ray room",
+      [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
+      "default.jpeg"
+]
   },
   {
+    id: "r3",
     name: "East Dining Room",
     category: "room",
     width: 100,
@@ -681,9 +697,14 @@ const rooms = [
     maxZoom: 100,
     minZoom: 18,
     location: [53.53142886029542, -1.1068973618855011],
-    description: "Dining room"
+    info: [
+      "Doncaster Royal Infirmary's east dining room",
+      [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
+      "default.jpeg"
+]
   },
   {
+    id: "r4",
     name: "Eye Clinic",
     category: "room",
     width: 80,
@@ -692,7 +713,11 @@ const rooms = [
     maxZoom: 100,
     minZoom: 18,
     location: [53.53082831322658,-1.109475816718657],
-    description: "Clinic for eyes"
+    info: [
+          "Doncaster Royal Infirmary's eye clinic",
+          [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
+          "default.jpeg"
+  ]
   }
 ]
 const locations = [entrances, buildings, rooms, cooridoorIndex]
@@ -712,6 +737,7 @@ function setup() {
   // anytime the map is panned or zoomed this function will execute
   myMap.onChange(updateMap)
   setupButton();
+  popupExists = false; // global variable
 }
 function setupButton() {
   const Searchbutton = document.getElementById('SearchBtn')
@@ -883,18 +909,19 @@ function checkMouseClickForLocation(mouseX,mouseY) {
         // if the distance between the mouse click and the center of the node is within the node's radius then zoom in one it
         if (distanceX <= location.width / 2 && distanceY <= location.height / 2) {
           zoomOnLocation(location);
-	  description = location.description
-          if (typeof description !== 'undefined') {
-            //console.log(location.location)
-            //console.log(description)
-            //console.log(myMap)
-            //console.log(myMap.map)
-            const pop = new mapboxgl.Popup()
-            pop.setLngLat([location.location[1],location.location[0]])
-            pop.setHTML(description)
-            // because of the library we are using I had to add a function to get to the map object, to do this use myMap.accessMapBox()
-            pop.addTo(myMap.accessMapBox())
+	        description = location.description
+          if (typeof location.info !== 'undefined') {
+            if (popupExists == true){
+              popup.remove()
+            }
+            popup = new mapboxgl.Popup({closeOnClick: false})
+            .setLngLat([location.location[1],location.location[0]])
+            .setHTML(popupHTML(location.id, location.name, location.info))
+            .addTo(myMap.accessMapBox())
+            popupBtnFunc(location.id, location.name)
             // myMap.addPopup(location.location, description);
+            popupExists = true
+            console.log(myMap.map === myMap.accessMapBox())
           }
         }
       }
@@ -911,6 +938,34 @@ function mouseDragged() {
   mouseIsDown = false;
 }
 
+function popupHTML(id, name, info){
+  const description = info[0]
+  const openhours = info[1]
+  const img = info[2]
+  let openhourshtml = ''
+  for (let i = 0; i < openhours.length; i++) {
+    openhourshtml += openhours[i][0] + ": " + openhours[i][1] + "<br>";
+  }
+
+  const html = '<h5 style="text-align:center;"><b>'
+    +name+
+  '</b></h5><p style="text-align:center;"><i>'
+  +description+
+  '</i></p><div class="row"><div class="col-sm d-flex justify-content-center"><p><b>Opening Hours:</b><br>'
+  +openhourshtml+
+  '</p></div><div class="col-sm"><img src="'
+  +img+
+  '" alt="Picture of Building" class="img-responsive fit-image"></div></div><div class="popupBtn-wrapper"><button id="navHere'+id+'" class="popupBtn">Get Directions</button></div>'
+  return(html)
+}
+
+function popupBtnFunc(id, name){
+  newNavBtn = document.getElementById("navHere"+id)
+  
+  newNavBtn.addEventListener("click", () => {
+    document.getElementById("path2").value = name
+  })
+}
 
 // work in progress for now
 
