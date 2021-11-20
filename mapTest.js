@@ -916,7 +916,7 @@ function checkMouseClickForLocation(mouseX,mouseY) {
             popup = new mapboxgl.Popup({closeOnClick: false})
             .setLngLat([location.location[1],location.location[0]])
             .setHTML(popupHTML(location.id, location.name, location.info))
-            .addTo(myMap.accessMapBox();
+            .addTo(myMap.accessMapBox())
             popupBtnFunc(location.id, location.name)
             // myMap.addPopup(location.location, description);
             popupExists = true
