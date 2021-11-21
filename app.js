@@ -75,7 +75,7 @@ app.post('/entities/add', function (req, resp) {
     }
     else if (category == "room"){
         const description = req.body.newDescription;
-        const hours = ["have not sorted this input out yet", ""]
+        const hours = [["have not sorted this input out yet"], [""]]
         const img = req.body.newImg;
         const info = [description, hours, img];
         place["info"] = info;
