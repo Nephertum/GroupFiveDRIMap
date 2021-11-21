@@ -63,14 +63,13 @@ let buildings;
     entrances = body;
  })
 
-/*
-let corridorIndex;
+
+let cooridoorIndex;
   fetch('http://127.0.0.1:8090/corridorIndex')
   .then(response => response.json())
   .then(function(body){
-    corridorIndex = body;
+    cooridoorIndex = body;
  })
-*/
 
 const drawFunctions = {
   "building" : drawBuildings,
