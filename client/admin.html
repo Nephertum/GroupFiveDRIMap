@@ -50,47 +50,40 @@
             <div class="tab-pane container active" id="newlocationtab">
                 <div class="row">
                     <div class="col-sm">
-                <h2>Add New Entrance</h2>
-                <form action="http://127.0.0.1:8090/entrances/add" method="post" name="newEntranceForm" class="formType2" id="newEntranceForm">
+                <h2>Add New Location to Map</h2>
+                <form action="http://127.0.0.1:8090/entities/add" method="post" name="newPlaceForm" class="formType2" id="newPlaceForm">
+
+                    <p>Select a category:</p>
+                    <input type="radio" id="catE" name="category" value="entrance">
+                    <label for="newEntrance">Entrance</label>
+                    <input type="radio" id="catR" name="category" value="room">
+                    <label for="newRoom">Room</label>
+                    <input type="radio" id="catB" name="category" value="building">
+                    <label for="newBuilding">Building</label><br>
+
                     <button type="button" class="autofill-btn" id="autofill1">Autofill default options</button><br>
 
-                    <label for="newEName">Name: </label><br>
-                    <input type="text" name="newEName" id="newEName" required><br>
-                    <label for="newEWidth">Width: </label><br>
-                    <input type="text" name="newEWidth" id="newEWidth"required><br>
-                    <label for="newEHeight">Height: </label><br>
-                    <input type="text" name="newEHeight" id="newEHeight"required><br>
-                    <label for="newEFocus">Focus Zoom: </label><br>
-                    <input type="text" name="newEFocus" id="newEFocus" required><br>
-                    <label for="newEMinZoom">Min Zoom: </label><br>
-                    <input type="text" name="newEMinZoom" id="newEMinZoom" required><br>
-                    <label for="newEMaxZoom">Max Zoom: </label><br>
-                    <input type="text" name="newEMaxZoom" id="newEMaxZoom" required><br>
-                    <label for="newELocation">Location: <br><i>Enter in format: lat, lng</i></label><br>
-                    <input type="text" name="newELocation" id="newELocation" required><br>
+                    <label for="newName">Name: </label><br>
+                    <input type="text" name="newName" id="newName" required><br>
+                    <label for="newWidth">Width: </label><br>
+                    <input type="text" name="newWidth" id="newWidth"required><br>
+                    <label for="newHeight">Height: </label><br>
+                    <input type="text" name="newHeight" id="newHeight"required><br>
+                    <label for="newFocus">Focus Zoom: </label><br>
+                    <input type="text" name="newFocus" id="newFocus" required><br>
+                    <label for="newMinZoom">Min Zoom: </label><br>
+                    <input type="text" name="newMinZoom" id="newMinZoom" required><br>
+                    <label for="newMaxZoom">Max Zoom: </label><br>
+                    <input type="text" name="newMaxZoom" id="newMaxZoom" required><br>
+                    <label for="newLocation">Location: <br><i>Enter in format: lat, lng</i></label><br>
+                    <input type="text" name="newLocation" id="newLocation" required><br>
+                    <label for="newDescription" class="roomOnly">Description:<br></label>
+                    <input type="text" name="newDescription" id="newDescription" class="roomOnly"><br class="roomOnly">
+                    <label for="newHours" class="roomOnly">Opening Hours:<br></label>
+                    <input type="text" name="newHours" id="newHours" class="roomOnly"><br class="roomOnly">
+                    <label for="newImg" class="roomOnly">Image File Name:<br></label>
+                    <input type="text" name="newImg" id="newImg" class="roomOnly"><br>
 
-                    <button type="submit" class="submitBtn">Submit</button>
-                </form>
-            </div>
-            <div class="col-sm">
-                <h2>Add New Room</h2>
-                <form action="http://127.0.0.1:8090/rooms/add" method="post" name="newRoomForm" class="formType2" id="newRoomForm">
-                    <button type="button" class="autofill-btn" id="autofill2">Autofill default options</button><br>
-
-                    <label for="newRName">Name: </label><br>
-                    <input type="text" name="newRName" id="newRName" required><br>
-                    <label for="newRWidth">Width: </label><br>
-                    <input type="text" name="newRWidth" id="newRWidth"required><br>
-                    <label for="newRHeight">Height: </label><br>
-                    <input type="text" name="newRHeight" id="newRHeight"required><br>
-                    <label for="newRFocus">Focus Zoom: </label><br>
-                    <input type="text" name="newRFocus" id="newRFocus" required><br>
-                    <label for="newRMinZoom">Min Zoom: </label><br>
-                    <input type="text" name="newRMinZoom" id="newRMinZoom" required><br>
-                    <label for="newRMaxZoom">Max Zoom: </label><br>
-                    <input type="text" name="newRMaxZoom" id="newRMaxZoom" required><br>
-                    <label for="newRLocation">Location: <br><i>Enter in format: lat, lng</i></label><br>
-                    <input type="text" name="newRLocation" id="newRLocation" required><br>
 
                     <button type="submit" class="submitBtn">Submit</button>
                 </form>
