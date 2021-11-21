@@ -1,0 +1,673 @@
+{ "entrances":[
+    {
+      "name": "entrance",
+      "category": "entrance",
+      "width": 10,
+      "height": 10,
+      "focusZoom": 20,
+      "minZoom": 1,
+      "maxZoom": 100,
+      "location": [53.53036036284166,-1.1127345482058217]
+    },
+    {
+      "name": "entrance",
+      "category": "entrance",
+      "width": 10,
+      "height": 10,
+      "focusZoom": 20,
+      "minZoom": 1,
+      "maxZoom": 100,
+      "location": [53.5303831882261,-1.112592117062519]
+    },
+    {
+      "name": "entrance",
+      "category": "entrance",
+      "width": 10,
+      "height": 10,
+      "focusZoom": 20,
+      "minZoom": 1,
+      "maxZoom": 100,
+      "location": [53.531014559830766,-1.1112614815930613]
+    },
+    {
+      "name": "entrance",
+      "category": "entrance",
+      "width": 10,
+      "height": 10,
+      "focusZoom": 20,
+      "minZoom": 1,
+      "maxZoom": 100,
+      "location": [53.530551957905885,-1.1118969982503586]
+    },
+    {
+      "name": "entrance",
+      "category": "entrance",
+      "width": 10,
+      "height": 10,
+      "focusZoom": 20,
+      "minZoom": 1,
+      "maxZoom": 100,
+      "location": [53.530318240535735,-1.1118095562219992]
+    },
+    {
+      "name": "entrance",
+      "category": "entrance",
+      "width": 10,
+      "height": 10,
+      "focusZoom": 20,
+      "minZoom": 1,
+      "maxZoom": 100,
+      "location": [53.53021785062762,-1.1113278884448619]
+    },
+    {
+      "name": "entrance",
+      "category": "entrance",
+      "width": 10,
+      "height": 10,
+      "focusZoom": 20,
+      "minZoom": 1,
+      "maxZoom": 100,
+      "location": [53.530261424202536,-1.1111640508775338]
+    },
+    {
+      "name": "entrance",
+      "category": "entrance",
+      "width": 10,
+      "height": 10,
+      "focusZoom": 20,
+      "minZoom": 1,
+      "maxZoom": 100,
+      "location": [53.53056741491483,-1.1110975044741451]
+    },
+    {
+      "name": "entrance",
+      "category": "entrance",
+      "width": 10,
+      "height": 10,
+      "focusZoom": 20,
+      "minZoom": 1,
+      "maxZoom": 100,
+      "location": [53.53034296374247,-1.1080162367318849]
+    },
+    {
+      "name": "entrance",
+      "category": "entrance",
+      "width": 10,
+      "height": 10,
+      "focusZoom": 20,
+      "minZoom": 1,
+      "maxZoom": 100,
+      "location": [53.531005202607304,-1.11035050174317]
+    },
+    {
+      "name": "entrance",
+      "category": "entrance",
+      "width": 10,
+      "height": 10,
+      "focusZoom": 20,
+      "minZoom": 1,
+      "maxZoom": 100,
+      "location": [53.53097779311196,-1.1098367562255191]
+    },
+    {
+      "name": "entrance",
+      "category": "entrance",
+      "width": 10,
+      "height": 10,
+      "focusZoom": 20,
+      "minZoom": 1,
+      "maxZoom": 100,
+      "location": [53.53108993209284,-1.1093741287448893]
+    },
+    {
+      "name": "entrance",
+      "category": "entrance",
+      "width": 10,
+      "height": 10,
+      "focusZoom": 20,
+      "minZoom": 1,
+      "maxZoom": 100,
+      "location": [53.53145588038254,-1.1080159843762658]
+    }
+  ],
+  "corridorIndex":[
+    {
+      "name": "cooridoor 1",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.5305514012573,-1.1118940672101587],
+        [53.530844581102656,-1.110673662452001]
+      ],
+      "neighbors" : [2,4]
+    },
+    {
+      "name": "cooridoor 2",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.530844581102656,-1.110673662452001],
+        [53.53093383871246,-1.1103016334823792]
+      ],
+      "neighbors" : [1,4,3]
+    },
+    {
+      "name": "cooridoor 3",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53093383871246,-1.1103016334823792],
+        [53.5310023141906, -1.1103480914643171]
+      ],
+      "neighbors" : [2]
+    },
+    {
+      "name": "cooridoor 4",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.530844581102656,-1.110673662452001],
+        [53.53030522393195, -1.1103072358442603]
+      ],
+      "neighbors" : [1,2,5]
+    },
+    {
+      "name": "cooridoor 5",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53030522393195, -1.1103072358442603],
+        [53.53039400049377, -1.1099370219646403]
+      ],
+      "neighbors" : [4,8,6]
+    },
+    {
+      "name": "cooridoor 6",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53039400049377, -1.1099370219646403],
+        [53.53060891868219, -1.110083061694354]
+      ],
+      "neighbors" : [5,8,7,21]
+    },
+    {
+      "name": "cooridoor 7",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53060893652449, -1.110083044087105],
+        [53.53053843928916, -1.110376648442866]
+      ],
+      "neighbors" : [6,21]
+    },
+    {
+      "name": "cooridoor 8",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53039403642282, -1.1099370313955035],
+        [53.53041848322417, -1.1098353526766118]
+      ],
+      "neighbors" : [9,5,6,10]
+    },
+    {
+      "name": "cooridoor 9",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53041848322417, -1.1098353526766118],
+        [53.530391970828475, -1.1098172912050757]
+      ],
+      "neighbors" : [8,10]
+    },
+    {
+      "name": "cooridoor 10",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53041848322417, -1.1098353526766118],
+        [53.53063570704225, -1.1089304746676873]
+      ],
+      "neighbors" : [11,8,9,13]
+    },
+    {
+      "name": "cooridoor 11",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53063570704225, -1.1089304746676873],
+        [53.530650692728756, -1.10886852098605]
+      ],
+      "neighbors" : [10,13,12,22]
+    },
+    {
+      "name": "cooridoor 12",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.530650692728756, -1.10886852098605],
+        [53.53061571749669, -1.1088446010584505]
+      ],
+      "neighbors" : [11,22]
+    },
+    {
+      "name": "cooridoor 13",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53063570704225, -1.1089304746676873],
+        [53.530857366483815, -1.1090810697784548]
+      ],
+      "neighbors" : [10,11,14,26]
+    },
+    {
+      "name": "cooridoor 14",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.530857366483815, -1.1090810697784548],
+        [53.53094916600901, -1.1091436162841717]
+      ],
+      "neighbors" : [13,15,26]
+    },
+    {
+      "name": "cooridoor 15",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53094916600901, -1.1091436162841717],
+        [53.53092072004907, -1.1092620749969342]
+      ],
+      "neighbors" : [14,16,17]
+    },
+    {
+      "name": "cooridoor 16",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53092072004907, -1.1092620749969342],
+        [53.531089605795756, -1.1093769525469668]
+      ],
+      "neighbors" : [15,17]
+    },
+    {
+      "name": "cooridoor 17",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53092072004907, -1.1092620749969342],
+        [53.53080932681644, -1.1097271692692914]
+      ],
+      "neighbors" : [15,16,18,19]
+    },
+    {
+      "name": "cooridoor 18",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53080932681644, -1.1097271692692914],
+        [53.53097630217428, -1.109840744583039]
+      ],
+      "neighbors" : [17,19]
+    },
+    {
+      "name": "cooridoor 19",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53080932681644, -1.1097271692692914],
+        [53.530795275366444, -1.1097865216131595]
+      ],
+      "neighbors" : [17,18,20]
+    },
+    {
+      "name": "cooridoor 20",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.530795275366444, -1.1097865216131595],
+        [53.53069629314572, -1.1097192543872438]
+      ],
+      "neighbors" : [19,21]
+    },
+    {
+      "name": "cooridoor 21",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53069629314572, -1.1097192543872438],
+        [53.5306089545719, -1.1100829973646285]
+      ],
+      "neighbors" : [20,6,7]
+    },
+    {
+      "name": "cooridoor 22",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.530650735402304, -1.1088684885899056],
+        [53.530820419733885, -1.108162104422263]
+      ],
+      "neighbors" : [11,12,23,27]
+    },
+    {
+      "name": "cooridoor 23",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.530820419733885, -1.108162104422263],
+        [53.530935661881955, -1.1082405960221422]
+      ],
+      "neighbors" : [22,24,27]
+    },
+    {
+      "name": "cooridoor 24",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.530935661881955, -1.1082405960221422],
+        [53.53096533568163, -1.1081170287382918]
+      ],
+      "neighbors" : [23,25]
+    },
+    {
+      "name": "cooridoor 25",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53096533568163, -1.1081170287382918],
+        [53.53107142873114, -1.1081891855639014]
+      ],
+      "neighbors" : [24,26,33]
+    },
+    {
+      "name": "cooridoor 26",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53107142873114, -1.1081891855639014],
+        [53.53085729646716, -1.1090809724322241]
+      ],
+      "neighbors" : [33,25,14,13]
+    },
+    {
+      "name": "cooridoor 27",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.530820419733885, -1.108162104422263],
+        [53.53103806694804, -1.1072551110367215]
+      ],
+      "neighbors" : [22,23,28,29]
+    },
+    {
+      "name": "cooridoor 28",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53103806694804, -1.1072551110367215],
+        [53.53113752911736, -1.1068410904123596]
+      ],
+      "neighbors" : [27,29]
+    },
+    {
+      "name": "cooridoor 29",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53103806694804, -1.1072551110367215],
+        [53.53125956330538, -1.1074051972444465]
+      ],
+      "neighbors" : [27,28,30,31]
+    },
+    {
+      "name": "cooridoor 30",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53125956330538, -1.1074051972444465],
+        [53.53133228754169, -1.1071023645346543]
+      ],
+      "neighbors" : [29,31]
+    },
+    {
+      "name": "cooridoor 31",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53125956330538, -1.1074051972444465],
+        [53.53116008744527, -1.1078179644715362]
+      ],
+      "neighbors" : [29,30,32,33]
+    },
+    {
+      "name": "cooridoor 32",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53116008744527, -1.1078179644715362],
+        [53.53145368710386, -1.1080184334131218]
+      ],
+      "neighbors" : [31,33]
+    },
+    {
+      "name": "cooridoor 33",
+      "category": "route",
+      "minZoom": 18,
+      "maxZoom": 100,
+      "location": [
+        [53.53116008744527, -1.1078179644715362],
+        [53.53107139817712, -1.1081892912078217]
+      ],
+      "neighbors" : [31,32,25,26]
+    }
+  
+  ],
+  "buildings": [
+    {
+      "name": "Women + Children",
+      "category": "building",
+      "width": 80,
+      "height": 40,
+      "focusZoom": 17,
+      "maxZoom": 17,
+      "minZoom": 1,
+      "location": [53.53024455226753, -1.1126034005113183]
+    },
+    {
+      "name": "West Block",
+      "category": "building",
+      "width": 80,
+      "height": 40,
+      "focusZoom": 17,
+      "maxZoom": 17,
+      "minZoom": 1,
+      "location": [53.53069179653954,  -1.1105351374701513]
+    },
+    {
+      "name": "South Block",
+      "category": "building",
+      "width": 80,
+      "height": 40,
+      "focusZoom": 17,
+      "maxZoom": 17,
+      "minZoom": 1,
+      "location": [53.53055885767401, -1.1084207985776686]
+    },
+    {
+      "name": "East Block",
+      "category": "building",
+      "width": 80,
+      "height": 40,
+      "focusZoom": 17,
+      "maxZoom": 17,
+      "minZoom": 1,
+      "location": [53.53115754402981, -1.1075016917824883]
+    },
+    {
+      "name": "Carousel",
+      "category": "building",
+      "width": 80,
+      "height": 40,
+      "focusZoom": 19,
+      "maxZoom": 100,
+      "minZoom": 17,
+      "location": [53.52967385366341, -1.1120872592508988]
+    },
+    {
+      "name": "A Block",
+      "category": "building",
+      "width": 80,
+      "height": 40,
+      "focusZoom": 19,
+      "maxZoom": 100,
+      "minZoom": 17,
+      "location": [53.52960223948364,-1.1135195943024314]
+    },
+    {
+      "name": "B Block",
+      "category": "building",
+      "width": 80,
+      "height": 40,
+      "focusZoom": 19,
+      "maxZoom": 100,
+      "minZoom": 17,
+      "location": [53.52970020366635,-1.112693291174395]
+    },
+    {
+      "name": "C Block",
+      "category": "building",
+      "width": 80,
+      "height": 40,
+      "focusZoom": 19,
+      "maxZoom": 100,
+      "minZoom": 17,
+      "location": [53.52946105272787,-1.113025788083064]
+    },
+    {
+      "name": "D Block",
+      "category": "building",
+      "width": 80,
+      "height": 40,
+      "focusZoom": 19,
+      "maxZoom": 100,
+      "minZoom": 17,
+      "location": [53.53008930660272,-1.1139106344718073]
+    }
+  ],
+  "rooms": [
+    {
+      "id": "r0",
+      "name": "MRI",
+      "category": "room",
+      "width": 80,
+      "height": 40,
+      "focusZoom": 20,
+      "maxZoom": 100,
+      "minZoom": 18,
+      "location": [53.53036640939672,-1.111265543620732],
+      "info": [
+        "Doncaster Royal Infirmary's MRI room",
+        [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
+        "default.jpeg" 
+  ]
+    },
+    {
+      "id": "r1",
+      "name": "Fracture Clinic",
+      "category": "room",
+      "width": 80,
+      "height": 40,
+      "focusZoom": 20,
+      "maxZoom": 100,
+      "minZoom": 18,
+      "location": [53.53080208149055,-1.1111481473436413],
+      "info": [
+        "Doncaster Royal Infirmary's fracture clinic",
+        [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
+        "default.jpeg"
+  ]
+    },
+    {
+      "id": "r2",
+      "name": "X-Ray",
+      "category": "room",
+      "width": 80,
+      "height": 35,
+      "focusZoom": 20,
+      "maxZoom": 100,
+      "minZoom": 18,
+      "location": [53.53036425859261,-1.1099108784393081],
+      "info": [
+        "Doncaster Royal Infirmary's X-ray room",
+        [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
+        "default.jpeg"
+  ]
+    },
+    {
+      "id": "r3",
+      "name": "East Dining Room",
+      "category": "room",
+      "width": 100,
+      "height": 60,
+      "focusZoom": 20,
+      "maxZoom": 100,
+      "minZoom": 18,
+      "location": [53.53142886029542, -1.1068973618855011],
+      "info": [
+        "Doncaster Royal Infirmary's east dining room",
+        [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
+        "default.jpeg"
+  ]
+    },
+    {
+      "id": "r4",
+      "name": "Eye Clinic",
+      "category": "room",
+      "width": 80,
+      "height": 35,
+      "focusZoom": 20,
+      "maxZoom": 100,
+      "minZoom": 18,
+      "location": [53.53082831322658,-1.109475816718657],
+      "info": [
+            "Doncaster Royal Infirmary's eye clinic",
+            [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
+            "default.jpeg"
+    ]
+    }
+  ]
+}

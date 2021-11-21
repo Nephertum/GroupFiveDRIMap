@@ -14,19 +14,28 @@ body {
     z-index: 10;
 }
 #locationInput {
-    top: 20px;
+    top: 100px;
 }
 #navigationInput {
-    top: 200px;
+    top: 300px;
 }
 
-.submitBtn{
+.formType2 {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    max-width: 350px;
+}
+
+.submitBtn, .autofill-btn{
     padding: 5px 15px;
     background-image: linear-gradient(to bottom right, rgb(202, 34, 188), rgb(240, 36, 87));
     border: 1px solid rgb(156, 11, 132);
     border-radius: 10px;
     color: rgb(255, 255, 255);
 }
+
+
 
 input[type=text] {
     width: 80%;
@@ -60,3 +69,19 @@ input[type=text] {
     border-radius: 10px;
     color: rgb(255, 255, 255);
 }
+
+#adminHeading{
+    color: white;
+    font-size: 60px;
+    text-shadow: 2px 2px #000000;
+  }
+
+.tab-pane{
+    background-color: white;
+    padding: 20px;
+    border-radius: 0px 20px 20px 20px;
+  }
+
+.nav-tabs .nav-link{
+    background-color: white;
+  }
