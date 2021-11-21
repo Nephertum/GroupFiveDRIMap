@@ -795,6 +795,7 @@ location: [latitude, longitude]
 */
 const rooms = [
   {
+    id: "r0",
     name: "MRI",
     category: "room",
     width: 80,
@@ -804,9 +805,15 @@ const rooms = [
     minZoom: 18,
     location: [53.53036640939672,-1.111265543620732],
     description: "MRI room",
-    cooridoor: 44
+    cooridoor: 44,
+    info: [
+      "Doncaster Royal Infirmary's MRI room", // description
+      [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]], // opening hours
+      "default.jpeg" // image
+]
   },
   {
+    id: "r1",
     name: "Fracture Clinic",
     category: "room",
     width: 80,
@@ -816,9 +823,15 @@ const rooms = [
     minZoom: 18,
     location: [53.53078921165692, -1.1111900054947057],
     description: "Clinic for fractures",
-    cooridoor: 34
+    cooridoor: 34,
+    info: [
+      "Doncaster Royal Infirmary's fracture clinic",
+      [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
+      "default.jpeg"
+]
   },
   {
+    id: "r2",
     name: "X-Ray",
     category: "room",
     width: 80,
@@ -828,9 +841,15 @@ const rooms = [
     minZoom: 18,
     location: [53.53036425859261,-1.1099108784393081],
     description: "X-ray room",
-    cooridoor: 9
+    cooridoor: 9,
+    info: [
+      "Doncaster Royal Infirmary's X-ray room",
+      [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
+      "default.jpeg"
+]
   },
   {
+    id: "r3",
     name: "East Dining Room",
     category: "room",
     width: 100,
@@ -840,9 +859,15 @@ const rooms = [
     minZoom: 18,
     location: [53.53142886029542, -1.1068973618855011],
     description: "Dining room",
-    cooridoor: 30
+    cooridoor: 30,
+    info: [
+      "Doncaster Royal Infirmary's east dining room",
+      [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
+      "default.jpeg"
+]
   },
   {
+    id: "r4",
     name: "Eye Clinic",
     category: "room",
     width: 80,
@@ -852,7 +877,12 @@ const rooms = [
     minZoom: 18,
     location: [53.53082831322658,-1.109475816718657],
     description: "Clinic for eyes",
-    cooridoor: 17
+    cooridoor: 17,
+    info: [
+          "Doncaster Royal Infirmary's eye clinic",
+          [[["Monday-Friday"], ["08:30-17:00"]], [["Saturday-Sunday"], ["Closed"]]],
+          "default.jpeg"
+  ]
   }
 ]
 const locations = [entrances, buildings, rooms, cooridoorIndex]
@@ -872,6 +902,7 @@ function setup() {
   // anytime the map is panned or zoomed this function will execute
   myMap.onChange(updateMap)
   setupButton();
+  popupExists = false; // global variable
 }
 function setupButton() {
   const Searchbutton = document.getElementById('SearchBtn')
@@ -895,6 +926,7 @@ function setupButton() {
 function updateMap() {
   if (!loaded) {
     myMap.map.addControl(new mapboxgl.FullscreenControl());
+    myMap.map.addControl(new mapboxgl.NavigationControl());
     loaded = true;
   }
   
@@ -903,21 +935,20 @@ function updateMap() {
   drawNodes();
   placePin();
   if (start != 0 && dest != 0) {
-    highlight_path(navigate(generateGraph(),start,dest));
+    highlight_path(navigate(generateGraph(),start.cooridoor,dest.cooridoor));
   }
   
 }
 
 function setNavigation(source, destination) {
-  console.log('ahh')
   let newStart = 0;
   let newDest = 0;
   rooms.forEach(element => {
-    if (element.name == source) {
-      newStart = element.cooridoor;
+    if (element.name.toLowerCase() == source.toLowerCase()) {
+      newStart = element;
     }
-    if (element.name == destination) {
-      newDest = element.cooridoor;
+    if (element.name.toLowerCase() == destination.toLowerCase()) {
+      newDest = element;
     }
   });
   if (newStart === 0 || newDest === 0) {
@@ -1011,9 +1042,18 @@ function generateGraph() {
 }
 // highlights a cooridoor red, to be used for navigation
 function highlight_path(cooridoor_list) {
-  cooridoor_list.forEach(path => {
-    console.log(path);
-    highlight_cooridoor(path);
+  cooridoor_list.forEach((path, index) => {
+    switch (index) {
+      case 0:
+        highlightEndpoint(path,cooridoor_list[1],start);
+        break;
+      case cooridoor_list.length - 1:
+        highlightEndpoint(path,cooridoor_list[cooridoor_list.length - 2],dest);
+      break;
+      default:
+        highlight_cooridoor(path);
+        break;
+    }
   });
 }
 function highlight_cooridoor(index) {
@@ -1026,6 +1066,44 @@ function highlight_cooridoor(index) {
   beginShape();
   vertex(highlight_start.x, highlight_start.y);
   vertex(highlight_end.x, highlight_end.y);    
+  endShape();
+}
+function calculate_intersect(x_1,y_1,x_2,y_2,x_3,y_3) {
+  let u = (((x_3 - x_1) * (x_2 - x_1)) + ((y_3 - y_1) * (y_2 - y_1))) / (((x_2 - x_1) * (x_2 - x_1)) + ((y_2 - y_1) * (y_2 - y_1)))
+  let x = x_1 + (u * (x_2 - x_1));
+  let y = y_1 + (u * (y_2 - y_1));
+  return [x,y]
+}
+// highlights the end of the route by only partially highlighting a cooridoor and connecting it to a room
+function highlightEndpoint(cooridoor,adj_cooridoor, node) {
+  noFill();
+  stroke(255,0,0);
+  strokeWeight(3);
+  let cooridoorData = cooridoorIndex[cooridoor - 1];
+  let prevCooridoorData = cooridoorIndex[adj_cooridoor - 1];
+  let current_start = myMap.latLngToPixel(cooridoorData.location[0][0], cooridoorData.location[0][1]);
+  let current_end = myMap.latLngToPixel(cooridoorData.location[1][0], cooridoorData.location[1][1]);
+  let prev_end = myMap.latLngToPixel(prevCooridoorData.location[1][0], prevCooridoorData.location[1][1]);
+  let diff_start = Math.abs(current_start.x - prev_end.x) + Math.abs(current_start.y - prev_end.y)
+  let diff_end = Math.abs(current_end.x - prev_end.x) + Math.abs(current_end.y - prev_end.y)
+  let highlight_start;
+  if (diff_start > diff_end) {
+    highlight_start = current_end;
+  } else {
+    highlight_start = current_start;
+  }
+
+  let point = myMap.latLngToPixel(node.location[0],node.location[1])
+  let highlight_middle = calculate_intersect(current_start.x, current_start.y, current_end.x, current_end.y, point.x, point.y)
+
+
+
+
+
+  beginShape();
+  vertex(highlight_start.x, highlight_start.y);
+  vertex(highlight_middle[0],highlight_middle[1])
+  vertex(point.x, point.y);    
   endShape();
 }
 function checkValidZoom(minZoom, maxZoom) {
@@ -1060,18 +1138,16 @@ function checkMouseClickForLocation(mouseX,mouseY) {
         // if the distance between the mouse click and the center of the node is within the node's radius then zoom in one it
         if (distanceX <= location.width / 2 && distanceY <= location.height / 2) {
           zoomOnLocation(location);
-	  description = location.description
-          if (typeof description !== 'undefined') {
-            //console.log(location.location)
-            //console.log(description)
-            //console.log(myMap)
-            //console.log(myMap.map)
-            const pop = new mapboxgl.Popup()
-            pop.setLngLat([location.location[1],location.location[0]])
-            pop.setHTML(description)
-            // because of the library we are using I had to add a function to get to the map object, to do this use myMap.accessMapBox()
-            pop.addTo(myMap.map)
-            // myMap.addPopup(location.location, description);
+          if (typeof location.info !== 'undefined') {
+            if (popupExists == true){
+              popup.remove() // remove any existing popups
+            }
+            popup = new mapboxgl.Popup({closeOnClick: false})
+            .setLngLat([location.location[1],location.location[0]])
+            .setHTML(popupHTML(location.id, location.name, location.info))
+            .addTo(myMap.map)
+            popupBtnFunc(location.id, location.name)
+            popupExists = true
           }
         }
       }
@@ -1088,6 +1164,36 @@ function mouseDragged() {
   mouseIsDown = false;
 }
 
+// function renders HTML for popup
+function popupHTML(id, name, info){
+  const description = info[0]
+  const openhours = info[1]
+  const img = info[2]
+  let openhourshtml = ''
+  for (let i = 0; i < openhours.length; i++) {
+    openhourshtml += openhours[i][0] + ": " + openhours[i][1] + "<br>";
+  }
+
+  const html = '<h5 style="text-align:center;"><b>'
+    +name+
+  '</b></h5><p style="text-align:center;"><i>'
+  +description+
+  '</i></p><div class="row"><div class="col-sm d-flex justify-content-center"><p><b>Opening Hours:</b><br>'
+  +openhourshtml+
+  '</p></div><div class="col-sm"><img src="'
+  +img+
+  '" alt="Picture of Building" class="img-responsive fit-image"></div></div><div class="popupBtn-wrapper"><button id="navHere'+id+'" class="popupBtn">Get Directions</button></div>'
+  return(html)
+}
+
+// function gives the 'get directions' buttons in the popups their functionality
+function popupBtnFunc(id, name){
+  newNavBtn = document.getElementById("navHere"+id)
+  
+  newNavBtn.addEventListener("click", () => {
+    document.getElementById("path2").value = name // Just autofills destination for now
+  })
+}
 
 // work in progress for now
 
