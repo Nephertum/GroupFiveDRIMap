@@ -89,55 +89,5 @@ app.post('/entities/add', function (req, resp) {
     const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the new place has been added! </h1> </body> </html>';
     resp.send(htmltext);
 });
-app.post('/entrances/add', function (req, resp) {
-    const name = req.body.newEName;
-    const category = "entrance";
-    const width = parseInt(req.body.newEWidth);
-    const height = parseInt(req.body.newEHeight);
-    const focusZoom = parseInt(req.body.newEFocus);
-    const minZoom = parseInt(req.body.newEMinZoom);
-    const maxZoom = parseInt(req.body.newEMaxZoom);
-    const location = JSON.parse('[' + req.body.newELocation + ']');
-    //const id = 'e' + entrances.length;
-    const newE = {
-        // id: id,
-        name: name,
-        category: category,
-        width: width,
-        height: height,
-        focusZoom: focusZoom,
-        minZoom: minZoom,
-        maxZoom: maxZoom,
-        location: location
-    };
-    entrances.push(newE);
-    resp.set('Content-Type', 'text/html');
-    const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the new entrance has been added! </h1> </body> </html>';
-    resp.send(htmltext);
-    console.log(entrances)
-});
 
-app.post('/rooms/add', function (req, resp) {
-    const name = req.body.newRName;
-    const category = "room";
-    const width = parseInt(req.body.newRWidth);
-    const height = parseInt(req.body.newRHeight);
-    const focusZoom = parseInt(req.body.newRFocus);
-    const minZoom = parseInt(req.body.newRMinZoom);
-    const maxZoom = parseInt(req.body.newRMaxZoom);
-    const location = JSON.parse('[' + req.body.newRLocation + ']');
-    const id = 'r' + rooms.length;
-    const newR = {
-        id: id,
-        name: name,
-        category: category,
-       width: width,
-       height: height,
-       focusZoom: focusZoom,
-       minZoom: minZoom,
-        maxZoom: maxZoom,
-        location: location
-    };
-    rooms.push(newR);
-});
 module.exports = app;
