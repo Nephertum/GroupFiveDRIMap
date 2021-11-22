@@ -94,12 +94,11 @@ function setupButton() {
   const Searchinput = document.getElementById('roomSearch')
   Searchbutton.addEventListener('click',() => {
     let room = Searchinput.value;
-    locations[3].forEach(element => {
-      if (element.name == room) {
-        zoomOnLocation(element)
-        placePopup(element);
-      }
-    })
+    Searchinput.value = "";
+    let element = getNodeByName(room);
+    console.log(element)
+    zoomOnLocation(element);
+    placePopup(element);
   })
   const navigateButton = document.getElementById("navigateBtn");
   const input1 = document.getElementById("path1");
@@ -133,14 +132,8 @@ function setNavigation(source, destination) {
   let newStart = 0;
   let newDest = 0;
   console.log(locations)
-  locations[3].forEach(element => {
-    if (element.name.toLowerCase() == source.toLowerCase()) {
-      newStart = element;
-    }
-    if (element.name.toLowerCase() == destination.toLowerCase()) {
-      newDest = element;
-    }
-  });
+  newStart = getNodeByName(source)
+  newDest = getNodeByName(destination)
   if (newStart === 0 || newDest === 0) {
     alert('invalid locations')
   } else {
@@ -148,7 +141,16 @@ function setNavigation(source, destination) {
     dest = newDest;
   }
 }
-
+function getNodeByName(name) {
+  console.log(name)
+  let result = 0
+  locations[3].forEach(element => {
+    if (element.name.toLowerCase() == name.toLowerCase()) {
+      result = element
+    }
+  });
+  return result;
+}
 function drawNodes(){
 
   locations.forEach(locationType => {
