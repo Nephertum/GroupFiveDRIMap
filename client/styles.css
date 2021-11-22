@@ -85,3 +85,7 @@ input[type=text] {
 .nav-tabs .nav-link{
     background-color: white;
   }
+
+.roomOnly{
+    display: none;
+}
