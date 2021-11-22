@@ -170,7 +170,7 @@ function drawRoute(node) {
   vertex(end.x,end.y);
   endShape();
   fill(255,255,255);
-  text(node.name,(start.x + end.x) / 2,(start.y + end.y) / 2)
+  // text(node.name,(start.x + end.x) / 2,(start.y + end.y) / 2)
   
 }
 function updatePinLocation() {
@@ -248,7 +248,7 @@ function highlight_path(cooridoor_list) {
 }
 function highlight_cooridoor(index) {
   noFill();
-  stroke(255,0,0);
+  stroke(202, 34, 188);
   strokeWeight(3);
   let highlight = locations[1][index-1];
   let highlight_start = myMap.latLngToPixel(highlight.location[0][0], highlight.location[0][1]);
@@ -267,7 +267,7 @@ function calculate_intersect(x_1,y_1,x_2,y_2,x_3,y_3) {
 // highlights the end of the route by only partially highlighting a cooridoor and connecting it to a room
 function highlightEndpoint(cooridoor,adj_cooridoor, node) {
   noFill();
-  stroke(255,0,0);
+  stroke(202, 34, 188);
   strokeWeight(3);
   let cooridoorData = locations[1][cooridoor - 1];
   let prevCooridoorData = locations[1][adj_cooridoor - 1];
