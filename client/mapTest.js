@@ -20,6 +20,7 @@ var mouseIsDown = false;
 let start = 0;
 let dest = 0;
 let pin = 0;
+let graph;
 window.addEventListener('mousedown', function() {
   mouseIsDown = true;
   setTimeout(function() {
@@ -96,6 +97,7 @@ function setupButton() {
     locations[3].forEach(element => {
       if (element.name == room) {
         zoomOnLocation(element)
+        placePopup(element);
       }
     })
   })
@@ -111,6 +113,7 @@ function updateMap() {
   if (!loaded) {
     myMap.map.addControl(new mapboxgl.FullscreenControl());
     myMap.map.addControl(new mapboxgl.NavigationControl());
+    graph = generateGraph()
     loaded = true;
   }
   
@@ -119,7 +122,7 @@ function updateMap() {
   drawNodes();
   placePin();
   if (start != 0 && dest != 0) {
-    highlight_path(navigate(generateGraph(),start.corridor,dest.corridor));
+    highlight_path(navigate(graph,start.corridor,dest.corridor));
   }
   
 }
@@ -325,22 +328,25 @@ function checkMouseClickForLocation(mouseX,mouseY) {
         // if the distance between the mouse click and the center of the node is within the node's radius then zoom in one it
         if (distanceX <= location.width / 2 && distanceY <= location.height / 2) {
           zoomOnLocation(location);
-          if (typeof location.info !== 'undefined') {
-            if (popupExists == true){
-              popup.remove() // remove any existing popups
-            }
-            popup = new mapboxgl.Popup({closeOnClick: false})
-            .setLngLat([location.location[1],location.location[0]])
-            .setHTML(popupHTML(location.id, location.name, location.info))
-            .addTo(myMap.map)
-            popupBtnFunc(location.id, location.name)
-            popupExists = true
-          }
+          placePopup(location);
         }
       }
     })
   })
   return false;
+}
+function placePopup(location) {
+  if (typeof location.info !== 'undefined') {
+    if (popupExists == true){
+      popup.remove() // remove any existing popups
+    }
+    popup = new mapboxgl.Popup({closeOnClick: false})
+    .setLngLat([location.location[1],location.location[0]])
+    .setHTML(popupHTML(location.id, location.name, location.info))
+    .addTo(myMap.map)
+    popupBtnFunc(location.id, location.name)
+    popupExists = true
+  }
 }
 function mouseClicked() {
   console.log(myMap.pixelToLatLng(mouseX, mouseY).lat + ", " + myMap.pixelToLatLng(mouseX, mouseY).lng)
