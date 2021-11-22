@@ -688,6 +688,7 @@ const cooridoorIndex = [
     neighbors : [45]
   },
 ]
+console.log(JSON.stringify(cooridoorIndex))
 // first array element is latitude
 const buildings = [
   {
