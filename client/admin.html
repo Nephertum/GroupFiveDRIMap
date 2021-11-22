@@ -37,64 +37,72 @@
     <div class="container">
         <p id="adminHeading">Admin Page</p>
         <!--Tabs-->
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#newlocationtab">New Location</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#edittab">Edit Locations</a>
-            </li>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#newlocationtab" type="button" role="tab" aria-controls="home" aria-selected="true">New Location</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#edittab" type="button" role="tab" aria-controls="profile" aria-selected="false">Edit Locations</button>
+          </li>
         </ul>
-        
-        <!--Tab content-->
-        <div class="tab-content">
-            <div class="tab-pane container active" id="newlocationtab">
-                <div class="row">
-                    <div class="col-sm">
+        <!-- Tab Content -->
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="newlocationtab" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row">
+              <div class="col-sm">
                 <h2>Add New Location to Map</h2>
                 <form action="http://127.0.0.1:8090/entities/add" method="post" name="newPlaceForm" class="formType2" id="newPlaceForm">
 
-                    <p>Select a category:</p>
-                    <input type="radio" id="catE" name="category" value="entrance">
-                    <label for="newEntrance">Entrance</label>
-                    <input type="radio" id="catR" name="category" value="room">
-                    <label for="newRoom">Room</label>
-                    <input type="radio" id="catB" name="category" value="building">
-                    <label for="newBuilding">Building</label><br>
+                  <p>Select a category:</p>
+                  <input type="radio" id="catE" name="category" value="entrance">
+                  <label for="newEntrance">Entrance</label>
+                  <input type="radio" id="catR" name="category" value="room">
+                  <label for="newRoom">Room</label>
+                  <input type="radio" id="catB" name="category" value="building">
+                  <label for="newBuilding">Building</label><br>
 
-                    <button type="button" class="autofill-btn" id="autofill1">Autofill default options</button><br>
+                  <button type="button" class="autofill-btn" id="autofill1">Autofill default options</button><br>
 
-                    <label for="newName">Name: </label><br>
-                    <input type="text" name="newName" id="newName" required><br>
-                    <label for="newWidth">Width: </label><br>
-                    <input type="text" name="newWidth" id="newWidth"required><br>
-                    <label for="newHeight">Height: </label><br>
-                    <input type="text" name="newHeight" id="newHeight"required><br>
-                    <label for="newFocus">Focus Zoom: </label><br>
-                    <input type="text" name="newFocus" id="newFocus" required><br>
-                    <label for="newMinZoom">Min Zoom: </label><br>
-                    <input type="text" name="newMinZoom" id="newMinZoom" required><br>
-                    <label for="newMaxZoom">Max Zoom: </label><br>
-                    <input type="text" name="newMaxZoom" id="newMaxZoom" required><br>
-                    <label for="newLocation">Location: <br><i>Enter in format: lat, lng</i></label><br>
-                    <input type="text" name="newLocation" id="newLocation" required><br>
-                    <label for="newDescription" class="roomOnly">Description:<br></label>
-                    <input type="text" name="newDescription" id="newDescription" class="roomOnly"><br class="roomOnly">
-                    <label for="newHours" class="roomOnly">Opening Hours:<br></label>
-                    <input type="text" name="newHours" id="newHours" class="roomOnly"><br class="roomOnly">
-                    <label for="newImg" class="roomOnly">Image File Name:<br></label>
-                    <input type="text" name="newImg" id="newImg" class="roomOnly"><br>
-
-
-                    <button type="submit" class="submitBtn">Submit</button>
+                  <label for="newName">Name: </label><br>
+                  <input type="text" name="newName" id="newName" required><br>
+                  <label for="newWidth">Width: </label><br>
+                  <input type="text" name="newWidth" id="newWidth"required><br>
+                  <label for="newHeight">Height: </label><br>
+                  <input type="text" name="newHeight" id="newHeight"required><br>
+                  <label for="newFocus">Focus Zoom: </label><br>
+                  <input type="text" name="newFocus" id="newFocus" required><br>
+                  <label for="newMinZoom">Min Zoom: </label><br>
+                  <input type="text" name="newMinZoom" id="newMinZoom" required><br>
+                  <label for="newMaxZoom">Max Zoom: </label><br>
+                  <input type="text" name="newMaxZoom" id="newMaxZoom" required><br>
+                  <label for="newLocation">Location: <br><i>Enter in format: lat, lng</i></label><br>
+                  <input type="text" name="newLocation" id="newLocation" required><br>
+                  <label for="newDescription" class="roomOnly">Description:<br></label>
+                  <input type="text" name="newDescription" id="newDescription" class="roomOnly"><br class="roomOnly">
+                  <label for="newHours" class="roomOnly">Opening Hours:<br></label>
+                  <input type="text" name="newHours" id="newHours" class="roomOnly"><br class="roomOnly">
+                  <label for="newImg" class="roomOnly">Image File Name:<br></label>
+                  <input type="text" name="newImg" id="newImg" class="roomOnly"><br>
+                  <button type="submit" class="submitBtn">Submit</button>
                 </form>
+              </div>
             </div>
+          </div>
+          <div class="tab-pane fade" id="edittab" role="tabpanel" aria-labelledby="profile-tab">
+            <p>Form here</p>
+          </div>
         </div>
-            </div>
-            <div class="tab-pane container " id="edittab">
-                <p>Form here</p>
-            </div>
+  </div>
         
+
+
+
+
+
+
+
+
+
     </div>
     <script src="admin.js"></script>
 </body>
