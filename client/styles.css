@@ -95,3 +95,7 @@ input[type=text] {
 .btn-primary {
     border-radius: 10px;
 }
+.navBtn {
+    margin: 5px;
+    width: 100%;
+}

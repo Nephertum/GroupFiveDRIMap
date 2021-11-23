@@ -21,22 +21,6 @@ app.get('/entities', function (req, resp) {
     resp.json([entrances, corridorIndex, buildings, rooms]);
 });
 
-app.get('/entrances', function (req, resp) {
-    resp.json(entrances);
-});
-
-app.get('/corridorIndex', function (req, resp) {
-    resp.json(corridorIndex);
-});
-
-app.get('/buildings', function (req, resp) {
-    resp.json(buildings);
-});
-
-app.get('/rooms', function (req, resp) {
-    resp.json(rooms);
-});
-
 app.post('/entities/add', function (req, resp) {
     const name = req.body.newName;
     const category = req.body.category;

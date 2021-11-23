@@ -5,7 +5,7 @@ const options = {
   lng: -1.1095832474735168,
   zoom: 16,
   maxBounds: [
-  [-1.1188504070898965, 53.52834728777112], // Southwest coordinates
+  [-1.116291656055779, 53.5274202302019,], // Southwest coordinates
   [-1.103938727347374, 53.533850335887024] // NorthEast coordinates
 
   ],
@@ -36,42 +36,13 @@ window.addEventListener('mouseup', function() {
 });
 
 // locations section:
+// order of locations returned is [entrances, corridorIndex, buildings, rooms]
 let locations;
   fetch('http://127.0.0.1:8090/entities')
   .then(response => response.json())
   .then(function(body){
     locations = body;
  })
-
-let entrances;
-  fetch('http://127.0.0.1:8090/entrances')
-  .then(response => response.json())
-  .then(function(body){
-    entrances = body;
- })
-
-let rooms;
-  fetch('http://127.0.0.1:8090/rooms')
-  .then(response => response.json())
-  .then(function(body){
-    rooms = body;
- })
-
-let buildings;
-  fetch('http://127.0.0.1:8090/buildings')
-  .then(response => response.json())
-  .then(function(body){
-    entrances = body;
- })
-
-
-let cooridoorIndex;
-  fetch('http://127.0.0.1:8090/corridorIndex')
-  .then(response => response.json())
-  .then(function(body){
-    cooridoorIndex = body;
- })
-
 const drawFunctions = {
   "building" : drawBuildings,
   "room" : drawBuildings,
@@ -109,6 +80,10 @@ function setupButton() {
     input2.value = ""
     updateMap();
   })
+  const clearButton = document.getElementById('clearNavBtn')
+  clearButton.addEventListener('click', () => {
+    clearHighlight()
+  })
 }
 function updateMap() {
   if (!loaded) {
@@ -123,11 +98,10 @@ function updateMap() {
   drawNodes();
   placePin();
   if (start != 0 && dest != 0) {
-    highlight_path(navigate(graph,start.corridor,dest.corridor));
+    highlight_path(navigate(graph,calculateNearestCorridor(start),calculateNearestCorridor(dest)));
   }
-  
 }
-
+// changes the start and dest values for the next map update
 function setNavigation(source, destination) {
   let newStart = 0;
   let newDest = 0;
@@ -234,6 +208,22 @@ function generateGraph() {
 
   return graph;
 }
+function calculateNearestCorridor(location) {
+    const room = myMap.latLngToPixel(location.location[0],location.location[1]);
+    let minDistance = Infinity;
+    let result = 0;
+    locations[1].forEach((corridor, index) => {
+      corridorStart = myMap.latLngToPixel(corridor.location[0][0],corridor.location[0][1])
+      corridorEnd = myMap.latLngToPixel(corridor.location[1][0],corridor.location[1][1])
+      center = { x: (corridorStart.x + corridorEnd.x) / 2, y: (corridorStart.y + corridorEnd.y) / 2}
+      let distance = Math.sqrt(((center.x - room.x) ** 2) + ((center.y - room.y) ** 2))
+      if (distance < minDistance) {
+        minDistance = distance;
+        result = index + 1 
+      }
+    })
+    return result
+}
 // highlights a cooridoor red, to be used for navigation
 function highlight_path(cooridoor_list) {
   cooridoor_list.forEach((path, index) => {
@@ -299,6 +289,12 @@ function highlightEndpoint(cooridoor,adj_cooridoor, node) {
   vertex(highlight_middle[0],highlight_middle[1])
   vertex(point.x, point.y);    
   endShape();
+}
+// clears any nav routes drawn on the map
+function clearHighlight() {
+  start = 0;
+  dest = 0;
+  updateMap();
 }
 function checkValidZoom(minZoom, maxZoom) {
   const zoom = myMap.zoom();
@@ -506,7 +502,6 @@ function printPath(currentVertex,parents)
 
 
 
-// console.log(dijkstra(generateGraph(),0));
 
 // This code is contributed by rag2127.
 
