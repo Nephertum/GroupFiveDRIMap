@@ -176,8 +176,6 @@ app.post('/entities/delete', function (req, resp) {
         resp.status(404).send("Place not found, check id is correct and matches category");
         return;
     }
-    console.log(searchThrough)
-    console.log(archive)
     resp.set('Content-Type', 'text/html');
     const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1>' + place.name + ' has been removed! The id\'s of locations in the same category may have been changed.</h1> </body> </html>';
     resp.send(htmltext);
@@ -206,7 +204,7 @@ app.post('/entities/restore', function (req, resp) {
     }
     else if (category === "room"){
         place.id = 'r' + rooms.length
-        entrances.push(rooms);
+        rooms.push(rooms);
     }
     else if (category === "building"){
         place.id = 'b' + buildings.length
@@ -216,9 +214,6 @@ app.post('/entities/restore', function (req, resp) {
         resp.status(404).send("Error finding category location belongs to.");
         return;
     }
-
-    console.log(archive)
-    console.log(buildings)
     resp.set('Content-Type', 'text/html');
     const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1>' + place.name + ' has been restored! Its new id is ' + place.id + '.</h1> </body> </html>';
     resp.send(htmltext);
