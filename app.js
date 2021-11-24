@@ -204,7 +204,7 @@ app.post('/entities/restore', function (req, resp) {
     }
     else if (category === "room"){
         place.id = 'r' + rooms.length
-        rooms.push(rooms);
+        rooms.push(place);
     }
     else if (category === "building"){
         place.id = 'b' + buildings.length
