@@ -12,11 +12,11 @@ app.use(cors())
 // Entities
 const entities = require('./entities.json');
 
-const entrances = entities.entrances;
-const corridorIndex =  entities.corridorIndex;
-const buildings = entities.buildings;
-const rooms = entities.rooms;
-const archive = entities.archive;
+let entrances = entities.entrances;
+let corridorIndex =  entities.corridorIndex;
+let buildings = entities.buildings;
+let rooms = entities.rooms;
+let archive = entities.archive;
 
 // Functions used in routes
 function getPlace(category, id) {
@@ -157,13 +157,16 @@ app.post('/entities/delete', function (req, resp) {
     for (let i = 0; i < searchThrough.length; i++) {
         place = searchThrough[i]
         if (place.id === id) {
+            // If delete type is archive, add location to archive
             if(deleteType === "archive"){
                 const archiveId = 'a' + archive.length;
                 place.id = archiveId;
                 archive.push(place)
             }
+            // Delete location from current array
             searchThrough.splice(i, 1);
             placeFound = true;
+            // Move all the id's of other places in category up so there aren't gaps
             for(let j = i; j < searchThrough.length; j++){
                 currentId = searchThrough[j].id
                 let newIdNumber = parseInt(currentId.substring(1)) - 1
@@ -184,19 +187,28 @@ app.post('/entities/delete', function (req, resp) {
 app.post('/entities/restore', function (req, resp) {
     const id = req.body.IdOfRestore;
     let place;
+    let placeFound = false;
     for (let i = 0; i < archive.length; i++) {
-        if (archive[i].id === id) {
-            place = archive[i];
+        place = archive[i]
+        if (place.id === id) {
+            // Remove place from archive
             archive.splice(i, 1);
+            placeFound = true;
+            // Move other archive id's up so there aren't gaps
+            for(let j = i; j < archive.length; j++){
+                currentId = archive[j].id
+                let newIdNumber = parseInt(currentId.substring(1)) - 1
+                archive[j].id = currentId.charAt(0).concat(newIdNumber.toString())    
+            }
             break;
         }
     }
-    if (place === undefined){
+    if (placeFound === false){
         resp.status(404).send('Place not found, check id is correct!')
         return;
     }
+    // Add location back to its category
     const category = place.category;
-    console.log(category)
 
     if (category === "entrance"){
         place.id = 'e' + entrances.length
