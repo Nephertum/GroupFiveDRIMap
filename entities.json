@@ -1482,6 +1482,84 @@
 		},
 		{
 			"id": "r5",
+			"name": "Silks",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.53065695769388,
+				-1.1116248242026074
+			],
+			"info": [
+				"resturant",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r6",
+			"name": "Park Hill",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.530410805531886,
+				-1.111684747303599
+			],
+			"info": [
+				"testtest",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r7",
+			"name": "Chatsfeld",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.53009502364674,
+				-1.1114021797617966
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r8",
 			"name": "Photography",
 			"category": "room",
 			"width": 15,
@@ -1490,11 +1568,557 @@
 			"minZoom": 18,
 			"maxZoom": 100,
 			"location": [
-				53.530614759484564,
-				-1.1114899375074856
+				53.53062713320077,
+				-1.1114295293859584
 			],
 			"info": [
-				"photos room",
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r9",
+			"name": "Orhotics",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.531130016611115,
+				-1.1108878653139982
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r10",
+			"name": "GU Medicine",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.53097137941282,
+				-1.1108079529433326
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r11",
+			"name": "Speech Therapy",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.530721285824995,
+				-1.110913122133212
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r12",
+			"name": "Ultrasound",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.530316247454294,
+				-1.1098679643502862
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r13",
+			"name": "Endoscopy",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.53042474387004,
+				-1.109665208092764
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r14",
+			"name": "DDU/CT Suite",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.530328034163034,
+				-1.11045885662179
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r15",
+			"name": "DSA Suite",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.53023518318841,
+				-1.1105839753300586
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r16",
+			"name": "Nuclear Medicine",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.53010967886712,
+				-1.1105208045966606
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r17",
+			"name": "Library",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.53069213449251,
+				-1.1085054139979889
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r18",
+			"name": "Discharge Lounge",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.53089408561448,
+				-1.1087900019945778
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r19",
+			"name": "Education Centre",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.530772653422076,
+				-1.1085890955822606
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r20",
+			"name": "General Office",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.53140264872661,
+				-1.1080783195389188
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r21",
+			"name": "PALs Office",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.53143646479583,
+				-1.1079184974332748
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r22",
+			"name": "Stirling Ward",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.53122218745378,
+				-1.1073809681216176
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r23",
+			"name": "Frailty Assement Unit",
+			"category": "room",
+			"width": 15,
+			"height": 20,
+			"focusZoom": 24,
+			"minZoom": 20,
+			"maxZoom": 120,
+			"location": [
+				53.53109260651874,
+				-1.1072914906759195
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r24",
+			"name": "Blood Tests",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.53089938144828,
+				-1.1095242163076193
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r25",
+			"name": "Outpatients 1 & 2",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.53099044074301,
+				-1.1095923486917343
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r26",
+			"name": "CDU",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.53065783468816,
+				-1.1101111888647495
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r27",
+			"name": "Renal Medicine",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.5311962859445,
+				-1.106246215475494
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r28",
+			"name": "Gresley Unit",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.531037455112994,
+				-1.1061995241464047
+			],
+			"info": [
+				"test",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
+		},
+		{
+			"id": "r29",
+			"name": "Childrens Outpatients",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.531243248981326,
+				-1.1065530197825808
+			],
+			"info": [
+				"test",
 				[
 					[
 						"have not sorted this input out yet"
