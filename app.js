@@ -247,4 +247,22 @@ app.post('/entities/restore', function (req, resp) {
     resp.status(201).send();
 });
 
+app.get('/entities/search/:word', function (req, resp) {
+    console.log(req.params.word)
+    const word = req.params.word.toLowerCase().replace(/[^\w]|_/g, '');
+    const matches = [];
+    let name;
+    for (let i = 0; i < placesForSearch.length; i++){
+        let category = placesForSearch[i]
+        for (let j = 0; j < category.length; j++) {
+            console.log(category[j])
+            name = category[j].name.toLowerCase().replace(/[^\w]|_/g, '');
+            if (name.includes(word)) {
+                matches.push([category[j].name, category[j].id]);
+            }
+        }
+    }
+    resp.json(matches);
+});
+
 module.exports = app;
