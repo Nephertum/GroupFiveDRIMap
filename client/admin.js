@@ -145,3 +145,23 @@ const showModal = () => {
     myModal.toggle();
 }
 
+// Search for id function
+function findId (e) {
+    e.preventDefault();
+    let word = document.searchIdForm.placeName.value;
+    console.log(word)
+    word = word.replace(/[^\w]|_/g, '');
+    if (word !== '') {
+        fetch('http://127.0.0.1:8090/entities/search/' + word)
+        .then(response => response.json())
+        .then(function (body) {
+            // need to formating still
+            document.getElementById('sResults').innerHTML = body;
+        })
+        .catch((error) => {
+            alert(error);
+            console.log('Unable to get search results');
+        });
+    }
+}
+
