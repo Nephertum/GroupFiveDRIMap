@@ -19,7 +19,7 @@
 <body style="background-image: url('background.jpeg'); background-size: 100% auto;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">DRI Map</a>
+          <a class="navbar-brand" href="index.html">DRI Map</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -65,7 +65,7 @@
                   <input type="radio" id="catB" name="category" value="building">
                   <label for="catB">Building</label><br><br>
 
-                  <button type="button" class="autofill-btn" id="autofill1">Autofill default options</button><br>
+                  <button type="button" class="btn btn-primary" id="autofill1">Autofill default options</button><br>
 
                   <label for="newName">Name: </label><br>
                   <input type="text" name="newName" id="newName" required><br>
@@ -87,7 +87,7 @@
                   <input type="text" name="newHours" id="newHours" class="roomOnly"><br class="roomOnly">
                   <label for="newImg" class="roomOnly">Image File Name:<br></label>
                   <input type="text" name="newImg" id="newImg" class="roomOnly"><br>
-                  <button type="submit" class="submitBtn">Submit</button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
               </div>
             </div>
@@ -134,7 +134,7 @@
                 <label for="editNewValue">Enter new value: <i id="formatIndicator"></i></label><br>
                   <input type="text" name="editNewValue" id="editNewValue" required><br>
                 
-                <button type="submit" class="submitBtn">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
             </div>
             <div class="col-sm">
@@ -156,14 +156,14 @@
                   <label for="archiveDelete">Archive location</label><br>
                   <input type="radio" id="fullDelete" name="deleteType" value="full">
                   <label for="fullDelete">Permanently delete location</label><br>
-                  <button type="submit" class="deleteBtn">Delete</button>
+                  <button type="submit" class="btn btn-danger">Delete</button>
               </form>
               <br>
               <h2>Restore a Location</h2>
               <form action="http://127.0.0.1:8090/entities/restore" method="post" name="restoreForm" class="formType2" id="restoreForm">
                   <label for="IdOfRestore">Enter id (from archive): </label><br>
                   <input type="text" name="IdOfRestore" id="IdOfRestore" required><br>
-                  <button type="submit" class="submitBtn">Restore</button>
+                  <button type="submit" class="btn btn-primary">Restore</button>
               </form>
             </div>
             </div>

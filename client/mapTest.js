@@ -19,7 +19,10 @@ let myMap;
 var mouseIsDown = false;
 let start = 0;
 let dest = 0;
-let pin = 0;
+let pin = {
+  name: "pin",
+  location: 0
+}
 let graph;
 window.addEventListener('mousedown', function() {
   mouseIsDown = true;
@@ -38,11 +41,11 @@ window.addEventListener('mouseup', function() {
 // locations section:
 // order of locations returned is [entrances, corridorIndex, buildings, rooms]
 let locations;
-  fetch('http://127.0.0.1:8090/entities')
-  .then(response => response.json())
-  .then(function(body){
-    locations = body;
- })
+fetch('http://127.0.0.1:8090/entities')
+.then(response => response.json())
+.then(function(body){
+  locations = body;
+})
 const drawFunctions = {
   "building" : drawBuildings,
   "room" : drawBuildings,
@@ -67,10 +70,10 @@ function setupButton() {
     let room = Searchinput.value;
     Searchinput.value = "";
     let element = getNodeByName(room);
-    console.log(element)
     zoomOnLocation(element);
     placePopup(element);
   })
+
   const navigateButton = document.getElementById("navigateBtn");
   const input1 = document.getElementById("path1");
   const input2 = document.getElementById("path2");
@@ -79,6 +82,10 @@ function setupButton() {
     input1.value = ""
     input2.value = ""
     updateMap();
+  })
+  const usePinBtn = document.getElementById('usePinToggle');
+  usePinBtn.addEventListener('click', () => {
+    input1.value = "pin"
   })
   const clearButton = document.getElementById('clearNavBtn')
   clearButton.addEventListener('click', () => {
@@ -106,7 +113,13 @@ function setNavigation(source, destination) {
   let newStart = 0;
   let newDest = 0;
   console.log(locations)
-  newStart = getNodeByName(source)
+  if (source.toLowerCase() == "pin") {
+    if (pin.location !== 0) {
+      newStart = pin;
+    }
+  } else {
+    newStart = getNodeByName(source)
+  }
   newDest = getNodeByName(destination)
   if (newStart === 0 || newDest === 0) {
     alert('invalid locations')
@@ -144,7 +157,6 @@ function drawRoute(node) {
     beginShape();
     const routeStart = myMap.latLngToPixel(node.location[0][0],node.location[0][1])
     const routeEnd = myMap.latLngToPixel(node.location[1][0],node.location[1][1])
-    console.log('start:' + routeStart.x + ' ,' + routeStart.y)
     vertex(routeStart.x,routeStart.y);
     vertex(routeEnd.x,routeEnd.y);
     endShape();
@@ -153,14 +165,16 @@ function drawRoute(node) {
   // text(node.name,(start.x + end.x) / 2,(start.y + end.y) / 2)
   
 function updatePinLocation() {
-  pin = myMap.pixelToLatLng(mouseX,mouseY);
+  let newlocation = myMap.pixelToLatLng(mouseX,mouseY);
+  pin.location = [newlocation.lat, newlocation.lng]
+  console.log(pin.location)
   updateMap();
 }
 function placePin() {
   fill(255,0,0);
   strokeWeight(1);
-  if (pin !== 0) {
-      let center = myMap.latLngToPixel(pin.lat,pin.lng);
+  if (pin.location !== 0) {
+      let center = myMap.latLngToPixel(pin.location[0],pin.location[1]);
       triangle(center.x-8,center.y - 16,center.x + 8, center.y - 16, center.x, center.y)
   }
 }
@@ -315,7 +329,6 @@ function zoomOnLocation(location) {
     center: [location.location[1], location.location[0]],
     zoom: location.focusZoom
   });
-  document.getElementById("locationDisplay").innerText = "Selected node: " + location.name; 
 }
 // checks location of mouse click to see if a location node was clicked and then calls zoomOnLocation on this node
 function checkMouseClickForLocation(mouseX,mouseY) {
