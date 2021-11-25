@@ -175,7 +175,14 @@ function placePin() {
   strokeWeight(1);
   if (pin.location !== 0) {
       let center = myMap.latLngToPixel(pin.location[0],pin.location[1]);
-      triangle(center.x-8,center.y - 16,center.x + 8, center.y - 16, center.x, center.y)
+      beginShape()
+      vertex(center.x, center.y)
+      vertex(center.x + 8, center.y - 16)
+      vertex(center.x + 8, center.y - 32)
+      vertex(center.x-8,center.y - 32)
+      vertex(center.x-8,center.y - 16)
+      vertex(center.x, center.y)
+      endShape()
   }
 }
 function drawEntrances(node) {
@@ -193,12 +200,13 @@ function drawEntrances(node) {
   }
 }
 function drawBuildings(node) {
-  noFill();
   strokeWeight(1)
   rectMode(CENTER)
   textAlign(CENTER, CENTER);
   pos = myMap.latLngToPixel(node.location[0], node.location[1])
+  fill(255,255,255)
   rect(pos.x, pos.y,node.width,node.height, 15)
+  fill(0,0,0)
   text(node.name,pos.x,pos.y,node.width,node.height)
 }
 function generateGraph() {
@@ -349,12 +357,25 @@ function checkMouseClickForLocation(mouseX,mouseY) {
   })
   return false;
 }
+function getpopupOptions(element) {
+    return {
+      'bottom' : [0,-1 * (element.height / 2)],
+      'bottom-right' : [-1 * (element.width / 2),-1 * (element.height / 2)],
+      'bottom-left' : [(element.width / 2),-1 * (element.height / 2)],
+      'right' : [-1 * (element.width / 2),0],
+      'left' : [(element.width / 2),0],
+      'top' : [0,(element.height / 2)],
+      'top-right' : [-1 * (element.width / 2),(element.height / 2)],
+      'top-left' : [0
+        -1 * (element.width / 2),(element.height / 2)],
+    }
+}
 function placePopup(location) {
   if (typeof location.info !== 'undefined') {
     if (popupExists == true){
       popup.remove() // remove any existing popups
     }
-    popup = new mapboxgl.Popup({closeOnClick: false})
+    popup = new mapboxgl.Popup({offset: getpopupOptions(location),closeOnClick: false})
     .setLngLat([location.location[1],location.location[0]])
     .setHTML(popupHTML(location.id, location.name, location.info))
     .addTo(myMap.map)
