@@ -1,5 +1,6 @@
 const e = require('express');
 const express = require('express');
+const fs = require('fs')
 const app = express();
 const cors = require('cors')
 app.use(express.static('client'));
@@ -17,6 +18,19 @@ let corridorIndex =  entities.corridorIndex;
 let buildings = entities.buildings;
 let rooms = entities.rooms;
 let archive = entities.archive;
+
+function updateEntities() {
+    entities.entrances = entrances;
+    entities.corridorIndex = corridorIndex;
+    entities.buildings = buildings;
+    entities.rooms = rooms;
+    entities.archive = archive;
+    fs.writeFile('entities.json', JSON.stringify(entities,null,"\t"), err => {
+        if (err) {
+            console.log(err);
+        }
+    })
+}
 
 // Functions used in routes
 function getPlace(category, id) {
@@ -98,7 +112,7 @@ app.post('/entities/add', function (req, resp) {
     else if (category == "building"){
         buildings.push(place);
     }
-
+    updateEntities();
     resp.set('Content-Type', 'text/html');
     const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the new place has been added! </h1> </body> </html>';
     resp.send(htmltext);
@@ -129,6 +143,7 @@ app.post('/entities/edit', function (req, resp) {
         return;
     }
     place[property] = value;
+    updateEntities();
     resp.set('Content-Type', 'text/html');
     const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the property has been updated! </h1> </body> </html>';
     resp.send(htmltext);
@@ -179,6 +194,7 @@ app.post('/entities/delete', function (req, resp) {
         resp.status(404).send("Place not found, check id is correct and matches category");
         return;
     }
+    updateEntities();
     resp.set('Content-Type', 'text/html');
     const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1>' + place.name + ' has been removed! The id\'s of locations in the same category may have been changed.</h1> </body> </html>';
     resp.send(htmltext);
@@ -226,6 +242,7 @@ app.post('/entities/restore', function (req, resp) {
         resp.status(404).send("Error finding category location belongs to.");
         return;
     }
+    updateEntities();
     resp.set('Content-Type', 'text/html');
     const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1>' + place.name + ' has been restored! Its new id is ' + place.id + '.</h1> </body> </html>';
     resp.send(htmltext);
