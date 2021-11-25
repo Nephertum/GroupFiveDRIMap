@@ -138,19 +138,20 @@ function drawNodes(){
 }
 // draws the internal cooridoors on the map after a certain zoom threshold
 function drawRoute(node) {
-  noFill();
-  stroke(0,0,0);
-  strokeWeight(2);
-  beginShape();
-  const start = myMap.latLngToPixel(node.location[0][0],node.location[0][1])
-  const end = myMap.latLngToPixel(node.location[1][0],node.location[1][1])
-  vertex(start.x,start.y);
-  vertex(end.x,end.y);
-  endShape();
-  fill(255,255,255);
+    noFill();
+    stroke(0,0,0);
+    strokeWeight(2);
+    beginShape();
+    const routeStart = myMap.latLngToPixel(node.location[0][0],node.location[0][1])
+    const routeEnd = myMap.latLngToPixel(node.location[1][0],node.location[1][1])
+    console.log('start:' + routeStart.x + ' ,' + routeStart.y)
+    vertex(routeStart.x,routeStart.y);
+    vertex(routeEnd.x,routeEnd.y);
+    endShape();
+  }
+  
   // text(node.name,(start.x + end.x) / 2,(start.y + end.y) / 2)
   
-}
 function updatePinLocation() {
   pin = myMap.pixelToLatLng(mouseX,mouseY);
   updateMap();
