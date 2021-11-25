@@ -14,6 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <!--CSS-->
   <link rel="stylesheet" href="styles.css">
+  <link rel="shortcut icon" type="image/jpg" href="favicon.png"/>
 </head>
 <body style="background-image: url('background.jpeg'); background-size: 100% auto;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -44,22 +45,25 @@
           <li class="nav-item" role="presentation">
             <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#edittab" type="button" role="tab" aria-controls="profile" aria-selected="false">Edit Locations</button>
           </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#corridorEditor" type="button" role="tab" aria-controls="profile" aria-selected="false">Corridor Editor</button>
+          </li>
         </ul>
         <!-- Tab Content -->
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="newlocationtab" role="tabpanel" aria-labelledby="home-tab">
             <div class="row">
+              <p>Page still needs a tool so user can click to get the [lat, lng] location for the new place. Also need to render opening hours correctly.</p>
               <div class="col-sm">
                 <h2>Add New Location to Map</h2>
                 <form action="http://127.0.0.1:8090/entities/add" method="post" name="newPlaceForm" class="formType2" id="newPlaceForm">
-
                   <p>Select a category:</p>
                   <input type="radio" id="catE" name="category" value="entrance">
-                  <label for="newEntrance">Entrance</label>
+                  <label for="catE">Entrance</label>
                   <input type="radio" id="catR" name="category" value="room">
-                  <label for="newRoom">Room</label>
+                  <label for="catR">Room</label>
                   <input type="radio" id="catB" name="category" value="building">
-                  <label for="newBuilding">Building</label><br>
+                  <label for="catB">Building</label><br><br>
 
                   <button type="button" class="autofill-btn" id="autofill1">Autofill default options</button><br>
 
@@ -89,7 +93,83 @@
             </div>
           </div>
           <div class="tab-pane fade" id="edittab" role="tabpanel" aria-labelledby="profile-tab">
-            <p>Form here</p>
+            <div class="row">
+              <p>Page still needs a tool so user can find location id, e.g search by name. Note the 'select category' options are not essential because we can get this from the id's - might delete later. </p>
+              <div class="col-sm">
+            <h2>Edit Existing Location</h2>
+            <form action="http://127.0.0.1:8090/entities/edit" method="post" name="editPlaceForm" class="formType2" id="editPlaceForm">
+              <p>Select a category:</p>
+                  <input type="radio" id="catE2" name="category" value="entrance">
+                  <label for="catE2">Entrance</label>
+                  <input type="radio" id="catR2" name="category" value="room">
+                  <label for="catR2">Room</label>
+                  <input type="radio" id="catB2" name="category" value="building">
+                  <label for="catB2">Building</label><br><br>
+
+                  <label for="IdOfEdit">Enter location id: </label><br>
+                  <input type="text" name="IdOfEdit" id="IdOfEdit" required><br>
+              
+                <p>Select property to edit:</p>
+                  <input type="radio" id="editName" class="textFormat" name="property" value="name">
+                  <label for="editName">Name</label><br>
+                  <input type="radio" id="editWidth" class="textFormat" name="property" value="width">
+                  <label for="editWidth">Width</label><br>
+                  <input type="radio" id="editHeight" class="textFormat" name="property" value="height">
+                  <label for="editHeight">Height</label><br>
+                  <input type="radio" id="editFocus" class="textFormat" name="property" value="focus">
+                  <label for="editFocus">Focus Zoom</label><br>
+                  <input type="radio" id="editMinZoom" class="textFormat" name="property" value="minZoom">
+                  <label for="editMinZoom">Min Zoom</label><br>
+                  <input type="radio" id="editMaxZoom" class="textFormat" name="property" value="maxZoom">
+                  <label for="editMaxZoom">Max Zoom</label><br>
+                  <input type="radio" id="editLocation" class="locationFormat" name="property" value="location">
+                  <label for="editLocation">Location</label><br>
+                  <input type="radio" id="editDescription" class="textFormat" name="property" value="description">
+                  <label for="editDescription">Description</label><br>
+                  <input type="radio" id="editHours" class="hoursFormat" name="property" value="hours">
+                  <label for="editHours">Opening Hours</label><br>
+                  <input type="radio" id="editImg" class="textFormat" name="property" value="img">
+                  <label for="editImg">Image File Name</label><br><br>
+
+                <label for="editNewValue">Enter new value: <i id="formatIndicator"></i></label><br>
+                  <input type="text" name="editNewValue" id="editNewValue" required><br>
+                
+                <button type="submit" class="submitBtn">Submit</button>
+            </form>
+            </div>
+            <div class="col-sm">
+              <h1>Delete a Location</h1>
+              <form action="http://127.0.0.1:8090/entities/delete" method="post" name="deletePlaceForm" class="formType2" id="deletePlaceForm">
+                <p>Select a category:</p>
+                  <input type="radio" id="catE3" name="category" value="entrance">
+                  <label for="catE3">Entrance</label>
+                  <input type="radio" id="catR3" name="category" value="room">
+                  <label for="catR3">Room</label>
+                  <input type="radio" id="catB3" name="category" value="building">
+                  <label for="catB3">Building</label><br><br>
+
+                  <label for="IdOfDelete">Enter location id: </label><br>
+                  <input type="text" name="IdOfDelete" id="IdOfDelete" required><br>
+
+                  <p>Select deletion method:</p>
+                  <input type="radio" id="archiveDelete" name="deleteType" value="archive">
+                  <label for="archiveDelete">Archive location</label><br>
+                  <input type="radio" id="fullDelete" name="deleteType" value="full">
+                  <label for="fullDelete">Permanently delete location</label><br>
+                  <button type="submit" class="deleteBtn">Delete</button>
+              </form>
+              <br>
+              <h2>Restore a Location</h2>
+              <form action="http://127.0.0.1:8090/entities/restore" method="post" name="restoreForm" class="formType2" id="restoreForm">
+                  <label for="IdOfRestore">Enter id (from archive): </label><br>
+                  <input type="text" name="IdOfRestore" id="IdOfRestore" required><br>
+                  <button type="submit" class="submitBtn">Restore</button>
+              </form>
+            </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="corridorEditor" role="tabpanel" aria-labelledby="profile-tab">
+            <p>Will display map so user can click where they want the corridors to go. Makes a preview before adding to entities.<br>Also option to delete corridor as in the previous tab.</p>
           </div>
         </div>
   </div>

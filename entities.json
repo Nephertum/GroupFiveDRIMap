@@ -1,5 +1,6 @@
 { "entrances":[
     {
+      "id": "e0",
       "name": "entrance",
       "category": "entrance",
       "width": 10,
@@ -10,6 +11,7 @@
       "location": [53.53036036284166,-1.1127345482058217]
     },
     {
+      "id": "e1",
       "name": "entrance",
       "category": "entrance",
       "width": 10,
@@ -20,6 +22,7 @@
       "location": [53.5303831882261,-1.112592117062519]
     },
     {
+      "id": "e2",
       "name": "entrance",
       "category": "entrance",
       "width": 10,
@@ -30,6 +33,7 @@
       "location": [53.531014559830766,-1.1112614815930613]
     },
     {
+      "id": "e3",
       "name": "entrance",
       "category": "entrance",
       "width": 10,
@@ -40,6 +44,7 @@
       "location": [53.530551957905885,-1.1118969982503586]
     },
     {
+      "id": "e4",
       "name": "entrance",
       "category": "entrance",
       "width": 10,
@@ -50,6 +55,7 @@
       "location": [53.530318240535735,-1.1118095562219992]
     },
     {
+      "id": "e5",
       "name": "entrance",
       "category": "entrance",
       "width": 10,
@@ -60,6 +66,7 @@
       "location": [53.53021785062762,-1.1113278884448619]
     },
     {
+      "id": "e6",
       "name": "entrance",
       "category": "entrance",
       "width": 10,
@@ -70,6 +77,7 @@
       "location": [53.530261424202536,-1.1111640508775338]
     },
     {
+      "id": "e7",
       "name": "entrance",
       "category": "entrance",
       "width": 10,
@@ -80,6 +88,7 @@
       "location": [53.53056741491483,-1.1110975044741451]
     },
     {
+      "id": "e8",
       "name": "entrance",
       "category": "entrance",
       "width": 10,
@@ -90,6 +99,7 @@
       "location": [53.53034296374247,-1.1080162367318849]
     },
     {
+      "id": "e9",
       "name": "entrance",
       "category": "entrance",
       "width": 10,
@@ -100,6 +110,7 @@
       "location": [53.531005202607304,-1.11035050174317]
     },
     {
+      "id": "e10",
       "name": "entrance",
       "category": "entrance",
       "width": 10,
@@ -110,6 +121,7 @@
       "location": [53.53097779311196,-1.1098367562255191]
     },
     {
+      "id": "e11",
       "name": "entrance",
       "category": "entrance",
       "width": 10,
@@ -120,6 +132,7 @@
       "location": [53.53108993209284,-1.1093741287448893]
     },
     {
+      "id": "e12",
       "name": "entrance",
       "category": "entrance",
       "width": 10,
@@ -181,6 +194,7 @@
 ,
   "buildings": [
     {
+      "id": "b0",
       "name": "Women + Children",
       "category": "building",
       "width": 80,
@@ -191,6 +205,7 @@
       "location": [53.53024455226753, -1.1126034005113183]
     },
     {
+      "id": "b1",
       "name": "West Block",
       "category": "building",
       "width": 80,
@@ -201,6 +216,7 @@
       "location": [53.53069179653954,  -1.1105351374701513]
     },
     {
+      "id": "b2",
       "name": "South Block",
       "category": "building",
       "width": 80,
@@ -211,6 +227,7 @@
       "location": [53.53055885767401, -1.1084207985776686]
     },
     {
+      "id": "b3",
       "name": "East Block",
       "category": "building",
       "width": 80,
@@ -221,6 +238,7 @@
       "location": [53.53115754402981, -1.1075016917824883]
     },
     {
+      "id": "b4",
       "name": "Carousel",
       "category": "building",
       "width": 80,
@@ -231,6 +249,7 @@
       "location": [53.52967385366341, -1.1120872592508988]
     },
     {
+      "id": "b5",
       "name": "A Block",
       "category": "building",
       "width": 80,
@@ -241,6 +260,7 @@
       "location": [53.52960223948364,-1.1135195943024314]
     },
     {
+      "id": "b6",
       "name": "B Block",
       "category": "building",
       "width": 80,
@@ -251,6 +271,7 @@
       "location": [53.52970020366635,-1.112693291174395]
     },
     {
+      "id": "b7",
       "name": "C Block",
       "category": "building",
       "width": 80,
@@ -261,6 +282,7 @@
       "location": [53.52946105272787,-1.113025788083064]
     },
     {
+      "id": "b8",
       "name": "D Block",
       "category": "building",
       "width": 80,
@@ -352,5 +374,6 @@
             "default.jpeg"
     ]
     }
-  ]
+  ],
+  "archive":[]
 }
