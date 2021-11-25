@@ -5,10 +5,9 @@ const app = express();
 const cors = require('cors')
 app.use(express.static('client'));
 app.use(express.json());
-
+app.use(cors())
 app.use(express.static('body-parser'));
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
-app.use(cors())
 
 // Entities
 const entities = require('./entities.json');
@@ -113,9 +112,9 @@ app.post('/entities/add', function (req, resp) {
         buildings.push(place);
     }
     updateEntities();
-    resp.set('Content-Type', 'text/html');
-    const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the new place has been added! </h1> </body> </html>';
-    resp.send(htmltext);
+    // resp.set('Content-Type', 'text/html');
+    // const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the property has been updated! </h1> </body> </html>';
+    resp.status(201).send();
 });
 
 app.post('/entities/edit', function (req, resp) {
@@ -144,9 +143,9 @@ app.post('/entities/edit', function (req, resp) {
     }
     place[property] = value;
     updateEntities();
-    resp.set('Content-Type', 'text/html');
-    const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the property has been updated! </h1> </body> </html>';
-    resp.send(htmltext);
+    // resp.set('Content-Type', 'text/html');
+    // const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the property has been updated! </h1> </body> </html>';
+    resp.status(201).send();
 });
 
 app.post('/entities/delete', function (req, resp) {
@@ -195,9 +194,9 @@ app.post('/entities/delete', function (req, resp) {
         return;
     }
     updateEntities();
-    resp.set('Content-Type', 'text/html');
-    const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1>' + place.name + ' has been removed! The id\'s of locations in the same category may have been changed.</h1> </body> </html>';
-    resp.send(htmltext);
+    // resp.set('Content-Type', 'text/html');
+    // const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the property has been updated! </h1> </body> </html>';
+    resp.status(201).send();
 });
 
 app.post('/entities/restore', function (req, resp) {
@@ -243,9 +242,9 @@ app.post('/entities/restore', function (req, resp) {
         return;
     }
     updateEntities();
-    resp.set('Content-Type', 'text/html');
-    const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1>' + place.name + ' has been restored! Its new id is ' + place.id + '.</h1> </body> </html>';
-    resp.send(htmltext);
+    // resp.set('Content-Type', 'text/html');
+    // const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the property has been updated! </h1> </body> </html>';
+    resp.status(201).send();
 });
 
 module.exports = app;

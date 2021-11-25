@@ -1479,6 +1479,32 @@
 				],
 				"default.jpeg"
 			]
+		},
+		{
+			"id": "r5",
+			"name": "Photography",
+			"category": "room",
+			"width": 15,
+			"height": 15,
+			"focusZoom": 20,
+			"minZoom": 18,
+			"maxZoom": 100,
+			"location": [
+				53.530614759484564,
+				-1.1114899375074856
+			],
+			"info": [
+				"photos room",
+				[
+					[
+						"have not sorted this input out yet"
+					],
+					[
+						""
+					]
+				],
+				"default.jpeg"
+			]
 		}
 	],
 	"archive": []

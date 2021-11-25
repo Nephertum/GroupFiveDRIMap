@@ -90,3 +90,58 @@ for (var i = 0; i < hoursFormat.length; i++) {
         document.getElementById("formatIndicator").innerHTML = "<br>Format: [[days], [hours]], [[days], [hours]], ...";
     })
 }
+const addPlace = () => {
+    const categoryE = document.getElementById('catE')
+    const categoryR = document.getElementById('catR')
+    const category = categoryE.checked ? "entrance" : categoryR.checked ? "room" : "building"
+    const newName = document.getElementById("newName");
+    const newWidth = document.getElementById("newWidth");
+    const newHeight = document.getElementById("newHeight");
+    const newFocus = document.getElementById("newFocus");
+    const newMinZoom = document.getElementById('newMinZoom');
+    const newMaxZoom = document.getElementById('newMaxZoom');
+    const newLocation = document.getElementById('newLocation');
+    const newDescription = document.getElementById("newDescription");
+    const newHours = document.getElementById("newHours");
+    const newImg = document.getElementById('newImg');
+    const newData = {
+        "category" : category,
+        "newName" : newName.value,
+        "newWidth" : newWidth.value,
+        "newHeight" : newHeight.value,
+        "newFocus" : newFocus.value,
+        "newMinZoom" : newMinZoom.value,
+        "newMaxZoom" : newMaxZoom.value,
+        "newLocation" : newLocation.value,
+        "newDescription" : newDescription.value,
+        "newHours" : newHours.value,
+        "newImg" : newImg.value
+    }
+    fetch('http://127.0.0.1:8090/entities/add',{
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        body: JSON.stringify(newData)
+    })
+    .then(response => {
+        if (response.ok) {
+            showModal();
+        }
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}
+const addPlaceBtn = document.getElementById("newPlaceBtn")
+addPlaceBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    addPlace();
+})
+
+const showModal = () => {
+    let myModal = new bootstrap.Modal(document.getElementById('myModal'))
+    myModal.toggle();
+}
+
