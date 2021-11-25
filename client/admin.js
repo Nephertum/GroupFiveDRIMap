@@ -21,8 +21,8 @@ document.getElementById("autofill1").addEventListener("click", function (e) {
     }
     else if(document.getElementById("catR").checked == true){
         document.getElementById("newName").value = "";
-        document.getElementById("newWidth").value = "80";
-        document.getElementById("newHeight").value = "40";
+        document.getElementById("newWidth").value = "15";
+        document.getElementById("newHeight").value = "15";
         document.getElementById("newFocus").value = "20";
         document.getElementById("newMinZoom").value = "18";
         document.getElementById("newMaxZoom").value = "100";
