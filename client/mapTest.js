@@ -48,7 +48,7 @@ fetch('http://127.0.0.1:8090/entities')
 })
 const drawFunctions = {
   "building" : drawBuildings,
-  "room" : drawBuildings,
+  "room" : drawRooms,
   "route" : drawRoute,
   "entrance" : drawEntrances
 }
@@ -204,10 +204,19 @@ function drawBuildings(node) {
   rectMode(CENTER)
   textAlign(CENTER, CENTER);
   pos = myMap.latLngToPixel(node.location[0], node.location[1])
-  fill(255,255,255)
-  rect(pos.x, pos.y,node.width,node.height, 15)
   fill(0,0,0)
   text(node.name,pos.x,pos.y,node.width,node.height)
+}
+function drawRooms(node) {
+  strokeWeight(1)
+  rectMode(CENTER)
+  textAlign(CENTER,CENTER);
+  pos = myMap.latLngToPixel(node.location[0], node.location[1])
+  fill(2, 117, 216)
+
+  ellipse(pos.x, pos.y,15,15)
+  fill(0,0,0)
+  text(node.name,pos.x,pos.y + 15)
 }
 function generateGraph() {
   let graph = []
@@ -410,7 +419,7 @@ function popupHTML(id, name, info){
   +openhourshtml+
   '</p></div><div class="col-sm"><img src="'
   +img+
-  '" alt="Picture of Building" class="img-responsive fit-image"></div></div><div class="popupBtn-wrapper"><button id="navHere'+id+'" class="popupBtn">Get Directions</button></div>'
+  '" alt="Picture of Building" class="img-responsive fit-image"></div></div><div class="popupBtn-wrapper"><button id="navHere'+id+'" class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Get Directions</button></div>'
   return(html)
 }
 
