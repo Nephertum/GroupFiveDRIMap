@@ -91,6 +91,19 @@
           </div>
           <div class="tab-pane fade" id="edittab" role="tabpanel" aria-labelledby="profile-tab">
             <div class="row">
+              <form name="searchIdForm" onSubmit="findId(event)" id="searchIdForm">
+                <div>
+                    <label for="placeName">Search for a place's id </label>
+                    <input type="text" name="placeName" required>
+                </div>
+                <div>
+                    <input type="submit" class="submitBtn" value="Find!">
+                </div>
+                <p>Search results:</p><br>
+                <p id="sResults"></p>
+            </form>
+            </div>
+            <div class="row">
               <p>Page still needs a tool so user can find location id, e.g search by name. Note the 'select category' options are not essential because we can get this from the id's - might delete later. </p>
               <div class="col-sm">
             <h2>Edit Existing Location</h2>
