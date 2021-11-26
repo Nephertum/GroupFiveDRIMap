@@ -3,50 +3,8 @@ window.addEventListener("load", function (e){
     document.getElementById("catE").checked = true;
     document.getElementById("catE2").checked = true;
     document.getElementById("catE3").checked = true;
+    document.getElementById("editName").checked = true;
 })
-
-// Autofill default options for new location
-document.getElementById("autofill1").addEventListener("click", function (e) {
-    if(document.getElementById("catE").checked == true){
-        document.getElementById("newName").value = "entrance";
-        document.getElementById("newWidth").value = "10";
-        document.getElementById("newHeight").value = "10";
-        document.getElementById("newFocus").value = "20";
-        document.getElementById("newMinZoom").value = "1";
-        document.getElementById("newMaxZoom").value = "100";
-        document.getElementById("newLocation").value = "";
-        document.getElementById("newDescription").value = "";
-        document.getElementById("newHours").value = "";
-        document.getElementById("newImg").value = "";
-    }
-    else if(document.getElementById("catR").checked == true){
-        document.getElementById("newName").value = "";
-        document.getElementById("newWidth").value = "15";
-        document.getElementById("newHeight").value = "15";
-        document.getElementById("newFocus").value = "20";
-        document.getElementById("newMinZoom").value = "18";
-        document.getElementById("newMaxZoom").value = "100";
-        document.getElementById("newLocation").value = "";
-        document.getElementById("newDescription").value = "";
-        document.getElementById("newHours").value = "";
-        document.getElementById("newImg").value = "default.jpeg";
-    }
-    else if(document.getElementById("catB").checked == true){
-        document.getElementById("newName").value = "";
-        document.getElementById("newWidth").value = "80";
-        document.getElementById("newHeight").value = "40";
-        document.getElementById("newFocus").value = "17";
-        document.getElementById("newMinZoom").value = "17";
-        document.getElementById("newMaxZoom").value = "100";
-        document.getElementById("newLocation").value = "";
-        document.getElementById("newDescription").value = "";
-        document.getElementById("newHours").value = "";
-        document.getElementById("newImg").value = "";
-    }
-    else(alert("Select a category first"))
-    e.preventDefault();
-});
-
 // Only show properties belonging to the category checked
 document.getElementById("catE").addEventListener("click", function (e){
     let roomOnly = document.getElementsByClassName("roomOnly");
@@ -95,11 +53,33 @@ const addPlace = () => {
     const categoryR = document.getElementById('catR')
     const category = categoryE.checked ? "entrance" : categoryR.checked ? "room" : "building"
     const newName = document.getElementById("newName");
-    const newWidth = document.getElementById("newWidth");
-    const newHeight = document.getElementById("newHeight");
-    const newFocus = document.getElementById("newFocus");
-    const newMinZoom = document.getElementById('newMinZoom');
-    const newMaxZoom = document.getElementById('newMaxZoom');
+    let newWidth;
+    let newHeight;
+    let newFocus;
+    let newMinZoom;
+    let newMaxZoom;
+    if(categoryE.checked == true){
+        newWidth = "10";
+        newHeight = "10";
+        newFocus = "20";
+        newMinZoom = "1";
+        newMaxZoom = "100";
+    }
+    else if(categoryR.checked == true){
+        newWidth = "15";
+        newHeight = "15";
+        newFocus = "20";
+        newMinZoom = "18";
+        newMaxZoom = "100";
+    }
+    else {
+        newWidth = "80";
+        newHeight = "40";
+        newFocus = "17";
+        newMinZoom = "17";
+        newMaxZoom = "100";
+    }
+   
     const newLocation = document.getElementById('newLocation');
     const newDescription = document.getElementById("newDescription");
     const newHours = document.getElementById("newHours");
@@ -107,11 +87,11 @@ const addPlace = () => {
     const newData = {
         "category" : category,
         "newName" : newName.value,
-        "newWidth" : newWidth.value,
-        "newHeight" : newHeight.value,
-        "newFocus" : newFocus.value,
-        "newMinZoom" : newMinZoom.value,
-        "newMaxZoom" : newMaxZoom.value,
+        "newWidth" : newWidth,
+        "newHeight" : newHeight,
+        "newFocus" : newFocus,
+        "newMinZoom" : newMinZoom,
+        "newMaxZoom" : newMaxZoom,
         "newLocation" : newLocation.value,
         "newDescription" : newDescription.value,
         "newHours" : newHours.value,
@@ -164,4 +144,45 @@ function findId (e) {
         });
     }
 }
+
+const editPlace = () => {
+    const categoryE = document.getElementById("catE2");
+    const categoryR = document.getElementById("catR2");
+    const category = categoryE.checked ? "entrance" : categoryR.checked ? "room" : "building";
+    const id = document.getElementById("IdOfEdit").value;
+    let property;
+    property = document.getElementById("editName").checked ? "name" : property;
+    property = document.getElementById("editLocation").checked ? "location" : property;
+    property = document.getElementById("editDescription").checked ? "description" : property;
+    property = document.getElementById("editHours").checked ? "hours" : property;
+    property = document.getElementById("editImg").checked ? "img" : property;
+    const newValue = document.getElementById("editNewValue").value;
+    const newData = {
+        "IdOfEdit" : id,
+        "category" : category,
+        "property" : property,
+        "editNewValue" : newValue
+    }
+    fetch("http://127.0.0.1:8090/entities/edit", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        body: JSON.stringify(newData)
+    })
+    .then(response => {
+        if (response.ok) {
+            showModal();
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+const editPlaceBtn = document.getElementById("editPlaceBtn");
+editPlaceBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    editPlace();
+})
 

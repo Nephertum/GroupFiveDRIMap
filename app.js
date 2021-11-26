@@ -45,7 +45,7 @@ function getPlace(category, id) {
     else if (category === "room"){
         searchThrough = rooms;
     }
-    else if (category === "room"){
+    else if (category === "archive"){
         searchThrough = archive;
     }
     else{
@@ -121,7 +121,9 @@ app.post('/entities/add', function (req, resp) {
 
 app.post('/entities/edit', function (req, resp) {
     const id = req.body.IdOfEdit;
+    console.log(id)
     const category = req.body.category;
+    console.log(category)
     const place = getPlace(category, id);
     if (place === undefined) {
         resp.status(404).send('Sorry, this place was not found, check your id and category are correct!');
