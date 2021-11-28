@@ -173,7 +173,7 @@ function drawNodes(){
     }
   })
   buildings.forEach(building => {
-      if (checkValidZoom(17, 100)) {
+      if (checkValidZoom(1, 17)) {
         drawBuildings(building);
       }
     })
@@ -241,8 +241,8 @@ function drawEntrances(node) {
   }
 }
 function drawBuildings(node) {
-  let width = 15;
-  let height = 10;
+  let width = 80;
+  let height = 40;
   strokeWeight(1)
   rectMode(CENTER)
   textAlign(CENTER, CENTER);
