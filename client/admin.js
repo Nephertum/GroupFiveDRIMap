@@ -2,7 +2,6 @@
 window.addEventListener("load", function (e){
     document.getElementById("catE").checked = true;
     document.getElementById("catE2").checked = true;
-    document.getElementById("catE3").checked = true;
     document.getElementById("editName").checked = true;
 })
 // Only show properties belonging to the category checked
@@ -22,6 +21,27 @@ document.getElementById("catR").addEventListener("click", function (e){
 
 document.getElementById("catB").addEventListener("click", function (e){
     let roomOnly = document.getElementsByClassName("roomOnly");
+    for (var i = 0; i < roomOnly.length; i++){
+        roomOnly[i].style.display = "none";
+    }
+})
+
+document.getElementById("catE2").addEventListener("click", function (e){
+    let roomOnly = document.getElementsByClassName("roomOnly2");
+    for (var i = 0; i < roomOnly.length; i++){
+        roomOnly[i].style.display = "none";
+    }
+})
+
+document.getElementById("catR2").addEventListener("click", function (e){
+    let roomOnly = document.getElementsByClassName("roomOnly2");
+    for (var i = 0; i < roomOnly.length; i++){
+        roomOnly[i].style.display = "inline";
+    }
+})
+
+document.getElementById("catB2").addEventListener("click", function (e){
+    let roomOnly = document.getElementsByClassName("roomOnly2");
     for (var i = 0; i < roomOnly.length; i++){
         roomOnly[i].style.display = "none";
     }
@@ -53,7 +73,7 @@ const addPlace = () => {
     const categoryR = document.getElementById('catR')
     const category = categoryE.checked ? "entrance" : categoryR.checked ? "room" : "building"
     const newName = document.getElementById("newName");
-    let newWidth;
+    /*let newWidth;
     let newHeight;
     let newFocus;
     let newMinZoom;
@@ -78,7 +98,7 @@ const addPlace = () => {
         newFocus = "17";
         newMinZoom = "17";
         newMaxZoom = "100";
-    }
+    }*/
    
     const newLocation = document.getElementById('newLocation');
     const newDescription = document.getElementById("newDescription");
@@ -87,11 +107,11 @@ const addPlace = () => {
     const newData = {
         "category" : category,
         "newName" : newName.value,
-        "newWidth" : newWidth,
+       /* "newWidth" : newWidth,
         "newHeight" : newHeight,
         "newFocus" : newFocus,
         "newMinZoom" : newMinZoom,
-        "newMaxZoom" : newMaxZoom,
+        "newMaxZoom" : newMaxZoom,*/
         "newLocation" : newLocation.value,
         "newDescription" : newDescription.value,
         "newHours" : newHours.value,
@@ -135,8 +155,15 @@ function findId (e) {
         fetch('http://127.0.0.1:8090/entities/search/' + word)
         .then(response => response.json())
         .then(function (body) {
-            // need to formating still
-            document.getElementById('sResults').innerHTML = body;
+            let html = "<p>";
+            let result;
+            for (let i = 0; i < body.length; i++) {
+                result = body[i]
+                
+                html += result[0]+ "\'s id: " +result[1]+ "<br>"
+            }
+            html += "</p>"
+            document.getElementById('sResults').innerHTML = html;
         })
         .catch((error) => {
             alert(error);
@@ -185,4 +212,3 @@ editPlaceBtn.addEventListener("click", (e) => {
     e.preventDefault();
     editPlace();
 })
-
