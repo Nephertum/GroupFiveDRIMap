@@ -62,18 +62,34 @@ function getPlace(category, id) {
 
 
 // Routes
-app.get('/entities', function (req, resp) {
-    resp.json([entrances, corridorIndex, buildings, rooms]);
+app.get('/entrances', function (req, resp) {
+    resp.json(entrances);
 });
+
+app.get('/rooms', function (req, resp) {
+    resp.json(rooms);
+});
+
+app.get('/buildings', function (req, resp) {
+    resp.json(buildings);
+});
+
+app.get('/corridors', function (req, resp) {
+    resp.json(corridorIndex);
+});
+
+/*app.get('/entities', function (req, resp) {
+    resp.json([entrances, corridorIndex, buildings, rooms]);
+});*/
 
 app.post('/entities/add', function (req, resp) {
     const name = req.body.newName;
     const category = req.body.category;
-    const width = parseInt(req.body.newWidth);
+    /*const width = parseInt(req.body.newWidth);
     const height = parseInt(req.body.newHeight);
     const focusZoom = parseInt(req.body.newFocus);
     const minZoom = parseInt(req.body.newMinZoom);
-    const maxZoom = parseInt(req.body.newMaxZoom);
+    const maxZoom = parseInt(req.body.newMaxZoom);*/
     const location = JSON.parse('[' + req.body.newLocation + ']');
     let id;
     if (category == "entrance"){
@@ -91,12 +107,12 @@ app.post('/entities/add', function (req, resp) {
     let place = {
         id: id,
         name: name,
-        category: category,
+        /*category: category,
         width: width,
         height: height,
         focusZoom: focusZoom,
         minZoom: minZoom,
-        maxZoom: maxZoom,
+        maxZoom: maxZoom,*/
         location: location
     };
     if (category == "entrance"){
@@ -154,21 +170,19 @@ app.post('/entities/edit', function (req, resp) {
 
 app.post('/entities/delete', function (req, resp) {
     const id = req.body.IdOfDelete;
-    const category = req.body.category;
-    const deleteType = req.body.deleteType
-
+    const deleteType = req.body.deleteType;
     let searchThrough;
-    if (category === "entrance"){
+    if (id[0] === 'e'){
         searchThrough = entrances;
     }
-    else if (category === "building"){
+    else if (id[0] === 'b'){
         searchThrough = buildings;
     }
-    else if (category === "room"){
+    else if (id[0] === 'r'){
         searchThrough = rooms;
     }
     else{
-        resp.status(404).send("Category not found");
+        resp.status(400).send("First letter of id should be a category.");
     }
     let place;
     let placeFound = false;
@@ -177,7 +191,7 @@ app.post('/entities/delete', function (req, resp) {
         if (place.id === id) {
             // If delete type is archive, add location to archive
             if(deleteType === "archive"){
-                const archiveId = 'a' + archive.length;
+                const archiveId = 'a' + archive.length + id[0];
                 place.id = archiveId;
                 archive.push(place)
             }
@@ -227,17 +241,17 @@ app.post('/entities/restore', function (req, resp) {
         return;
     }
     // Add location back to its category
-    const category = place.category;
+    const category = id.slice(-1);;
 
-    if (category === "entrance"){
+    if (category === "e"){
         place.id = 'e' + entrances.length
         entrances.push(place);
     }
-    else if (category === "room"){
+    else if (category === "r"){
         place.id = 'r' + rooms.length
         rooms.push(place);
     }
-    else if (category === "building"){
+    else if (category === "b"){
         place.id = 'b' + buildings.length
         buildings.push(place);
     }
