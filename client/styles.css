@@ -30,7 +30,7 @@ body {
     max-width: 350px;
 }
 
-.submitBtn, .autofill-btn{
+/*.submitBtn, .autofill-btn{
     padding: 5px 15px;
     background-image: linear-gradient(to bottom right, rgb(202, 34, 188), rgb(240, 36, 87));
     border: 1px solid rgb(156, 11, 132);
@@ -44,7 +44,7 @@ body {
     border: 1px solid rgb(77, 3, 3);
     border-radius: 10px;
     color: rgb(255, 255, 255);
-}
+}*/
 
 input[type=text] {
     width: 80%;
@@ -95,7 +95,7 @@ input[type=text] {
     background-color: white;
   }
 
-.roomOnly{
+.roomOnly, .roomOnly2{
     display: none;
 }
 .btn-primary {
