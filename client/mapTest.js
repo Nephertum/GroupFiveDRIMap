@@ -40,12 +40,41 @@ window.addEventListener('mouseup', function() {
 
 // locations section:
 // order of locations returned is [entrances, corridorIndex, buildings, rooms]
-let locations;
+/*let locations;
 fetch('http://127.0.0.1:8090/entities')
 .then(response => response.json())
 .then(function(body){
   locations = body;
+})*/
+
+let entrances;
+fetch('http://127.0.0.1:8090/entrances')
+.then(response => response.json())
+.then(function(body){
+  entrances = body;
 })
+
+let corridors;
+fetch('http://127.0.0.1:8090/corridors')
+.then(response => response.json())
+.then(function(body){
+  corridors = body;
+})
+
+let buildings;
+fetch('http://127.0.0.1:8090/buildings')
+.then(response => response.json())
+.then(function(body){
+  buildings = body;
+})
+
+let rooms;
+fetch('http://127.0.0.1:8090/rooms')
+.then(response => response.json())
+.then(function(body){
+  rooms = body;
+})
+
 const drawFunctions = {
   "building" : drawBuildings,
   "room" : drawRooms,
@@ -112,7 +141,6 @@ function updateMap() {
 function setNavigation(source, destination) {
   let newStart = 0;
   let newDest = 0;
-  console.log(locations)
   if (source.toLowerCase() == "pin") {
     if (pin.location !== 0) {
       newStart = pin;
@@ -130,8 +158,8 @@ function setNavigation(source, destination) {
 }
 function getNodeByName(name) {
   console.log(name)
-  let result = 0
-  locations[3].forEach(element => {
+  let result = 0;
+  rooms.forEach(element => {
     if (element.name.toLowerCase() == name.toLowerCase()) {
       result = element
     }
@@ -139,14 +167,25 @@ function getNodeByName(name) {
   return result;
 }
 function drawNodes(){
-
-  locations.forEach(locationType => {
-    locationType.forEach(location => {
-      if (checkValidZoom(location.minZoom, location.maxZoom)) {
-        const drawFunction = drawFunctions[location.category];
-        drawFunction(location);
+  entrances.forEach(entrance => {
+    if (checkValidZoom(1, 100)) {
+      drawEntrances(entrance);
+    }
+  })
+  buildings.forEach(building => {
+      if (checkValidZoom(17, 100)) {
+        drawBuildings(building);
       }
     })
+  rooms.forEach(room => {
+    if (checkValidZoom(18, 100)) {
+      drawRooms(room);
+    }
+  })
+  corridors.forEach(corridor => {
+    if (checkValidZoom(18, 100)) {
+      drawRoute(corridor);
+    }
   })
 }
 // draws the internal cooridoors on the map after a certain zoom threshold
@@ -186,6 +225,8 @@ function placePin() {
   }
 }
 function drawEntrances(node) {
+  let width = 10;
+  let height = 10;
   textAlign(LEFT, BOTTOM);
   strokeWeight(1);
   stroke(100,100,100);
@@ -193,21 +234,25 @@ function drawEntrances(node) {
   const zoom = myMap.zoom();
   const point = myMap.latLngToPixel(node.location[0], node.location[1])
   fill(200, 100, 100);
-  ellipse(point.x, point.y, node.width, node.height)
+  ellipse(point.x, point.y, width, height)
   fill(0,0,0)
   if (zoom > 18) {
     text(node.name,point.x + 6, point.y - 6)
   }
 }
 function drawBuildings(node) {
+  let width = 15;
+  let height = 10;
   strokeWeight(1)
   rectMode(CENTER)
   textAlign(CENTER, CENTER);
   pos = myMap.latLngToPixel(node.location[0], node.location[1])
   fill(0,0,0)
-  text(node.name,pos.x,pos.y,node.width,node.height)
+  text(node.name,pos.x,pos.y,width,height)
 }
 function drawRooms(node) {
+  //let width = 15;
+  //let height = 10;
   strokeWeight(1)
   rectMode(CENTER)
   textAlign(CENTER,CENTER);
@@ -221,12 +266,12 @@ function drawRooms(node) {
 function generateGraph() {
   let graph = []
   // loops through each cooridoor node
-  for (let i = 0; i< locations[1].length; i++) {
+  for (let i = 0; i< corridors.length; i++) {
     let current = [];
     
-    let nodes = locations[1][i].neighbors;
+    let nodes = corridors[i].neighbours;
     // loops through every other cooridoor
-    for (let j = 0; j< locations[1].length; j++) {
+    for (let j = 0; j< corridors.length; j++) {
       // if the jth cooridoor is a neighbour of the ith cooridoor then store a one
       if (nodes.includes(j+1)) {
         current.push(1);
@@ -244,7 +289,7 @@ function calculateNearestCorridor(location) {
     const room = myMap.latLngToPixel(location.location[0],location.location[1]);
     let minDistance = Infinity;
     let result = 0;
-    locations[1].forEach((corridor, index) => {
+    corridors.forEach((corridor, index) => {
       corridorStart = myMap.latLngToPixel(corridor.location[0][0],corridor.location[0][1])
       corridorEnd = myMap.latLngToPixel(corridor.location[1][0],corridor.location[1][1])
       center = { x: (corridorStart.x + corridorEnd.x) / 2, y: (corridorStart.y + corridorEnd.y) / 2}
@@ -276,7 +321,7 @@ function highlight_cooridoor(index) {
   noFill();
   stroke(0,123,255);
   strokeWeight(3);
-  let highlight = locations[1][index-1];
+  let highlight = corridors[index-1];
   let highlight_start = myMap.latLngToPixel(highlight.location[0][0], highlight.location[0][1]);
   let highlight_end = myMap.latLngToPixel(highlight.location[1][0], highlight.location[1][1]);
   beginShape();
@@ -295,8 +340,8 @@ function highlightEndpoint(cooridoor,adj_cooridoor, node) {
   noFill();
   stroke(0,123,255);
   strokeWeight(3);
-  let cooridoorData = locations[1][cooridoor - 1];
-  let prevCooridoorData = locations[1][adj_cooridoor - 1];
+  let cooridoorData = corridors[cooridoor - 1];
+  let prevCooridoorData = corridors[adj_cooridoor - 1];
   let current_start = myMap.latLngToPixel(cooridoorData.location[0][0], cooridoorData.location[0][1]);
   let current_end = myMap.latLngToPixel(cooridoorData.location[1][0], cooridoorData.location[1][1]);
   let prev_end = myMap.latLngToPixel(prevCooridoorData.location[1][0], prevCooridoorData.location[1][1]);
@@ -341,50 +386,57 @@ function draw() {
   // sets the mouse cursor to a cross symbol while hovering over the map
   cursor(CROSS)
 }
-function zoomOnLocation(location) {
+function zoomOnLocation(location, focusZoom) {
   myMap.map.flyTo({
     center: [location.location[1], location.location[0]],
-    zoom: location.focusZoom
+    zoom: focusZoom
   });
 }
 // checks location of mouse click to see if a location node was clicked and then calls zoomOnLocation on this node
 function checkMouseClickForLocation(mouseX,mouseY) {
-  locations.forEach(locationType => {
-    locationType.forEach((location) => {
-      if (location.category != "route") {
-        let element = myMap.latLngToPixel(location.location[0], location.location[1])
-        // calculates x and y distances between location node center and mouse coordinate
-        distanceX = Math.abs(element.x - mouseX)
-        distanceY = Math.abs(element.y - mouseY)
-        // if the distance between the mouse click and the center of the node is within the node's radius then zoom in one it
-        if (distanceX <= location.width / 2 && distanceY <= location.height / 2) {
-          zoomOnLocation(location);
-          placePopup(location);
-        }
-      }
+  rooms.forEach((location) => {
+     setZoomAndPopup(mouseX, mouseY, location, 15, 15, 20)
     })
+  buildings.forEach((location) => {
+    setZoomAndPopup(mouseX, mouseY, location, 80, 40, 17)
+  })
+  entrances.forEach((location) => {
+    setZoomAndPopup(mouseX, mouseY, location, 10, 10, 20)
   })
   return false;
 }
-function getpopupOptions(element) {
+
+function setZoomAndPopup(mouseX, mouseY, location, width, height, focusZoom){
+  let element = myMap.latLngToPixel(location.location[0], location.location[1])
+        // calculates x and y distances between location node center and mouse coordinate
+        distanceX = Math.abs(element.x - mouseX)
+        distanceY = Math.abs(element.y - mouseY)
+        // if the distance between the mouse click and the center of the node is within the node's radius then zoom in on it
+        if (distanceX <= width / 2 && distanceY <= height / 2) {
+          zoomOnLocation(location, focusZoom);
+          placePopup(location, width, height);
+        }
+}
+
+function getpopupOptions(width, height) {
     return {
-      'bottom' : [0,-1 * (element.height / 2)],
-      'bottom-right' : [-1 * (element.width / 2),-1 * (element.height / 2)],
-      'bottom-left' : [(element.width / 2),-1 * (element.height / 2)],
-      'right' : [-1 * (element.width / 2),0],
-      'left' : [(element.width / 2),0],
-      'top' : [0,(element.height / 2)],
-      'top-right' : [-1 * (element.width / 2),(element.height / 2)],
+      'bottom' : [0,-1 * (height / 2)],
+      'bottom-right' : [-1 * (width / 2),-1 * (height / 2)],
+      'bottom-left' : [(width / 2),-1 * (height / 2)],
+      'right' : [-1 * (width / 2),0],
+      'left' : [(width / 2),0],
+      'top' : [0,(height / 2)],
+      'top-right' : [-1 * (width / 2),(height / 2)],
       'top-left' : [0
-        -1 * (element.width / 2),(element.height / 2)],
+        -1 * (width / 2),(height / 2)],
     }
 }
-function placePopup(location) {
+function placePopup(location, width, height) {
   if (typeof location.info !== 'undefined') {
     if (popupExists == true){
       popup.remove() // remove any existing popups
     }
-    popup = new mapboxgl.Popup({offset: getpopupOptions(location),closeOnClick: false})
+    popup = new mapboxgl.Popup({offset: getpopupOptions(width, height),closeOnClick: false})
     .setLngLat([location.location[1],location.location[0]])
     .setHTML(popupHTML(location.id, location.name, location.info))
     .addTo(myMap.map)
