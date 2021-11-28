@@ -100,7 +100,7 @@ function setupButton() {
     Searchinput.value = "";
     let element = getNodeByName(room);
     zoomOnLocation(element);
-    placePopup(element);
+    placePopup(element, 15, 15);
   })
 
   const navigateButton = document.getElementById("navigateBtn");
