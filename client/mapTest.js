@@ -99,7 +99,7 @@ function setupButton() {
     let room = Searchinput.value;
     Searchinput.value = "";
     let element = getNodeByName(room);
-    zoomOnLocation(element);
+    zoomOnLocation(element, 20);
     placePopup(element, 15, 15);
   })
 
