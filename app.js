@@ -18,7 +18,7 @@ let buildings = entities.buildings;
 let rooms = entities.rooms;
 let archive = entities.archive;
 
-let placesForSearch = [rooms, buildings];
+let placesForSearch = [rooms, buildings, archive];
 
 function updateEntities() {
     entities.entrances = entrances;
