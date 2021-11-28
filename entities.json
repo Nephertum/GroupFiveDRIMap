@@ -3,12 +3,6 @@
 		{
 			"id": "e0",
 			"name": "entrance",
-			"category": "entrance",
-			"width": 10,
-			"height": 10,
-			"focusZoom": 20,
-			"minZoom": 1,
-			"maxZoom": 100,
 			"location": [
 				53.53036036284166,
 				-1.1127345482058217
@@ -17,12 +11,6 @@
 		{
 			"id": "e1",
 			"name": "entrance",
-			"category": "entrance",
-			"width": 10,
-			"height": 10,
-			"focusZoom": 20,
-			"minZoom": 1,
-			"maxZoom": 100,
 			"location": [
 				53.5303831882261,
 				-1.112592117062519
@@ -31,12 +19,6 @@
 		{
 			"id": "e2",
 			"name": "entrance",
-			"category": "entrance",
-			"width": 10,
-			"height": 10,
-			"focusZoom": 20,
-			"minZoom": 1,
-			"maxZoom": 100,
 			"location": [
 				53.531014559830766,
 				-1.1112614815930613
@@ -45,12 +27,6 @@
 		{
 			"id": "e3",
 			"name": "entrance",
-			"category": "entrance",
-			"width": 10,
-			"height": 10,
-			"focusZoom": 20,
-			"minZoom": 1,
-			"maxZoom": 100,
 			"location": [
 				53.530551957905885,
 				-1.1118969982503586
@@ -59,12 +35,6 @@
 		{
 			"id": "e4",
 			"name": "entrance",
-			"category": "entrance",
-			"width": 10,
-			"height": 10,
-			"focusZoom": 20,
-			"minZoom": 1,
-			"maxZoom": 100,
 			"location": [
 				53.530318240535735,
 				-1.1118095562219992
@@ -73,12 +43,6 @@
 		{
 			"id": "e5",
 			"name": "entrance",
-			"category": "entrance",
-			"width": 10,
-			"height": 10,
-			"focusZoom": 20,
-			"minZoom": 1,
-			"maxZoom": 100,
 			"location": [
 				53.53021785062762,
 				-1.1113278884448619
@@ -87,12 +51,6 @@
 		{
 			"id": "e6",
 			"name": "entrance",
-			"category": "entrance",
-			"width": 10,
-			"height": 10,
-			"focusZoom": 20,
-			"minZoom": 1,
-			"maxZoom": 100,
 			"location": [
 				53.530261424202536,
 				-1.1111640508775338
@@ -101,12 +59,6 @@
 		{
 			"id": "e7",
 			"name": "entrance",
-			"category": "entrance",
-			"width": 10,
-			"height": 10,
-			"focusZoom": 20,
-			"minZoom": 1,
-			"maxZoom": 100,
 			"location": [
 				53.53056741491483,
 				-1.1110975044741451
@@ -115,12 +67,6 @@
 		{
 			"id": "e8",
 			"name": "entrance",
-			"category": "entrance",
-			"width": 10,
-			"height": 10,
-			"focusZoom": 20,
-			"minZoom": 1,
-			"maxZoom": 100,
 			"location": [
 				53.53034296374247,
 				-1.1080162367318849
@@ -129,12 +75,6 @@
 		{
 			"id": "e9",
 			"name": "entrance",
-			"category": "entrance",
-			"width": 10,
-			"height": 10,
-			"focusZoom": 20,
-			"minZoom": 1,
-			"maxZoom": 100,
 			"location": [
 				53.531005202607304,
 				-1.11035050174317
@@ -143,12 +83,6 @@
 		{
 			"id": "e10",
 			"name": "entrance",
-			"category": "entrance",
-			"width": 10,
-			"height": 10,
-			"focusZoom": 20,
-			"minZoom": 1,
-			"maxZoom": 100,
 			"location": [
 				53.53097779311196,
 				-1.1098367562255191
@@ -157,12 +91,6 @@
 		{
 			"id": "e11",
 			"name": "entrance",
-			"category": "entrance",
-			"width": 10,
-			"height": 10,
-			"focusZoom": 20,
-			"minZoom": 1,
-			"maxZoom": 100,
 			"location": [
 				53.53108993209284,
 				-1.1093741287448893
@@ -171,12 +99,6 @@
 		{
 			"id": "e12",
 			"name": "entrance",
-			"category": "entrance",
-			"width": 10,
-			"height": 10,
-			"focusZoom": 20,
-			"minZoom": 1,
-			"maxZoom": 100,
 			"location": [
 				53.53145588038254,
 				-1.1080159843762658
@@ -185,10 +107,7 @@
 	],
 	"corridorIndex": [
 		{
-			"name": "cooridoor 1",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 1",
 			"location": [
 				[
 					53.530748148999805,
@@ -199,7 +118,7 @@
 					-1.110673662452001
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				2,
 				4,
 				34,
@@ -207,10 +126,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 2",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 2",
 			"location": [
 				[
 					53.530844581102656,
@@ -221,17 +137,14 @@
 					-1.1103016334823792
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				1,
 				4,
 				3
 			]
 		},
 		{
-			"name": "cooridoor 3",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 3",
 			"location": [
 				[
 					53.53093383871246,
@@ -242,15 +155,12 @@
 					-1.1103480914643171
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				2
 			]
 		},
 		{
-			"name": "cooridoor 4",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 4",
 			"location": [
 				[
 					53.530844581102656,
@@ -261,17 +171,14 @@
 					-1.1103072358442603
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				1,
 				2,
 				5
 			]
 		},
 		{
-			"name": "cooridoor 5",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 5",
 			"location": [
 				[
 					53.53030522393195,
@@ -282,17 +189,14 @@
 					-1.1099370219646403
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				4,
 				8,
 				6
 			]
 		},
 		{
-			"name": "cooridoor 6",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 6",
 			"location": [
 				[
 					53.53039400049377,
@@ -303,7 +207,7 @@
 					-1.110083061694354
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				5,
 				8,
 				7,
@@ -311,10 +215,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 7",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 7",
 			"location": [
 				[
 					53.53060893652449,
@@ -325,16 +226,13 @@
 					-1.110376648442866
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				6,
 				21
 			]
 		},
 		{
-			"name": "cooridoor 8",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 8",
 			"location": [
 				[
 					53.53039403642282,
@@ -345,7 +243,7 @@
 					-1.1098353526766118
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				9,
 				5,
 				6,
@@ -353,10 +251,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 9",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 9",
 			"location": [
 				[
 					53.53041848322417,
@@ -367,16 +262,13 @@
 					-1.1098172912050757
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				8,
 				10
 			]
 		},
 		{
-			"name": "cooridoor 10",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 10",
 			"location": [
 				[
 					53.53041848322417,
@@ -387,7 +279,7 @@
 					-1.1089304746676873
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				11,
 				8,
 				9,
@@ -395,10 +287,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 11",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 11",
 			"location": [
 				[
 					53.53063570704225,
@@ -409,7 +298,7 @@
 					-1.10886852098605
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				10,
 				13,
 				12,
@@ -417,10 +306,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 12",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 12",
 			"location": [
 				[
 					53.530650692728756,
@@ -431,16 +317,13 @@
 					-1.1088446010584505
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				11,
 				22
 			]
 		},
 		{
-			"name": "cooridoor 13",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 13",
 			"location": [
 				[
 					53.53063570704225,
@@ -451,7 +334,7 @@
 					-1.1090810697784548
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				10,
 				11,
 				14,
@@ -459,10 +342,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 14",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 14",
 			"location": [
 				[
 					53.530857366483815,
@@ -473,7 +353,7 @@
 					-1.1091436162841717
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				13,
 				15,
 				26
@@ -481,9 +361,6 @@
 		},
 		{
 			"name": "cooridoor 15",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				[
 					53.53094916600901,
@@ -494,17 +371,14 @@
 					-1.1092620749969342
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				14,
 				16,
 				17
 			]
 		},
 		{
-			"name": "cooridoor 16",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 16",
 			"location": [
 				[
 					53.53092072004907,
@@ -515,16 +389,13 @@
 					-1.1093769525469668
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				15,
 				17
 			]
 		},
 		{
-			"name": "cooridoor 17",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 17",
 			"location": [
 				[
 					53.53092072004907,
@@ -535,7 +406,7 @@
 					-1.1097271692692914
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				15,
 				16,
 				18,
@@ -543,10 +414,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 18",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 18",
 			"location": [
 				[
 					53.53080932681644,
@@ -557,16 +425,13 @@
 					-1.109840744583039
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				17,
 				19
 			]
 		},
 		{
-			"name": "cooridoor 19",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 19",
 			"location": [
 				[
 					53.53080932681644,
@@ -577,17 +442,14 @@
 					-1.1097865216131595
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				17,
 				18,
 				20
 			]
 		},
 		{
-			"name": "cooridoor 20",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 20",
 			"location": [
 				[
 					53.530795275366444,
@@ -598,16 +460,13 @@
 					-1.1097192543872438
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				19,
 				21
 			]
 		},
 		{
-			"name": "cooridoor 21",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 21",
 			"location": [
 				[
 					53.53069629314572,
@@ -618,17 +477,14 @@
 					-1.1100829973646285
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				20,
 				6,
 				7
 			]
 		},
 		{
-			"name": "cooridoor 22",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 22",
 			"location": [
 				[
 					53.530650735402304,
@@ -639,7 +495,7 @@
 					-1.108162104422263
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				11,
 				12,
 				23,
@@ -648,10 +504,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 23",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 23",
 			"location": [
 				[
 					53.530820419733885,
@@ -662,7 +515,7 @@
 					-1.1082405960221422
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				22,
 				24,
 				27,
@@ -670,10 +523,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 24",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 24",
 			"location": [
 				[
 					53.530935661881955,
@@ -684,16 +534,13 @@
 					-1.1081170287382918
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				23,
 				25
 			]
 		},
 		{
-			"name": "cooridoor 25",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 25",
 			"location": [
 				[
 					53.53096533568163,
@@ -704,17 +551,14 @@
 					-1.1081891855639014
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				24,
 				26,
 				33
 			]
 		},
 		{
-			"name": "cooridoor 26",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 26",
 			"location": [
 				[
 					53.53107142873114,
@@ -725,7 +569,7 @@
 					-1.1090809724322241
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				33,
 				25,
 				14,
@@ -733,10 +577,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 27",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 27",
 			"location": [
 				[
 					53.530820419733885,
@@ -747,7 +588,7 @@
 					-1.1072551110367215
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				22,
 				23,
 				28,
@@ -756,10 +597,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 28",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 28",
 			"location": [
 				[
 					53.53103806694804,
@@ -770,16 +608,13 @@
 					-1.1068410904123596
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				27,
 				29
 			]
 		},
 		{
-			"name": "cooridoor 29",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 29",
 			"location": [
 				[
 					53.53103806694804,
@@ -790,7 +625,7 @@
 					-1.1074051972444465
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				27,
 				28,
 				30,
@@ -798,10 +633,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 30",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 30",
 			"location": [
 				[
 					53.53125956330538,
@@ -812,16 +644,13 @@
 					-1.1071023645346543
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				29,
 				31
 			]
 		},
 		{
-			"name": "cooridoor 31",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 31",
 			"location": [
 				[
 					53.53125956330538,
@@ -832,7 +661,7 @@
 					-1.1078179644715362
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				29,
 				30,
 				32,
@@ -840,10 +669,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 32",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 32",
 			"location": [
 				[
 					53.53116008744527,
@@ -854,16 +680,13 @@
 					-1.1080184334131218
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				31,
 				33
 			]
 		},
 		{
-			"name": "cooridoor 33",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 33",
 			"location": [
 				[
 					53.53116008744527,
@@ -874,7 +697,7 @@
 					-1.1081892912078217
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				31,
 				32,
 				25,
@@ -882,10 +705,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 34",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 34",
 			"location": [
 				[
 					53.530748148999805,
@@ -896,16 +716,13 @@
 					-1.1112598047257904
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				1,
 				38
 			]
 		},
 		{
-			"name": "cooridoor 35",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 35",
 			"location": [
 				[
 					53.530820723689885,
@@ -916,7 +733,7 @@
 					-1.1078864253288714
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				22,
 				23,
 				27,
@@ -924,10 +741,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 36",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 36",
 			"location": [
 				[
 					53.53041501602408,
@@ -938,16 +752,13 @@
 					-1.108040880030842
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				35,
 				37
 			]
 		},
 		{
-			"name": "cooridoor 37",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 37",
 			"location": [
 				[
 					53.530378919632625,
@@ -958,15 +769,12 @@
 					-1.1080149430218
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				36
 			]
 		},
 		{
-			"name": "cooridoor 38",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 38",
 			"location": [
 				[
 					53.53071936301157,
@@ -977,7 +785,7 @@
 					-1.111076466914085
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				1,
 				34,
 				39,
@@ -985,10 +793,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 39",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 39",
 			"location": [
 				[
 					53.53071936301157,
@@ -999,16 +804,13 @@
 					-1.1110965526628718
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				38,
 				40
 			]
 		},
 		{
-			"name": "cooridoor 40",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 40",
 			"location": [
 				[
 					53.530622979926136,
@@ -1019,7 +821,7 @@
 					-1.1111979405818886
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				38,
 				39,
 				41,
@@ -1027,10 +829,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 41",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 41",
 			"location": [
 				[
 					53.5305514012573,
@@ -1041,16 +840,13 @@
 					-1.1116023034899172
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				40,
 				42
 			]
 		},
 		{
-			"name": "cooridoor 42",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 42",
 			"location": [
 				[
 					53.530622979926136,
@@ -1061,7 +857,7 @@
 					-1.1114543994908104
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				41,
 				40,
 				43,
@@ -1069,10 +865,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 43",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 43",
 			"location": [
 				[
 					53.53031877405246,
@@ -1083,16 +876,13 @@
 					-1.1114543994908104
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				42,
 				44
 			]
 		},
 		{
-			"name": "cooridoor 44",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 44",
 			"location": [
 				[
 					53.53040628421115,
@@ -1103,7 +893,7 @@
 					-1.111352921613502
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				42,
 				43,
 				45,
@@ -1111,10 +901,7 @@
 			]
 		},
 		{
-			"name": "cooridoor 45",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 45",
 			"location": [
 				[
 					53.53025573906061,
@@ -1125,17 +912,14 @@
 					-1.111187396197323
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				44,
 				46,
 				47
 			]
 		},
 		{
-			"name": "cooridoor 46",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 46",
 			"location": [
 				[
 					53.53025573906061,
@@ -1146,16 +930,13 @@
 					-1.111327472504854
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				44,
 				45
 			]
 		},
 		{
-			"name": "cooridoor 47",
-			"category": "route",
-			"minZoom": 18,
-			"maxZoom": 100,
+			"name": "corridor 47",
 			"location": [
 				[
 					53.53029529259007,
@@ -1166,7 +947,7 @@
 					-1.1111640689963735
 				]
 			],
-			"neighbors": [
+			"neighbours": [
 				45
 			]
 		}
@@ -1175,12 +956,6 @@
 		{
 			"id": "b0",
 			"name": "Women + Children",
-			"category": "building",
-			"width": 80,
-			"height": 40,
-			"focusZoom": 17,
-			"maxZoom": 17,
-			"minZoom": 1,
 			"location": [
 				53.53024455226753,
 				-1.1126034005113183
@@ -1189,12 +964,6 @@
 		{
 			"id": "b1",
 			"name": "West Block",
-			"category": "building",
-			"width": 80,
-			"height": 40,
-			"focusZoom": 17,
-			"maxZoom": 17,
-			"minZoom": 1,
 			"location": [
 				53.53069179653954,
 				-1.1105351374701513
@@ -1203,12 +972,6 @@
 		{
 			"id": "b2",
 			"name": "South Block",
-			"category": "building",
-			"width": 80,
-			"height": 40,
-			"focusZoom": 17,
-			"maxZoom": 17,
-			"minZoom": 1,
 			"location": [
 				53.53055885767401,
 				-1.1084207985776686
@@ -1217,12 +980,6 @@
 		{
 			"id": "b3",
 			"name": "East Block",
-			"category": "building",
-			"width": 80,
-			"height": 40,
-			"focusZoom": 17,
-			"maxZoom": 17,
-			"minZoom": 1,
 			"location": [
 				53.53115754402981,
 				-1.1075016917824883
@@ -1231,12 +988,6 @@
 		{
 			"id": "b4",
 			"name": "Carousel",
-			"category": "building",
-			"width": 80,
-			"height": 40,
-			"focusZoom": 19,
-			"maxZoom": 100,
-			"minZoom": 17,
 			"location": [
 				53.52967385366341,
 				-1.1120872592508988
@@ -1245,12 +996,6 @@
 		{
 			"id": "b5",
 			"name": "A Block",
-			"category": "building",
-			"width": 80,
-			"height": 40,
-			"focusZoom": 19,
-			"maxZoom": 100,
-			"minZoom": 17,
 			"location": [
 				53.52960223948364,
 				-1.1135195943024314
@@ -1259,12 +1004,6 @@
 		{
 			"id": "b6",
 			"name": "B Block",
-			"category": "building",
-			"width": 80,
-			"height": 40,
-			"focusZoom": 19,
-			"maxZoom": 100,
-			"minZoom": 17,
 			"location": [
 				53.52970020366635,
 				-1.112693291174395
@@ -1273,12 +1012,6 @@
 		{
 			"id": "b7",
 			"name": "C Block",
-			"category": "building",
-			"width": 80,
-			"height": 40,
-			"focusZoom": 19,
-			"maxZoom": 100,
-			"minZoom": 17,
 			"location": [
 				53.52946105272787,
 				-1.113025788083064
@@ -1287,12 +1020,6 @@
 		{
 			"id": "b8",
 			"name": "D Block",
-			"category": "building",
-			"width": 80,
-			"height": 40,
-			"focusZoom": 19,
-			"maxZoom": 100,
-			"minZoom": 17,
 			"location": [
 				53.53008930660272,
 				-1.1139106344718073
@@ -1303,12 +1030,6 @@
 		{
 			"id": "r0",
 			"name": "MRI",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"maxZoom": 100,
-			"minZoom": 18,
 			"location": [
 				53.53036640939672,
 				-1.111265543620732
@@ -1340,11 +1061,6 @@
 			"id": "r1",
 			"name": "fracture clinic",
 			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"maxZoom": 100,
-			"minZoom": 18,
 			"location": [
 				53.53078613726959,
 				-1.1112192728198238
@@ -1375,12 +1091,6 @@
 		{
 			"id": "r2",
 			"name": "X-Ray",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"maxZoom": 100,
-			"minZoom": 18,
 			"location": [
 				53.53036425859261,
 				-1.1099108784393081
@@ -1411,12 +1121,6 @@
 		{
 			"id": "r3",
 			"name": "East Dining Room",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"maxZoom": 100,
-			"minZoom": 18,
 			"location": [
 				53.53142886029542,
 				-1.1068973618855011
@@ -1447,12 +1151,6 @@
 		{
 			"id": "r4",
 			"name": "Eye Clinic",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"maxZoom": 100,
-			"minZoom": 18,
 			"location": [
 				53.53082831322658,
 				-1.109475816718657
@@ -1483,12 +1181,6 @@
 		{
 			"id": "r5",
 			"name": "Silks",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53065695769388,
 				-1.1116248242026074
@@ -1509,12 +1201,6 @@
 		{
 			"id": "r6",
 			"name": "Park Hill",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.530410805531886,
 				-1.111684747303599
@@ -1535,12 +1221,6 @@
 		{
 			"id": "r7",
 			"name": "Chatsfield",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53009502364674,
 				-1.1114021797617966
@@ -1561,12 +1241,6 @@
 		{
 			"id": "r8",
 			"name": "Photography",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53062713320077,
 				-1.1114295293859584
@@ -1587,12 +1261,6 @@
 		{
 			"id": "r9",
 			"name": "Orhotics",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.531130016611115,
 				-1.1108878653139982
@@ -1613,12 +1281,6 @@
 		{
 			"id": "r10",
 			"name": "GU Medicine",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53097137941282,
 				-1.1108079529433326
@@ -1639,12 +1301,6 @@
 		{
 			"id": "r11",
 			"name": "Speech Therapy",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.530721285824995,
 				-1.110913122133212
@@ -1665,12 +1321,6 @@
 		{
 			"id": "r12",
 			"name": "Ultrasound",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.530316247454294,
 				-1.1098679643502862
@@ -1691,12 +1341,6 @@
 		{
 			"id": "r13",
 			"name": "Endoscopy",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53042474387004,
 				-1.109665208092764
@@ -1717,12 +1361,6 @@
 		{
 			"id": "r14",
 			"name": "DDU/CT Suite",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.530328034163034,
 				-1.11045885662179
@@ -1743,12 +1381,6 @@
 		{
 			"id": "r15",
 			"name": "DSA Suite",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53023518318841,
 				-1.1105839753300586
@@ -1769,12 +1401,6 @@
 		{
 			"id": "r16",
 			"name": "Nuclear Medicine",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53010967886712,
 				-1.1105208045966606
@@ -1795,12 +1421,6 @@
 		{
 			"id": "r17",
 			"name": "Library",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53069213449251,
 				-1.1085054139979889
@@ -1821,12 +1441,6 @@
 		{
 			"id": "r18",
 			"name": "Discharge Lounge",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53089408561448,
 				-1.1087900019945778
@@ -1847,12 +1461,6 @@
 		{
 			"id": "r19",
 			"name": "Education Centre",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.530772653422076,
 				-1.1085890955822606
@@ -1873,12 +1481,6 @@
 		{
 			"id": "r20",
 			"name": "General Office",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53140264872661,
 				-1.1080783195389188
@@ -1899,12 +1501,6 @@
 		{
 			"id": "r21",
 			"name": "PALs Office",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53143646479583,
 				-1.1079184974332748
@@ -1925,12 +1521,6 @@
 		{
 			"id": "r22",
 			"name": "Stirling Ward",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53122218745378,
 				-1.1073809681216176
@@ -1951,12 +1541,6 @@
 		{
 			"id": "r23",
 			"name": "Frailty Assement Unit",
-			"category": "room",
-			"width": 15,
-			"height": 20,
-			"focusZoom": 24,
-			"minZoom": 20,
-			"maxZoom": 120,
 			"location": [
 				53.53109260651874,
 				-1.1072914906759195
@@ -1977,12 +1561,6 @@
 		{
 			"id": "r24",
 			"name": "Blood Tests",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53089938144828,
 				-1.1095242163076193
@@ -2003,12 +1581,6 @@
 		{
 			"id": "r25",
 			"name": "Outpatients 1 & 2",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53099044074301,
 				-1.1095923486917343
@@ -2029,12 +1601,6 @@
 		{
 			"id": "r26",
 			"name": "CDU",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.53065783468816,
 				-1.1101111888647495
@@ -2055,12 +1621,6 @@
 		{
 			"id": "r27",
 			"name": "Renal Medicine",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.5311962859445,
 				-1.106246215475494
@@ -2081,12 +1641,6 @@
 		{
 			"id": "r28",
 			"name": "Gresley Unit",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.531037455112994,
 				-1.1061995241464047
@@ -2107,12 +1661,6 @@
 		{
 			"id": "r29",
 			"name": "Childrens Outpatients",
-			"category": "room",
-			"width": 15,
-			"height": 15,
-			"focusZoom": 20,
-			"minZoom": 18,
-			"maxZoom": 100,
 			"location": [
 				53.531243248981326,
 				-1.1065530197825808
