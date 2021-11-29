@@ -1344,7 +1344,7 @@ var MapboxGL = function (_TileMap) {
 
       mapboxgl.accessToken = this.options.key;
       this.map = new mapboxgl.Map({
-        container: this.id,
+        container: this.options.container || this.id,
         style: this.options.style || 'mapbox://styles/mapbox/satellite-streets-v10',
         center: [this.options.lng, this.options.lat],
         zoom: this.options.zoom,

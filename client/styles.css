@@ -5,7 +5,9 @@ body {
 * {
     box-sizing: border-box;
 }
-
+#map {
+    height: 700px;
+}
 .formType1 {
     padding: 10px 10px 15px 20px;
     border: 1px solid rgba(0, 0, 0, 0.637);

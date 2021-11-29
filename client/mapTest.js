@@ -1,6 +1,7 @@
 const key = 'pk.eyJ1Ijoid29yZHlzdW1vIiwiYSI6ImNrdmw4M2tuaDBqMmQyb281YWVrNTd4cjEifQ.K9oZUZYiwAd2sJs2_KTAug';
 // Options for map
 const options = {
+  container: 'map',
   lat: 53.53094965890605,  
   lng: -1.1095832474735168,
   zoom: 16,
