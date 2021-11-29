@@ -167,23 +167,32 @@ function getNodeByName(name) {
   return result;
 }
 function drawNodes(){
+  const entrance_min_zoom = 1;
+  const entrance_max_zoom = 100;
+  const building_min_zoom = 1;
+  const building_max_zoom = 17;
+  const room_min_zoom = 18;
+  const room_max_zoom = 100;
+  const corridor_min_zoom = 18;
+  const corridor_max_zoom = 100;
+
   entrances.forEach(entrance => {
-    if (checkValidZoom(1, 100)) {
+    if (checkValidZoom(entrance_min_zoom, entrance_max_zoom)) {
       drawEntrances(entrance);
     }
   })
   buildings.forEach(building => {
-      if (checkValidZoom(1, 17)) {
+      if (checkValidZoom(building_min_zoom, building_max_zoom)) {
         drawBuildings(building);
       }
     })
   rooms.forEach(room => {
-    if (checkValidZoom(18, 100)) {
+    if (checkValidZoom(room_min_zoom, room_max_zoom)) {
       drawRooms(room);
     }
   })
   corridors.forEach(corridor => {
-    if (checkValidZoom(18, 100)) {
+    if (checkValidZoom(corridor_min_zoom, corridor_max_zoom)) {
       drawRoute(corridor);
     }
   })
@@ -394,14 +403,24 @@ function zoomOnLocation(location, focusZoom) {
 }
 // checks location of mouse click to see if a location node was clicked and then calls zoomOnLocation on this node
 function checkMouseClickForLocation(mouseX,mouseY) {
+  const room_width = 15;
+  const room_height = 15;
+  const room_focus = 20;
+  const building_width = 80;
+  const building_height = 40;
+  const building_focus = 17;
+  const entrances_width = 10;
+  const entrances_height = 10;
+  const entrances_focus = 20;
+
   rooms.forEach((location) => {
-     setZoomAndPopup(mouseX, mouseY, location, 15, 15, 20)
+     setZoomAndPopup(mouseX, mouseY, location, room_width, room_height, room_focus)
     })
   buildings.forEach((location) => {
-    setZoomAndPopup(mouseX, mouseY, location, 80, 40, 17)
+    setZoomAndPopup(mouseX, mouseY, location, building_width, building_height, building_focus)
   })
   entrances.forEach((location) => {
-    setZoomAndPopup(mouseX, mouseY, location, 10, 10, 20)
+    setZoomAndPopup(mouseX, mouseY, location, entrances_width, entrances_height, entrances_focus)
   })
   return false;
 }
