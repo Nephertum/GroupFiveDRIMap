@@ -1,39 +1,39 @@
 {
-    "Women's and Childen's Hosipital":[
+    "Women's and Children's Hospital":[
             {
                 "id":"01" ,
                 "name":"Reception Desk-Admissons" ,
-                "level":"Group Floor(Level 2)"
+                "level":"Ground Floor (Level 2)"
 
             },
             {
                 "id":"02" ,
                 "name":"Ante-Natal Clinic" ,
-                "level":"Group Floor(Level 2)"
+                "level":"Ground Floor (Level 2)"
 
             },
             {
                 "id":"03" ,
                 "name":"Discharges" ,
-                "level":"Group Floor(Level 2)"
+                "level":"Ground Floor (Level 2)"
 
             },
             {
                 "id":"04" ,
                 "name":"Gynaecology OPD" ,
-                "level":"Group Floor(Level 2)"
+                "level":"Ground Floor (Level 2)"
 
             },
             {
                 "id":"05" ,
                 "name":"Pre-Op Assesment" ,
-                "level":"Group Floor(Level 2)"
+                "level":"Ground Floor (Level 2)"
 
             },
             {
                 "id":"06" ,
                 "name":"Scan Department" ,
-                "level":"Group Floor(Level 2)"
+                "level":"Ground Floor (Level 2)"
 
             },
             {
@@ -107,37 +107,37 @@
         {
             "id":"18" ,
             "name":"Fracture Clinic" ,
-            "level":"Group Floor(Level 2)"
+            "level":"Ground Floor (Level 2)"
 
         },
         {
             "id":"19" ,
             "name":"Speech Therapy" ,
-            "level":"Group Floor(Level 2)"
+            "level":"Ground Floor (Level 2)"
 
         },
         {
             "id":"20" ,
             "name":"GU Medicine" ,
-            "level":"Group Floor(Level 2)"
+            "level":"Ground Floor (Level 2)"
 
         },
         {
             "id":"21" ,
             "name":"Orthotics" ,
-            "level":"Group Floor(Level 2)"
+            "level":"Ground Floor (Level 2)"
 
         },
         {
             "id":"22" ,
             "name":"Hydrotherapy" ,
-            "level":"Group Floor(Level 2)"
+            "level":"Ground Floor (Level 2)"
 
         },
         {
             "id":"23" ,
             "name":"Photography/Communications" ,
-            "level":"Group Floor(Level 2)"
+            "level":"Ground Floor (Level 2)"
 
         },
         {
@@ -223,7 +223,7 @@
         {
             "id":"37" ,
             "name":"Jasmine Centre" ,
-            "level":"Group Floor(Level 2)"
+            "level":"Ground Floor(Level 2)"
 
         },
         {
@@ -241,7 +241,7 @@
         {
             "id":"40" ,
             "name":"Department of Head and Neck Surgery S12" ,
-            "level":"Level 5:"
+            "level":"Level 5"
 
         }
         
@@ -281,7 +281,7 @@
         {
             "id":"46" ,
             "name":"Ward 17" ,
-            "level":"Level 4:"
+            "level":"Level 4"
 
         },
         
@@ -300,7 +300,7 @@
         {
             "id":"49" ,
             "name":"Ward 20/21" ,
-            "level":"Level 6:"
+            "level":"Level 6"
 
         },
 
@@ -320,13 +320,13 @@
         {
             "id":"52" ,
             "name":"Ward 24/25" ,
-            "level":"Level 8:"
+            "level":"Level 8"
 
         },
         {
             "id":"53" ,
             "name":"Ward 26/27" ,
-            "level":"Level 9:"
+            "level":"Level 9"
 
         }
         
