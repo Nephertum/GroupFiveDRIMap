@@ -1,0 +1,337 @@
+{
+    "Women's and Childen's Hosipital":[
+            {
+                "id":"01" ,
+                "name":"Reception Desk-Admissons" ,
+                "level":"Group Floor(Level 2)"
+
+            },
+            {
+                "id":"02" ,
+                "name":"Ante-Natal Clinic" ,
+                "level":"Group Floor(Level 2)"
+
+            },
+            {
+                "id":"03" ,
+                "name":"Discharges" ,
+                "level":"Group Floor(Level 2)"
+
+            },
+            {
+                "id":"04" ,
+                "name":"Gynaecology OPD" ,
+                "level":"Group Floor(Level 2)"
+
+            },
+            {
+                "id":"05" ,
+                "name":"Pre-Op Assesment" ,
+                "level":"Group Floor(Level 2)"
+
+            },
+            {
+                "id":"06" ,
+                "name":"Scan Department" ,
+                "level":"Group Floor(Level 2)"
+
+            },
+            {
+                "id":"07" ,
+                "name":"Maternity Wards 1 & 2" ,
+                "level":"Level 3"
+
+            },
+            {
+                "id":"08" ,
+                "name":"Ante-Natal Assessment Unit/Triage" ,
+                "level":"Level 3"
+
+            },
+            {
+                "id":"09" ,
+                "name":"Children’s Ward" ,
+                "level":"Level 4"
+
+            },
+            {
+                "id":"10" ,
+                "name":"Children’s Observation Unit" ,
+                "level":"Level 4"
+
+            },
+            {
+                "id":"11" ,
+                "name":"Hospital Schoo" ,
+                "level":"Level 4"
+
+            },
+            {
+                "id":"12" ,
+                "name":"Gynaecology Ward" ,
+                "level":"Level 5"
+
+            },
+            {
+                "id":"13" ,
+                "name":"EPAU (Early Pregnancy Assessment)" ,
+                "level":"Level 5"
+
+            },
+            {
+                "id":"14" ,
+                "name":"Women’s Maternity & GUM CSU" ,
+                "level":"Level 5"
+
+            },
+            {
+                "id":"15" ,
+                "name":"Children’s (Hospital & Community) CSU" ,
+                "level":"Level 5"
+
+            },
+            {
+                "id":"16" ,
+                "name":"NNU (Neo-Natal Unit)" ,
+                "level":"Level 6"
+
+            },
+            {
+                "id":"17" ,
+                "name":"CDS (Central Delivery Suite)" ,
+                "level":"Level 6"
+
+            }
+    ],
+    "West Block":[
+        {
+            "id":"18" ,
+            "name":"Fracture Clinic" ,
+            "level":"Group Floor(Level 2)"
+
+        },
+        {
+            "id":"19" ,
+            "name":"Speech Therapy" ,
+            "level":"Group Floor(Level 2)"
+
+        },
+        {
+            "id":"20" ,
+            "name":"GU Medicine" ,
+            "level":"Group Floor(Level 2)"
+
+        },
+        {
+            "id":"21" ,
+            "name":"Orthotics" ,
+            "level":"Group Floor(Level 2)"
+
+        },
+        {
+            "id":"22" ,
+            "name":"Hydrotherapy" ,
+            "level":"Group Floor(Level 2)"
+
+        },
+        {
+            "id":"23" ,
+            "name":"Photography/Communications" ,
+            "level":"Group Floor(Level 2)"
+
+        },
+        {
+            "id":"24" ,
+            "name":"Dermatology Outpatients" ,
+            "level":"Level 3"
+
+        },
+        {
+            "id":"25" ,
+            "name":"Lincoln Suite" ,
+            "level":"Level 3"
+
+        },{
+            "id":"26" ,
+            "name":"Physiotherapy" ,
+            "level":"Level 3"
+
+        },
+        {
+            "id":"27" ,
+            "name":"Rehabiliatation" ,
+            "level":"Level 3"
+
+        },{
+            "id":"28" ,
+            "name":"Wards 1 &3" ,
+            "level":"Level 3"
+
+        },
+        {
+            "id":"29" ,
+            "name":"Diabetes & Endocrine Centre/ Diabetes Eye Camera" ,
+            "level":"Level 4"
+
+        },
+        {
+            "id":"30" ,
+            "name":"Admissions Unit" ,
+            "level":"Level 4"
+
+        },
+        {
+            "id":"31" ,
+            "name":"Ward 6" ,
+            "level":"Level 4"
+
+        },
+        {
+            "id":"32" ,
+            "name":"St Leger" ,
+            "level":"Level 5"
+
+        },
+        {
+            "id":"33" ,
+            "name":"Wards 7 - 8 - 9" ,
+            "level":"Level 5"
+
+        }
+
+
+    ],
+    "South Block":[
+        {
+            "id":"34" ,
+            "name":"Cardio Respiratory" ,
+            "level":"Level 1"
+
+        },
+        {
+            "id":"35" ,
+            "name":"South Block OPD" ,
+            "level":"Level 1"
+
+        },
+        {
+            "id":"36" ,
+            "name":"Chapel" ,
+            "level":"Level 1"
+
+        },
+        {
+            "id":"37" ,
+            "name":"Jasmine Centre" ,
+            "level":"Group Floor(Level 2)"
+
+        },
+        {
+            "id":"38" ,
+            "name":"Ward S10 Urology" ,
+            "level":"Level 3"
+
+        },
+        {
+            "id":"39" ,
+            "name":"Ward S11 Vascular" ,
+            "level":"Level 4"
+
+        },
+        {
+            "id":"40" ,
+            "name":"Department of Head and Neck Surgery S12" ,
+            "level":"Level 5:"
+
+        }
+        
+    ],
+    "East Block":[
+        {
+            "id":"41" ,
+            "name":"Main Entrance: Shops, Enquiries, Telephone, Cash Point" ,
+            "level":"Ground Floor (Level 2)"
+
+        },
+        {
+            "id":"42" ,
+            "name":"Stirling Ward" ,
+            "level":"Ground Floor (Level 2)"
+
+        },
+        {
+            "id":"43" ,
+            "name":"Frailty Assement Unit" ,
+            "level":"Ground Floor (Level 2)"
+
+        },
+
+        {
+            "id":"44" ,
+            "name":"Acute Medical Unit" ,
+            "level":"Level 3"
+
+        },
+        {
+            "id":"45" ,
+            "name":"Ward 16 - Stroke Unit" ,
+            "level":"Level 4"
+
+        },
+        {
+            "id":"46" ,
+            "name":"Ward 17" ,
+            "level":"Level 4:"
+
+        },
+        
+        {
+            "id":"47" ,
+            "name":"Ward 18 - Coronary Care Unit/Haematology" ,
+            "level":"Level 5"
+
+        },
+        {
+            "id":"48" ,
+            "name":"Ward 19" ,
+            "level":"Level 5"
+
+        },
+        {
+            "id":"49" ,
+            "name":"Ward 20/21" ,
+            "level":"Level 6:"
+
+        },
+
+                
+        {
+            "id":"50" ,
+            "name":"Ward 22" ,
+            "level":"Level 7"
+
+        },
+        {
+            "id":"51" ,
+            "name":"Ward 23 - Department of Critical Care" ,
+            "level":"Level 7"
+
+        },
+        {
+            "id":"52" ,
+            "name":"Ward 24/25" ,
+            "level":"Level 8:"
+
+        },
+        {
+            "id":"53" ,
+            "name":"Ward 26/27" ,
+            "level":"Level 9:"
+
+        }
+        
+    ]
+
+
+
+}
