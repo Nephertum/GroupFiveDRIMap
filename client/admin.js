@@ -198,7 +198,10 @@ document.getElementById("map").addEventListener("click", function(){
     navigator.clipboard.writeText(copyText);
   }
 
-document.getElementById("adminMode").addEventListener("click", adminMode())
+document.getElementById("adminMode").addEventListener("click", function(){
+    console.log("admin mode!");
+    adminMode();
+})
 
 function adminMode(){
     document.getElementById("adminTabs").style.display = "inline";
