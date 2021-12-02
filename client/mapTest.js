@@ -621,3 +621,46 @@ function printPath(currentVertex,parents)
 
 // This code is contributed by rag2127.
 
+
+// Rooms list
+fetch('http://127.0.0.1:8090/rooms')
+.then(response => response.json())
+.then(function(body){
+    body.forEach(room => {
+  let namesList;
+  if (room.building === "Women's and Children's Hospital"){
+    namesList = document.getElementById("wch")
+  }
+  if (room.building === "West Block"){
+    namesList = document.getElementById("wb")
+  }
+  if (room.building === "South Block"){
+    namesList = document.getElementById("sb")
+  }
+  if (room.building === "East Block"){
+    namesList = document.getElementById("eb")
+  }
+  namesList.innerHTML += '<p>'+ room.name + '</p><br>'
+    })
+})
+
+fetch('http://127.0.0.1:8090/unmarkedRooms')
+.then(response => response.json())
+.then(function(body){
+    body.forEach(room => {
+        let namesList;
+  if (room.building === "Women's and Children's Hospital"){
+    namesList = document.getElementById("wch")
+  }
+  if (room.building === "West Block"){
+    namesList = document.getElementById("wb")
+  }
+  if (room.building === "South Block"){
+    namesList = document.getElementById("sb")
+  }
+  if (room.building === "East Block"){
+    namesList = document.getElementById("eb")
+  }
+  namesList.innerHTML += '<p>'+ room.name + '</p><br>' 
+    })
+})
