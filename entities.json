@@ -1063,7 +1063,7 @@
 			"id": "r1",
 			"name": "Fracture Clinic",
 			"building": "West Block",
-			"level": "Ground Floor (Level 2)",
+			"level": "2",
 			"location": [
 				53.53078613726959,
 				-1.1112192728198238
@@ -1257,7 +1257,7 @@
 			"id": "r8",
 			"name": "Photography",
 			"building": "West Block",
-			"level": "Ground Floor (Level 2)",
+			"level": "2",
 			"location": [
 				53.53062713320077,
 				-1.1114295293859584
@@ -1279,7 +1279,7 @@
 			"id": "r9",
 			"name": "Orthotics",
 			"building": "West Block",
-			"level": "Ground Floor (Level 2)",
+			"level": "2",
 			"location": [
 				53.531130016611115,
 				-1.1108878653139982
@@ -1301,7 +1301,7 @@
 			"id": "r10",
 			"name": "GU Medicine",
 			"building": "West Block",
-			"level": "Ground Floor (Level 2)",
+			"level": "2",
 			"location": [
 				53.53097137941282,
 				-1.1108079529433326
@@ -1323,7 +1323,7 @@
 			"id": "r11",
 			"name": "Speech Therapy",
 			"building": "West Block",
-			"level": "Ground Floor (Level 2)",
+			"level": "2",
 			"location": [
 				53.530721285824995,
 				-1.110913122133212
@@ -1543,7 +1543,7 @@
 			"id": "r21",
 			"name": "PALs Office",
 			"building": "East Block",
-			"level": "Ground Floor (Level 2)",
+			"level": "2",
 			"location": [
 				53.53143646479583,
 				-1.1079184974332748
@@ -1565,7 +1565,7 @@
 			"id": "r22",
 			"name": "Stirling Ward",
 			"building": "East Block",
-			"level": "Ground Floor (Level 2)",
+			"level": "2",
 			"location": [
 				53.53122218745378,
 				-1.1073809681216176
@@ -1587,7 +1587,7 @@
 			"id": "r23",
 			"name": "Frailty Assement Unit",
 			"building": "East Block",
-			"level": "Ground Floor (Level 2)",
+			"level": "2",
 			"location": [
 				53.53109260651874,
 				-1.1072914906759195
@@ -1609,7 +1609,7 @@
 			"id": "r24",
 			"name": "Blood Tests",
 			"building": "West Block",
-			"level": "Ground Floor (Level 2)",
+			"level": "2",
 			"location": [
 				53.53089938144828,
 				-1.1095242163076193
@@ -1719,7 +1719,7 @@
 			"id": "r29",
 			"name": "Childrens Outpatients",
 			"building": "East Block",
-			"level": "Ground Floor (Level 2)",
+			"level": "2",
 			"location": [
 				53.531243248981326,
 				-1.1065530197825808
@@ -1742,119 +1742,119 @@
 		"id":"u1" ,
 		"name":"Reception Desk-Admissons" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Ground Floor (Level 2)"
+		"level":"2"
 
 	},
 	{
 		"id":"u2" ,
 		"name":"Ante-Natal Clinic" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Ground Floor (Level 2)"
+		"level":"2"
 
 	},
 	{
 		"id":"u3" ,
 		"name":"Discharges" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Ground Floor (Level 2)"
+		"level":"2"
 
 	},
 	{
 		"id":"u4" ,
 		"name":"Gynaecology OPD" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Ground Floor (Level 2)"
+		"level":"2"
 
 	},
 	{
 		"id":"u5" ,
 		"name":"Pre-Op Assesment" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Ground Floor (Level 2)"
+		"level":"2"
 
 	},
 	{
 		"id":"u6" ,
 		"name":"Scan Department" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Ground Floor (Level 2)"
+		"level":"2"
 
 	},
 	{
 		"id":"u7" ,
 		"name":"Maternity Wards 1 & 2" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Level 3"
+		"level":"3"
 
 	},
 	{
 		"id":"u8" ,
 		"name":"Ante-Natal Assessment Unit/Triage" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Level 3"
+		"level":"3"
 
 	},
 	{
 		"id":"u9" ,
 		"name":"Children’s Ward" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Level 4"
+		"level":"4"
 
 	},
 	{
 		"id":"u10" ,
 		"name":"Children’s Observation Unit" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Level 4"
+		"level":"4"
 
 	},
 	{
 		"id":"u11" ,
 		"name":"Hospital School" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Level 4"
+		"level":"4"
 
 	},
 	{
 		"id":"u12" ,
 		"name":"Gynaecology Ward" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Level 5"
+		"level":"5"
 
 	},
 	{
 		"id":"u13" ,
 		"name":"EPAU (Early Pregnancy Assessment)" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Level 5"
+		"level":"5"
 
 	},
 	{
 		"id":"u14" ,
 		"name":"Women’s Maternity & GUM CSU" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Level 5"
+		"level":"5"
 
 	},
 	{
 		"id":"u15" ,
 		"name":"Children’s (Hospital & Community) CSU" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Level 5"
+		"level":"5"
 
 	},
 	{
 		"id":"u16" ,
 		"name":"NNU (Neo-Natal Unit)" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Level 6"
+		"level":"6"
 
 	},
 	{
 		"id":"u17" ,
 		"name":"CDS (Central Delivery Suite)" ,
 		"building":"Women's and Children's Hospital" ,
-		"level":"Level 6"
+		"level":"6"
 
 	},
 
@@ -1862,159 +1862,159 @@
 	"id":"u18" ,
 	"name":"Hydrotherapy" ,
 	"building":"West Block" ,
-	"level":"Ground Floor (Level 2)"
+	"level":"2"
 
 },
 {
 	"id":"u19" ,
 	"name":"Photography/Communications" ,
 	"building":"West Block" ,
-	"level":"Ground Floor (Level 2)"
+	"level":"2"
 
 },
 {
 	"id":"u20" ,
 	"name":"Dermatology Outpatients" ,
 	"building":"West Block" ,
-	"level":"Level 3"
+	"level":"3"
 
 },
 {
 	"id":"u21" ,
 	"name":"Lincoln Suite" ,
 	"building":"West Block" ,
-	"level":"Level 3"
+	"level":"3"
 
 },{
 	"id":"u22" ,
 	"name":"Physiotherapy" ,
 	"building":"West Block" ,
-	"level":"Level 3"
+	"level":"3"
 
 },
 {
 	"id":"u23" ,
 	"name":"Rehabiliatation" ,
 	"building":"West Block" ,
-	"level":"Level 3"
+	"level":"3"
 
 },{
 	"id":"u24" ,
 	"name":"Wards 1 &3" ,
 	"building":"West Block" ,
-	"level":"Level 3"
+	"level":"3"
 
 },
 {
 	"id":"u25" ,
 	"name":"Diabetes & Endocrine Centre/ Diabetes Eye Camera" ,
 	"building":"West Block" ,
-	"level":"Level 4"
+	"level":"4"
 
 },
 {
 	"id":"u26" ,
 	"name":"Admissions Unit" ,
 	"building":"West Block" ,
-	"level":"Level 4"
+	"level":"4"
 
 },
 {
 	"id":"u27" ,
 	"name":"Ward 6" ,
 	"building":"West Block" ,
-	"level":"Level 4"
+	"level":"4"
 
 },
 {
 	"id":"u28" ,
 	"name":"St Leger" ,
 	"building":"West Block" ,
-	"level":"Level 5"
+	"level":"5"
 
 },
 {
 	"id":"u29" ,
 	"name":"Wards 7 - 8 - 9" ,
 	"building":"West Block" ,
-	"level":"Level 5"
+	"level":"5"
 
 },
 {
 	"id":"u30" ,
 	"name":"Cardio Respiratory" ,
 	"building":"South Block" ,
-	"level":"Level 1"
+	"level":"1"
 
 },
 {
 	"id":"u31" ,
 	"name":"South Block OPD" ,
 	"building":"South Block" ,
-	"level":"Level 1"
+	"level":"1"
 
 },
 {
 	"id":"u32" ,
 	"name":"Chapel" ,
 	"building":"South Block" ,
-	"level":"Level 1"
+	"level":"1"
 
 },
 {
 	"id":"u33" ,
 	"name":"Jasmine Centre" ,
 	"building":"South Block" ,
-	"level":"Ground Floor(Level 2)"
+	"level":"2"
 
 },
 {
 	"id":"u34" ,
 	"name":"Ward S10 Urology" ,
 	"building":"South Block" ,
-	"level":"Level 3"
+	"level":"3"
 
 },
 {
 	"id":"u35" ,
 	"name":"Ward S11 Vascular" ,
 	"building":"South Block" ,
-	"level":"Level 4"
+	"level":"4"
 
 },
 {
 	"id":"u36" ,
 	"name":"Department of Head and Neck Surgery S12" ,
 	"building":"South Block" ,
-	"level":"Level 5"
+	"level":"5"
 
 },
 {
 	"id":"u37" ,
 	"name":"Main Entrance: Shops, Enquiries, Telephone, Cash Point" ,
 	"building":"East Block" ,
-	"level":"Ground Floor (Level 2)"
+	"level":"2"
 
 },
 {
 	"id":"u38" ,
 	"name":"Acute Medical Unit" ,
 	"building":"East Block" ,
-	"level":"Level 3"
+	"level":"3"
 
 },
 {
 	"id":"u39" ,
 	"name":"Ward 16 - Stroke Unit" ,
 	"building":"East Block" ,
-	"level":"Level 4"
+	"level":"4"
 
 },
 {
 	"id":"u40" ,
 	"name":"Ward 17" ,
 	"building":"East Block" ,
-	"level":"Level 4"
+	"level":"4"
 
 },
 
@@ -2022,21 +2022,21 @@
 	"id":"u41" ,
 	"name":"Ward 18 - Coronary Care Unit/Haematology" ,
 	"building":"East Block" ,
-	"level":"Level 5"
+	"level":"5"
 
 },
 {
 	"id":"u42" ,
 	"name":"Ward 19" ,
 	"building":"East Block" ,
-	"level":"Level 5"
+	"level":"5"
 
 },
 {
 	"id":"u43" ,
 	"name":"Ward 20/21" ,
 	"building":"East Block" ,
-	"level":"Level 6"
+	"level":"6"
 
 },
 
@@ -2045,28 +2045,28 @@
 	"id":"u44" ,
 	"name":"Ward 22" ,
 	"building":"East Block" ,
-	"level":"Level 7"
+	"level":"7"
 
 },
 {
 	"id":"u45" ,
 	"name":"Ward 23 - Department of Critical Care" ,
 	"building":"East Block" ,
-	"level":"Level 7"
+	"level":"7"
 
 },
 {
 	"id":"u46" ,
 	"name":"Ward 24/25" ,
 	"building":"East Block" ,
-	"level":"Level 8"
+	"level":"8"
 
 },
 {
 	"id":"u47" ,
 	"name":"Ward 26/27" ,
 	"building":"East Block" ,
-	"level":"Level 9"
+	"level":"9"
 
 }
 
