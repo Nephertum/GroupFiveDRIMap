@@ -641,6 +641,7 @@ fetch('http://127.0.0.1:8090/rooms')
     namesList = document.getElementById("eb")
   }
   namesList.innerHTML += '<p>'+ room.name + '</p><br>'
+	    // On click, zoom/popup on room
     })
 })
 
