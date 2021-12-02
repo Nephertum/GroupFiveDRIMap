@@ -626,50 +626,68 @@ function printPath(currentVertex,parents)
 fetch('http://127.0.0.1:8090/rooms')
 .then(response => response.json())
 .then(function(body){
+  let block;
+  let div;
+  const room_width = 15;
+  const room_height = 15;
+  const room_focus = 20;
     body.forEach(room => {
-  let namesList;
   if (room.building === "Women's and Children's Hospital"){
-    namesList = document.getElementById("wch")
+    block = "wch";
   }
   else if (room.building === "West Block"){
-    namesList = document.getElementById("wb")
+    block = "wb";
   }
   else if (room.building === "South Block"){
-    namesList = document.getElementById("sb")
+    block = "sb";
   }
   else if (room.building === "East Block"){
-    namesList = document.getElementById("eb")
+    block = "eb";
   }
   else{
     return;
   }
-  // On click, zoom/popup on room
-  // Need to subsection into room levels
-  namesList.innerHTML += '<p>'+ room.name + '</p><br>'
+  if (!isNaN(room.level)){
+    div = document.getElementById(block.concat(room.level))
+    div.innerHTML += '<a id="'+ room.id + '">'+ room.name + '</a><br>'
+    document.getElementById(room.id).addEventListener("click", function(){
+      zoomOnLocation(room, room_focus);
+      placePopup(room, room_width, room_height);
+    })
+  }
+  else{
+    return;
+  }
     })
 })
 
 fetch('http://127.0.0.1:8090/unmarkedRooms')
 .then(response => response.json())
 .then(function(body){
+  let block;
+  let div;
     body.forEach(room => {
-        let namesList;
   if (room.building === "Women's and Children's Hospital"){
-    namesList = document.getElementById("wch")
+    block = "wch";
   }
   else if (room.building === "West Block"){
-    namesList = document.getElementById("wb")
+    block = "wb";
   }
   else if (room.building === "South Block"){
-    namesList = document.getElementById("sb")
+    block = "sb";
   }
   else if (room.building === "East Block"){
-    namesList = document.getElementById("eb")
+    block = "eb";
   }
   else{
     return;
   }
-  // Need to subsection into room levels
-  namesList.innerHTML += '<p>'+ room.name + '</p><br>' 
+  if (!isNaN(room.level)){
+    div = document.getElementById(block.concat(room.level))
+    div.innerHTML += '<a>'+ room.name + '</a><br>'
+  }
+  else{
+    return;
+  }
     })
 })
