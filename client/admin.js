@@ -200,12 +200,10 @@ document.getElementById("adminMode").addEventListener("click", function(){
     document.getElementById("adminTabs").style.display = "inline";
     document.getElementById("adminMode").style.display = "none";
     document.getElementById("exitAdminMode").style.display = "inline";
-    document.getElementById("mapContainer").style.zoom = "70%";
 })
 
 document.getElementById("exitAdminMode").addEventListener("click", function(){
     document.getElementById("adminTabs").style.display = "none";
     document.getElementById("exitAdminMode").style.display = "none";
     document.getElementById("adminMode").style.display = "inline";
-    document.getElementById("mapContainer").style.zoom = "";
 })
