@@ -631,17 +631,21 @@ fetch('http://127.0.0.1:8090/rooms')
   if (room.building === "Women's and Children's Hospital"){
     namesList = document.getElementById("wch")
   }
-  if (room.building === "West Block"){
+  else if (room.building === "West Block"){
     namesList = document.getElementById("wb")
   }
-  if (room.building === "South Block"){
+  else if (room.building === "South Block"){
     namesList = document.getElementById("sb")
   }
-  if (room.building === "East Block"){
+  else if (room.building === "East Block"){
     namesList = document.getElementById("eb")
   }
+  else{
+    return;
+  }
+  // On click, zoom/popup on room
+  // Need to subsection into room levels
   namesList.innerHTML += '<p>'+ room.name + '</p><br>'
-	    // On click, zoom/popup on room
     })
 })
 
@@ -653,15 +657,19 @@ fetch('http://127.0.0.1:8090/unmarkedRooms')
   if (room.building === "Women's and Children's Hospital"){
     namesList = document.getElementById("wch")
   }
-  if (room.building === "West Block"){
+  else if (room.building === "West Block"){
     namesList = document.getElementById("wb")
   }
-  if (room.building === "South Block"){
+  else if (room.building === "South Block"){
     namesList = document.getElementById("sb")
   }
-  if (room.building === "East Block"){
+  else if (room.building === "East Block"){
     namesList = document.getElementById("eb")
   }
+  else{
+    return;
+  }
+  // Need to subsection into room levels
   namesList.innerHTML += '<p>'+ room.name + '</p><br>' 
     })
 })
