@@ -97,6 +97,7 @@ const addPlace = () => {
     .then(response => {
         if (response.ok) {
             document.location.reload();
+            adminMode();
             showModal();
         }
     })
@@ -171,6 +172,7 @@ const editPlace = () => {
     .then(response => {
         if (response.ok) {
             document.location.reload();
+            adminMode()
             showModal();
         }
     })
@@ -196,11 +198,13 @@ document.getElementById("map").addEventListener("click", function(){
     navigator.clipboard.writeText(copyText);
   }
 
-document.getElementById("adminMode").addEventListener("click", function(){
+document.getElementById("adminMode").addEventListener("click", adminMode())
+
+function adminMode(){
     document.getElementById("adminTabs").style.display = "inline";
     document.getElementById("adminMode").style.display = "none";
     document.getElementById("exitAdminMode").style.display = "inline";
-})
+}
 
 document.getElementById("exitAdminMode").addEventListener("click", function(){
     document.getElementById("adminTabs").style.display = "none";
