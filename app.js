@@ -16,6 +16,7 @@ let entrances = entities.entrances;
 let corridorIndex =  entities.corridorIndex;
 let buildings = entities.buildings;
 let rooms = entities.rooms;
+let unmarkedRooms = entities.unmarkedRooms;
 let archive = entities.archive;
 
 let placesForSearch = [rooms, buildings, archive];
@@ -76,6 +77,10 @@ app.get('/buildings', function (req, resp) {
 
 app.get('/corridors', function (req, resp) {
     resp.json(corridorIndex);
+});
+
+app.get('/unmarkedRooms', function (req, resp) {
+    resp.json(unmarkedRooms);
 });
 
 /*app.get('/entities', function (req, resp) {
