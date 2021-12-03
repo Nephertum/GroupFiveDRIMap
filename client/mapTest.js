@@ -621,3 +621,73 @@ function printPath(currentVertex,parents)
 
 // This code is contributed by rag2127.
 
+
+// Rooms list
+fetch('http://127.0.0.1:8090/rooms')
+.then(response => response.json())
+.then(function(body){
+  let block;
+  let div;
+  const room_width = 15;
+  const room_height = 15;
+  const room_focus = 20;
+    body.forEach(room => {
+  if (room.building === "Women's and Children's Hospital"){
+    block = "wch";
+  }
+  else if (room.building === "West Block"){
+    block = "wb";
+  }
+  else if (room.building === "South Block"){
+    block = "sb";
+  }
+  else if (room.building === "East Block"){
+    block = "eb";
+  }
+  else{
+    return;
+  }
+  if (!isNaN(room.level)){
+    div = document.getElementById(block.concat(room.level))
+    div.innerHTML += '<a id="'+ room.id + '">'+ room.name + '</a><br>'
+    document.getElementById(room.id).addEventListener("click", function(){
+      zoomOnLocation(room, room_focus);
+      placePopup(room, room_width, room_height);
+    })
+  }
+  else{
+    return;
+  }
+    })
+})
+
+fetch('http://127.0.0.1:8090/unmarkedRooms')
+.then(response => response.json())
+.then(function(body){
+  let block;
+  let div;
+    body.forEach(room => {
+  if (room.building === "Women's and Children's Hospital"){
+    block = "wch";
+  }
+  else if (room.building === "West Block"){
+    block = "wb";
+  }
+  else if (room.building === "South Block"){
+    block = "sb";
+  }
+  else if (room.building === "East Block"){
+    block = "eb";
+  }
+  else{
+    return;
+  }
+  if (!isNaN(room.level)){
+    div = document.getElementById(block.concat(room.level))
+    div.innerHTML += '<a>'+ room.name + '</a><br>'
+  }
+  else{
+    return;
+  }
+    })
+})

@@ -107,3 +107,31 @@ input[type=text] {
     margin: 5px;
     width: 100%;
 }
+
+#wch{
+    background-color: rgba(76, 197, 96, 0.664);
+    border-radius: 25px;
+    padding: 15px;
+    zoom: 60%;
+}
+
+#wb{
+    background-color: rgba(220, 144, 223, 0.548);
+    border-radius: 25px;
+    padding: 15px;
+    zoom: 60%;
+}
+
+#sb{
+    background-color: rgba(85, 190, 194, 0.692);
+    border-radius: 25px;
+    padding: 15px;
+    zoom: 60%;
+}
+
+#eb{
+    background-color: rgba(233, 132, 203, 0.582);
+    border-radius: 25px;
+    padding: 15px;
+    zoom: 60%;
+}
