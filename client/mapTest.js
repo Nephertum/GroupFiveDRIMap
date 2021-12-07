@@ -649,11 +649,21 @@ fetch('http://127.0.0.1:8090/rooms')
   }
   if (!isNaN(room.level)){
     div = document.getElementById(block.concat(room.level))
-    div.innerHTML += '<a id="'+ room.id + '">'+ room.name + '</a><br>'
-    document.getElementById(room.id).addEventListener("click", function(){
+    let newItem;
+    newItem = document.createElement("BUTTON");
+    newItem.classList.add("room-link");
+    newItem.id = room.id;
+    newItem.innerHTML = room.name;
+    newItem.addEventListener("click", function(){
       zoomOnLocation(room, room_focus);
       placePopup(room, room_width, room_height);
-    })
+    });
+    div.appendChild(newItem);
+    
+    newItem = document.createElement("br");
+    div.appendChild(newItem);
+
+    console.log(document.getElementById(room.id));
   }
   else{
     return;
