@@ -230,6 +230,7 @@ var TileMap = function () {
         }
         _this2.mappaDiv.setAttribute('style', 'width:' + canvas.width + 'px;height:' + canvas.height + 'px;');
         _this2.mappaDiv.setAttribute('id', _this2.id);
+        _this2.mappaDiv.setAttribute('class', 'canvasContainer');
         _this2.createMap();
         if (typeof callback === 'function') {
           callback();

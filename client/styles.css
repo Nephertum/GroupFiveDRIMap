@@ -24,7 +24,9 @@ body {
 #navigationInput {
     top: 300px;
 }
-
+.canvasContainer {
+    display: none;
+}
 .formType2 {
     padding: 10px;
     border: 1px solid black;
