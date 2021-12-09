@@ -198,6 +198,13 @@ document.getElementById("map").addEventListener("click", function(){
     navigator.clipboard.writeText(copyText);
   }
 
+
+  function fillLocationInput(id) {
+    var coordinates = document.getElementById(id).innerHTML;
+    var locationInput = document.getElementById("newLocation");
+    locationInput.value = coordinates;
+  }
+
 document.getElementById("adminMode").addEventListener("click", function(){
     console.log("admin mode!");
     adminMode();
