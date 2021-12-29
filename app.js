@@ -289,7 +289,8 @@ app.get('/entities/search/:word', function (req, resp) {
 });
 app.post('/info', (req, resp) => {
     console.log("ahh")
-    resp.send("rooms are cool")
+    const response = {'response' : 'rooms are cool' }
+    resp.json(response)
 })
 
 module.exports = app;
