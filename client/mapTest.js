@@ -51,7 +51,7 @@ fetch('http://127.0.0.1:8090/entities')
 })*/
 
 let entrances;
-fetch('http://18.132.20.100:3000/entrances')
+fetch('/entrances')
 .then(response => response.json())
 .then(function(body){
   entrances = body;
@@ -65,7 +65,7 @@ fetch('http://18.132.20.100:3000/entrances')
 })
 
 let corridors;
-fetch('http://18.132.20.100:3000/corridors')
+fetch('/corridors')
 .then(response => response.json())
 .then(function(body){
   corridors = body;
@@ -79,7 +79,7 @@ fetch('http://18.132.20.100:3000/corridors')
 })
 
 let buildings;
-fetch('http://18.132.20.100:3000/buildings')
+fetch('/buildings')
 .then(response => response.json())
 .then(function(body){
   buildings = body;
@@ -93,7 +93,7 @@ fetch('http://18.132.20.100:3000/buildings')
 })
 
 let rooms;
-fetch('http://18.132.20.100:3000/rooms')
+fetch('/rooms')
 .then(response => response.json())
 .then(function(body){
   rooms = body;
@@ -151,7 +151,7 @@ function setupButton() {
   clearButton.addEventListener('click', () => {
     clearHighlight()
   })
-fetch('http://18.132.20.100:3000/rooms')
+fetch('/rooms')
 .then(response => response.json())
 .then(function(body){
   
@@ -252,7 +252,7 @@ fetch('http://18.132.20.100:3000/rooms')
   })
 })
 
-fetch('http://18.132.20.100:3000/unmarkedRooms')
+fetch('/unmarkedRooms')
 .then(response => response.json())
 .then(function(body){
   let block;
