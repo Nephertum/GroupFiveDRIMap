@@ -49,28 +49,28 @@ fetch('http://127.0.0.1:8090/entities')
 })*/
 
 let entrances;
-fetch('http://127.0.0.1:8090/entrances')
+fetch('http://18.132.20.100:3000/entrances')
 .then(response => response.json())
 .then(function(body){
   entrances = body;
 })
 
 let corridors;
-fetch('http://127.0.0.1:8090/corridors')
+fetch('http://18.132.20.100:3000/corridors')
 .then(response => response.json())
 .then(function(body){
   corridors = body;
 })
 
 let buildings;
-fetch('http://127.0.0.1:8090/buildings')
+fetch('http://18.132.20.100:3000/buildings')
 .then(response => response.json())
 .then(function(body){
   buildings = body;
 })
 
 let rooms;
-fetch('http://127.0.0.1:8090/rooms')
+fetch('http://18.132.20.100:3000/rooms')
 .then(response => response.json())
 .then(function(body){
   rooms = body;
@@ -121,7 +121,7 @@ function setupButton() {
   clearButton.addEventListener('click', () => {
     clearHighlight()
   })
-fetch('http://127.0.0.1:8090/rooms')
+fetch('http://18.132.20.100:3000/rooms')
 .then(response => response.json())
 .then(function(body){
   
@@ -171,7 +171,7 @@ fetch('http://127.0.0.1:8090/rooms')
     })
 })
 
-fetch('http://127.0.0.1:8090/unmarkedRooms')
+fetch('http://18.132.20.100:3000/unmarkedRooms')
 .then(response => response.json())
 .then(function(body){
   let block;
