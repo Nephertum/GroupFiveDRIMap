@@ -287,7 +287,7 @@ app.get('/entities/search/:word', function (req, resp) {
     }
     resp.json(matches);
 });
-app.get('/info/:place', (req, resp) => {
+app.post('/info/:place', (req, resp) => {
     if (req.params.place == "x-ray") {
         resp.send("x-ray are cool");
     }
