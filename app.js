@@ -287,5 +287,14 @@ app.get('/entities/search/:word', function (req, resp) {
     }
     resp.json(matches);
 });
+app.get('/info/:place', (req, resp) => {
+    if (req.params.place == "x-ray") {
+        resp.send("x-ray are cool");
+    }
+    if (req.params.place == 'fracture clinic') {
+        resp.send("fractures are cool")
+    }
+    resp.send("rooms are cool")
+})
 
 module.exports = app;
