@@ -56,13 +56,7 @@ fetch('/entrances')
 .then(function(body){
   entrances = body;
 })
-.catch(() => {
-  fetch(`/entrances`)
-  .then(response => response.json())
-  .then(function(body){
-    entrances = body;
-  })
-})
+
 
 let corridors;
 fetch('/corridors')
@@ -70,13 +64,7 @@ fetch('/corridors')
 .then(function(body){
   corridors = body;
 })
-.catch(() => {
-  fetch(`/corridors`)
-  .then(response => response.json())
-  .then(function(body){
-    entrances = body;
-  })
-})
+
 
 let buildings;
 fetch('/buildings')
@@ -84,13 +72,7 @@ fetch('/buildings')
 .then(function(body){
   buildings = body;
 })
-.catch(() => {
-  fetch(`/buildings`)
-  .then(response => response.json())
-  .then(function(body){
-    entrances = body;
-  })
-})
+
 
 let rooms;
 fetch('/rooms')
@@ -98,13 +80,7 @@ fetch('/rooms')
 .then(function(body){
   rooms = body;
 })
-.catch(() => {
-  fetch(`/rooms`)
-  .then(response => response.json())
-  .then(function(body){
-    entrances = body;
-  })
-})
+
 
 const drawFunctions = {
   "building" : drawBuildings,
@@ -200,57 +176,6 @@ fetch('/rooms')
   }
     })
   })
-.catch(() => {
-  fetch(`/rooms`)
-  .then(response => response.json())
-  .then(function(body){
-  
-    let block;
-    let div;
-    const room_width = 15;
-    const room_height = 15;
-    const room_focus = 20;
-      body.forEach(room => {
-    if (room.building === "Women's and Children's Hospital"){
-      block = "wch";
-    }
-    else if (room.building === "West Block"){
-      block = "wb";
-    }
-    else if (room.building === "South Block"){
-      block = "sb";
-    }
-    else if (room.building === "East Block"){
-      block = "eb";
-    }
-    else{
-      return;
-    }
-    if (!isNaN(room.level)){
-      div = document.getElementById(block.concat(room.level))
-      let newItem;
-      newItem = document.createElement("button");
-      newItem.classList.add("room-link");
-      newItem.id = room.id;
-      newItem.innerHTML = room.name;
-      newItem.addEventListener("click", function(){
-        console.log('ahh');
-        zoomOnLocation(room, room_focus);
-        placePopup(room, room_width, room_height);
-      });
-      div.appendChild(newItem);
-      
-      newItem = document.createElement("br");
-      div.appendChild(newItem);
-
-      console.log(document.getElementById(room.id));
-    }
-    else{
-      return;
-    }
-      })
-  })
-})
 
 fetch('/unmarkedRooms')
 .then(response => response.json())
@@ -281,38 +206,6 @@ fetch('/unmarkedRooms')
     return;
   }
     })
-})
-.catch(() => {
-  fetch(`/unmarkedRooms`)
-.then(response => response.json())
-.then(function(body){
-  let block;
-  let div;
-    body.forEach(room => {
-  if (room.building === "Women's and Children's Hospital"){
-    block = "wch";
-  }
-  else if (room.building === "West Block"){
-    block = "wb";
-  }
-  else if (room.building === "South Block"){
-    block = "sb";
-  }
-  else if (room.building === "East Block"){
-    block = "eb";
-  }
-  else{
-    return;
-  }
-  if (!isNaN(room.level)){
-    div = document.getElementById(block.concat(room.level))
-    div.innerHTML += '<a>'+ room.name + '</a><br>'
-  }
-  else{
-    return;
-  }
-    })
-})
 })
 }
 function updateMap() {
