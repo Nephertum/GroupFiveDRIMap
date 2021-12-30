@@ -149,4 +149,10 @@ input[type=text] {
     text-decoration: underline;
     cursor: pointer;
   }
+.timeRange {
+    display: flex;
+}
+.timeRange input {
+    margin-left: 5px;
+}
 

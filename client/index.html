@@ -168,11 +168,21 @@
           <input type="text" name="newLocation" id="newLocation" required><br>
           <label for="newDescription" class="roomOnly">Description:<br></label>
           <input type="text" name="newDescription" id="newDescription" class="roomOnly"><br class="roomOnly">
-          <label for="newHours" class="roomOnly">Opening Hours:<br></label>
-          <input type="text" name="newHours" id="newHours" class="roomOnly"><br class="roomOnly">
+          <label for="newHoursWeek" class="roomOnly">Opening Hours During Week:<br></label>
+          <div class="timeRange">
+            <input type="time" id="newHoursWeekStart" class="roomOnly" value="09:00"><br class="roomOnly">
+            <h3 class="roomOnly">-></h3>
+            <input type="time" id="newHoursWeekEnd" class="roomOnly" value="17:00"><br class="roomOnly">
+          </div>
+          <label for="newHoursWeekend" class="roomOnly">Opening Hours During Weekend:<br></label>
+          <div class="timeRange">
+            <input type="time" id="newHoursWeekendStart" class="roomOnly" value="09:00"><br class="roomOnly">
+            <h3 class="roomOnly">-></h3>
+            <input type="time" id="newHoursWeekendEnd" class="roomOnly" value="17:00"><br class="roomOnly">
+          </div>
           <label for="newImg" class="roomOnly">Image File Name:<br></label>
           <input type="text" name="newImg" id="newImg" class="roomOnly"><br>
-          <button type="submit" class="btn btn-primary" id="newPlaceBtn">Submit</button>
+          <button class="btn btn-primary" id="newPlaceBtn">Submit</button>
         </form>
       </div>
       <div class="col-sm">
@@ -233,7 +243,7 @@
     </div>
     <div class="col-sm">
       <h1>Delete a Location</h1>
-      <form action="http://127.0.0.1:8090/entities/delete" method="post" name="deletePlaceForm" class="formType2" id="deletePlaceForm">
+      <form name="deletePlaceForm" class="formType2" id="deletePlaceForm">
           <label for="IdOfDelete">Enter location id: </label><br>
           <input type="text" name="IdOfDelete" id="IdOfDelete" required><br>
 
@@ -242,7 +252,7 @@
           <label for="archiveDelete">Archive location</label><br>
           <input type="radio" id="fullDelete" name="deleteType" value="full">
           <label for="fullDelete">Permanently delete location</label><br>
-          <button type="submit" class="btn btn-danger">Delete</button>
+          <button class="btn btn-danger" id="deletePlaceBtn">Delete</button>
       </form>
       <br>
       <h2>Restore a Location</h2>

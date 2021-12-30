@@ -538,13 +538,13 @@ function getpopupOptions(width, height) {
     }
 }
 function placePopup(location, width, height) {
-  if (typeof location.info !== 'undefined') {
+  if (typeof location.description !== 'undefined') {
     if (popupExists == true){
       popup.remove() // remove any existing popups
     }
     popup = new mapboxgl.Popup({offset: getpopupOptions(width, height),closeOnClick: false})
     .setLngLat([location.location[1],location.location[0]])
-    .setHTML(popupHTML(location.id, location.name, location.info))
+    .setHTML(popupHTML(location.id, location.name, location.description, location.hours, location.image))
     .addTo(myMap.map)
     popupBtnFunc(location.id, location.name)
     popupExists = true
@@ -560,14 +560,11 @@ function mouseDragged() {
 }
 
 // function renders HTML for popup
-function popupHTML(id, name, info){
-  const description = info[0]
-  const openhours = info[1]
-  const img = info[2]
+function popupHTML(id, name, description, hours, image){
   let openhourshtml = ''
-  for (let i = 0; i < openhours.length; i++) {
-    openhourshtml += openhours[i][0] + ": " + openhours[i][1] + "<br>";
-  }
+  openhourshtml += "Monday - Friday" + ": " + hours[0] + "<br>";
+  openhourshtml += "Saturday - Sunday" + ": " + hours[1] + "<br>";
+  
 
   const html = '<h5 style="text-align:center;"><b>'
     +name+
@@ -576,7 +573,7 @@ function popupHTML(id, name, info){
   '</i></p><div class="row"><div class="col-sm d-flex justify-content-center"><p><b>Opening Hours:</b><br>'
   +openhourshtml+
   '</p></div><div class="col-sm"><img src="'
-  +img+
+  +image+
   '" alt="Picture of Building" class="img-responsive fit-image"></div></div><div class="popupBtn-wrapper"><button id="navHere'+id+'" class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Get Directions</button></div>'
   return(html)
 }

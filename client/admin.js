@@ -65,7 +65,7 @@ for (var i = 0; i < locationFormat.length; i++) {
 var hoursFormat = document.getElementsByClassName("hoursFormat");
 for (var i = 0; i < hoursFormat.length; i++) {
     hoursFormat.item(i).addEventListener("click", function(e){
-        document.getElementById("formatIndicator").innerHTML = "<br>Format: [[days], [hours]], [[days], [hours]], ...";
+        document.getElementById("formatIndicator").innerHTML = "<br>Format: hoursWeek,hoursWeekend";
     })
 }
 const addPlace = () => {
@@ -76,17 +76,23 @@ const addPlace = () => {
    
     const newLocation = document.getElementById('newLocation');
     const newDescription = document.getElementById("newDescription");
-    const newHours = document.getElementById("newHours");
+    const newHoursWeekStart = document.getElementById("newHoursWeekStart");
+    const newHoursWeekEnd = document.getElementById("newHoursWeekEnd");
+    const newHoursWeekendStart = document.getElementById("newHoursWeekendStart");
+    const newHoursWeekendEnd = document.getElementById("newHoursWeekendEnd");
     const newImg = document.getElementById('newImg');
     const newData = {
         "category" : category,
         "newName" : newName.value,
         "newLocation" : newLocation.value,
         "newDescription" : newDescription.value,
-        "newHours" : newHours.value,
+        "newHoursWeekStart" : newHoursWeekStart.value,
+        "newHoursWeekEnd" : newHoursWeekEnd.value,
+        "newHoursWeekendStart" : newHoursWeekendStart.value,
+        "newHoursWeekendEnd" : newHoursWeekendEnd.value,
         "newImg" : newImg.value
     }
-    fetch('http://127.0.0.1:8090/entities/add',{
+    fetch('/entities/add',{
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -98,7 +104,6 @@ const addPlace = () => {
         if (response.ok) {
             document.location.reload();
             adminMode();
-            showModal();
         }
     })
     .catch(err => {
@@ -110,12 +115,6 @@ addPlaceBtn.addEventListener('click', (e) => {
     e.preventDefault();
     addPlace();
 })
-
-const showModal = () => {
-    let myModal = new bootstrap.Modal(document.getElementById('myModal'))
-    myModal.toggle();
-}
-
 // Search for id function
 function findId (e) {
     e.preventDefault();
@@ -123,7 +122,7 @@ function findId (e) {
     console.log(word)
     word = word.replace(/[^\w]|_/g, '');
     if (word !== '') {
-        fetch('http://127.0.0.1:8090/entities/search/' + word)
+        fetch('/entities/search/' + word)
         .then(response => response.json())
         .then(function (body) {
             let html = "<p>";
@@ -153,7 +152,7 @@ const editPlace = () => {
     property = document.getElementById("editLocation").checked ? "location" : property;
     property = document.getElementById("editDescription").checked ? "description" : property;
     property = document.getElementById("editHours").checked ? "hours" : property;
-    property = document.getElementById("editImg").checked ? "img" : property;
+    property = document.getElementById("editImg").checked ? "image" : property;
     const newValue = document.getElementById("editNewValue").value;
     const newData = {
         "IdOfEdit" : id,
@@ -161,11 +160,10 @@ const editPlace = () => {
         "property" : property,
         "editNewValue" : newValue
     }
-    fetch("http://127.0.0.1:8090/entities/edit", {
+    fetch("/entities/edit", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
           },
         body: JSON.stringify(newData)
     })
@@ -173,7 +171,6 @@ const editPlace = () => {
         if (response.ok) {
             document.location.reload();
             adminMode()
-            showModal();
         }
     })
     .catch(err => {
@@ -184,6 +181,38 @@ const editPlaceBtn = document.getElementById("editPlaceBtn");
 editPlaceBtn.addEventListener("click", (e) => {
     e.preventDefault();
     editPlace();
+})
+
+const deletePlace = () => {
+    const archive = document.getElementById("archiveDelete");
+    let deleteType = archive ? "archive" : "full";
+    let IdOfDelete = document.getElementById("IdOfDelete").value;
+    const data = {
+        "IdOfDelete" : IdOfDelete,
+        "deleteType" : deleteType
+    }
+    fetch('/entities/delete', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (response.ok) {
+            document.location.reload();
+            adminMode()
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+const deletePlaceBtn = document.getElementById("deletePlaceBtn")
+deletePlaceBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    deletePlace();
 })
 
 document.getElementById("map").addEventListener("click", function(){

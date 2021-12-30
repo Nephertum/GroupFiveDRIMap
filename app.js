@@ -90,12 +90,9 @@ app.get('/unmarkedRooms', function (req, resp) {
 app.post('/entities/add', function (req, resp) {
     const name = req.body.newName;
     const category = req.body.category;
-    /*const width = parseInt(req.body.newWidth);
-    const height = parseInt(req.body.newHeight);
-    const focusZoom = parseInt(req.body.newFocus);
-    const minZoom = parseInt(req.body.newMinZoom);
-    const maxZoom = parseInt(req.body.newMaxZoom);*/
     const location = JSON.parse('[' + req.body.newLocation + ']');
+    
+    
     let id;
     if (category == "entrance"){
         id = 'e' + entrances.length;
@@ -112,12 +109,6 @@ app.post('/entities/add', function (req, resp) {
     let place = {
         id: id,
         name: name,
-        /*category: category,
-        width: width,
-        height: height,
-        focusZoom: focusZoom,
-        minZoom: minZoom,
-        maxZoom: maxZoom,*/
         location: location
     };
     if (category == "entrance"){
@@ -125,10 +116,13 @@ app.post('/entities/add', function (req, resp) {
     }
     else if (category == "room"){
         const description = req.body.newDescription;
-        const hours = [["have not sorted this input out yet"], [""]]
+        const hoursWeek = req.body.newHoursWeekStart + "-" + req.body.newHoursWeekEnd;
+        const hoursWeekend = req.body.newHoursWeekendStart + "-" + req.body.newHoursWeekendEnd
+        const hours = [hoursWeek, hoursWeekend]
         const img = req.body.newImg;
-        const info = [description, hours, img];
-        place["info"] = info;
+        place["description"] = description;
+        place["hours"] = hours;
+        place["image"] = img;
         rooms.push(place);
     }
     else if (category == "building"){
@@ -154,13 +148,9 @@ app.post('/entities/edit', function (req, resp) {
     let value = req.body.editNewValue;
     if (property === 'location') {
         value = JSON.parse('[' + value + ']');
-    } 
-    else if (property === 'width' || property === 'height' || property === 'focus' || property === 'minzZoom' || property === 'maxZoom') {
-        if (isNaN(value)) {
-            resp.status(400).send("Sorry we couldn't update the property as it was not entered in the correct format.");
-            return;
-        }
-        value = parseInt(value);
+    }
+    else if (property === 'hours') {
+        value = value.split(",")
     }
     if (value === undefined) {
         resp.status(400).send("Sorry we couldn't update the property as it was not entered in the correct format.");
@@ -289,7 +279,7 @@ app.get('/entities/search/:word', function (req, resp) {
 });
 app.post('/info', (req, resp) => {
     console.log(req.body)
-    const response = {'response' : 'rooms are cool' }
+    const response = {'response' : `you are asking for information about ${req.body.Location}` }
     resp.json(response)
 })
 
