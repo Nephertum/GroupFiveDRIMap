@@ -21,6 +21,27 @@ body {
 #locationInput {
     top: 100px;
 }
+.routeStep {
+    display: flex;
+    background-color: white;
+    padding: 5px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+.routeStep p {
+    line-height: 1.5rem;
+    margin-right: 5px;
+    margin-bottom: 0;
+}
+.routeStep button {
+    display: none
+}
+.routeStep.top button {
+    display: block
+} 
+#routeStepList {
+    top: 250px;
+}
 #navigationInput {
     top: 300px;
 }

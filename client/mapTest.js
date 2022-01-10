@@ -22,6 +22,7 @@ let myMap;
 var mouseIsDown = false;
 let start = 0;
 let dest = 0;
+let navigation_loaded = false
 let pin = {
   name: "pin",
   location: 0
@@ -63,6 +64,7 @@ fetch('/corridors')
 .then(response => response.json())
 .then(function(body){
   corridors = body;
+
 })
 
 
@@ -221,7 +223,7 @@ function updateMap() {
   drawNodes();
   placePin();
   if (start != 0 && dest != 0) {
-    highlight_path(navigate(graph,calculateNearestCorridor(start),calculateNearestCorridor(dest)));
+    highlight_path(calculate_route())
   }
 }
 // changes the start and dest values for the next map update
@@ -241,6 +243,7 @@ function setNavigation(source, destination) {
   } else {
     start = newStart;
     dest = newDest;
+    navigation_loaded = false
   }
 }
 function getNodeByName(name) {
@@ -399,10 +402,17 @@ function calculateNearestCorridor(location) {
 }
 // highlights a cooridoor red, to be used for navigation
 function highlight_path(cooridoor_list) {
+  console.log(cooridoor_list)
+  !navigation_loaded && addRouteStep(start.name)
   cooridoor_list.forEach((path, index) => {
+    !navigation_loaded && addRouteStep(path)
     switch (index) {
       case 0:
-        highlightEndpoint(path,cooridoor_list[1],start);
+        if (Number.isInteger(start)) {
+          highlight_cooridoor(path);
+        } else {
+          highlightEndpoint(path,cooridoor_list[1],start);
+        }
         break;
       case cooridoor_list.length - 1:
         highlightEndpoint(path,cooridoor_list[cooridoor_list.length - 2],dest);
@@ -412,6 +422,8 @@ function highlight_path(cooridoor_list) {
         break;
     }
   });
+  !navigation_loaded && addRouteStep(dest.name)
+  navigation_loaded = true;
 }
 function highlight_cooridoor(index) {
   noFill();
@@ -468,6 +480,9 @@ function clearHighlight() {
   start = 0;
   dest = 0;
   updateMap();
+  document.querySelectorAll(".routeStep").forEach(element => {
+    element.remove();
+  })
 }
 function checkValidZoom(minZoom, maxZoom) {
   const zoom = myMap.zoom();
@@ -586,10 +601,6 @@ function popupBtnFunc(id, name){
     document.getElementById("path2").value = name // Just autofills destination for now
   })
 }
-
-// work in progress for now
-
-
 // pathfinding algorithm copied from website
 // A Javascript program for Dijkstra's
 // single source shortest path
@@ -699,8 +710,50 @@ function printPath(currentVertex,parents)
     return result.reverse();
 }
 
+function addRouteStep(direction) {
+  const container = document.getElementById("routeStepList")
+  console.log(container.childNodes)
+  const element = document.createElement('div')
+  element.className = "routeStep"
+  if (container.childNodes.length == 3) {
+    element.className += " top"
+  }
+  const label = document.createElement("p")
+  label.innerText = direction
+  element.appendChild(label)
+  const closeButton = document.createElement('button')
+  closeButton.className = "bi bi-check"
+  element.appendChild(closeButton)
+  closeButton.onclick = () => {
+    element.remove()
+    if (container.childNodes.length == 4) {
+      clearHighlight()
+    }
+    container.childNodes[3].className += " top"
+    reduce_route()
+  }
+  
+  container.appendChild(element)
+}
 
+function reduce_route() {
+  let route = calculate_route()
+  if (Number.isInteger(start)) {
+    start = route[1]
+  } else {
+    start = route[0]
+  }
+  updateMap()
 
+}
+
+function calculate_route() {
+  if (Number.isInteger(start)) {
+    return navigate(graph,start,calculateNearestCorridor(dest));
+  } else {
+    return navigate(graph,calculateNearestCorridor(start),calculateNearestCorridor(dest));
+  }
+}
 
 // This code is contributed by rag2127.
 
