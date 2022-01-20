@@ -278,8 +278,18 @@ app.get('/entities/search/:word', function (req, resp) {
     resp.json(matches);
 });
 app.post('/info', (req, resp) => {
-    console.log(req.body)
-    const response = {'response' : `you are asking for information about ${req.body.Location}` }
+    const location = req.body.location
+    const question = req.body.Question
+    let response = ""
+    if (question == "time") {
+        for(let room of rooms) {
+            if (room.name === location) {
+                response = room.hours[0] + " " + room.hours[1]
+            }
+        }
+    } else {
+        response = "this aspect has not been added to the database"
+    }
     resp.json(response)
 })
 
