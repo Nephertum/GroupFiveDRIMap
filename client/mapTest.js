@@ -51,13 +51,13 @@ fetch('http://127.0.0.1:8090/entities')
   locations = body;
 })*/
 
+// Fetch drawing properties so they do not have to be reloaded each time
 let entrances;
 fetch('/entrances')
 .then(response => response.json())
 .then(function(body){
   entrances = body;
 })
-
 
 let corridors;
 fetch('/corridors')
@@ -67,7 +67,6 @@ fetch('/corridors')
 
 })
 
-
 let buildings;
 fetch('/buildings')
 .then(response => response.json())
@@ -75,14 +74,12 @@ fetch('/buildings')
   buildings = body;
 })
 
-
 let rooms;
-fetch('/rooms')
+fetch('/rooms/drawing') // Rooms have extra info so only store drawing info globally
 .then(response => response.json())
 .then(function(body){
   rooms = body;
 })
-
 
 const drawFunctions = {
   "building" : drawBuildings,
@@ -129,55 +126,56 @@ function setupButton() {
   clearButton.addEventListener('click', () => {
     clearHighlight()
   })
-fetch('/rooms')
+fetch('/rooms/listinfo')
 .then(response => response.json())
 .then(function(body){
-  
   let block;
   let div;
+  let building;
   const room_width = 15;
   const room_height = 15;
   const room_focus = 20;
-    body.forEach(room => {
-  if (room.building === "Women's and Children's Hospital"){
-    block = "wch";
-  }
-  else if (room.building === "West Block"){
-    block = "wb";
-  }
-  else if (room.building === "South Block"){
-    block = "sb";
-  }
-  else if (room.building === "East Block"){
-    block = "eb";
-  }
-  else{
-    return;
-  }
-  if (!isNaN(room.level)){
-    div = document.getElementById(block.concat(room.level))
-    let newItem;
-    newItem = document.createElement("button");
-    newItem.classList.add("room-link");
-    newItem.id = room.id;
-    newItem.innerHTML = room.name;
-    newItem.addEventListener("click", function(){
-      console.log('ahh');
-      zoomOnLocation(room, room_focus);
-      placePopup(room, room_width, room_height);
-    });
-    div.appendChild(newItem);
+  body.forEach(room => {
+    building = room.building
+    if (building === "Women's and Children's Hospital"){
+      block = "wch";
+    }
+    else if (building === "West Block"){
+      block = "wb";
+    }
+    else if (building === "South Block"){
+      block = "sb";
+    }
+    else if (building === "East Block"){
+      block = "eb";
+    }
+    else{
+      return;
+    }
+    if (!isNaN(room.level)){
+      div = document.getElementById(block.concat(room.level))
+      let newItem;
+      newItem = document.createElement("button");
+      newItem.classList.add("room-link");
+      newItem.id = room.id;
+      newItem.innerHTML = room.name;
+      newItem.addEventListener("click", function(){
+        console.log('ahh');
+        zoomOnLocation(room.location, room_focus);
+        placePopup(room.id, room.location, room_width, room_height);
+      });
+      div.appendChild(newItem);
     
-    newItem = document.createElement("br");
-    div.appendChild(newItem);
+      newItem = document.createElement("br");
+      div.appendChild(newItem);
 
-    console.log(document.getElementById(room.id));
-  }
-  else{
-    return;
-  }
-    })
+      console.log(document.getElementById(room.id));
+    }
+    else{
+      return;
+    }
   })
+})
 
 fetch('/unmarkedRooms')
 .then(response => response.json())
@@ -465,10 +463,6 @@ function highlightEndpoint(cooridoor,adj_cooridoor, node) {
   let point = myMap.latLngToPixel(node.location[0],node.location[1])
   let highlight_middle = calculate_intersect(current_start.x, current_start.y, current_end.x, current_end.y, point.x, point.y)
 
-
-
-
-
   beginShape();
   vertex(highlight_start.x, highlight_start.y);
   vertex(highlight_middle[0],highlight_middle[1])
@@ -499,7 +493,7 @@ function draw() {
 }
 function zoomOnLocation(location, focusZoom) {
   myMap.map.flyTo({
-    center: [location.location[1], location.location[0]],
+    center: [location[1], location[0]],
     zoom: focusZoom
   });
 }
@@ -534,8 +528,8 @@ function setZoomAndPopup(mouseX, mouseY, location, width, height, focusZoom){
         distanceY = Math.abs(element.y - mouseY)
         // if the distance between the mouse click and the center of the node is within the node's radius then zoom in on it
         if (distanceX <= width / 2 && distanceY <= height / 2) {
-          zoomOnLocation(location, focusZoom);
-          placePopup(location, width, height);
+          zoomOnLocation(location.location, focusZoom);
+          placePopup(location.id, location.location, width, height);
         }
 }
 
@@ -552,18 +546,23 @@ function getpopupOptions(width, height) {
         -1 * (width / 2),(height / 2)],
     }
 }
-function placePopup(location, width, height) {
-  if (typeof location.description !== 'undefined') {
-    if (popupExists == true){
-      popup.remove() // remove any existing popups
+function placePopup(id, location, width, height) {
+  console.log(id)
+  fetch('/rooms/popupinfo/'+id)
+  .then(response => response.json())
+  .then(function(room){
+    if (typeof room.description !== 'undefined') {
+      if (popupExists == true){
+        popup.remove() // remove any existing popups
+      }
+      popup = new mapboxgl.Popup({offset: getpopupOptions(width, height),closeOnClick: false})
+      .setLngLat([location[1],location[0]])
+      .setHTML(popupHTML(room.id, room.name, room.description, room.hours, room.image))
+      .addTo(myMap.map)
+      popupBtnFunc(id, room.name)
+      popupExists = true
     }
-    popup = new mapboxgl.Popup({offset: getpopupOptions(width, height),closeOnClick: false})
-    .setLngLat([location.location[1],location.location[0]])
-    .setHTML(popupHTML(location.id, location.name, location.description, location.hours, location.image))
-    .addTo(myMap.map)
-    popupBtnFunc(location.id, location.name)
-    popupExists = true
-  }
+  })
 }
 function mouseClicked() {
   console.log(myMap.pixelToLatLng(mouseX, mouseY).lat + ", " + myMap.pixelToLatLng(mouseX, mouseY).lng)

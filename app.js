@@ -71,6 +71,33 @@ app.get('/rooms', function (req, resp) {
     resp.json(rooms);
 });
 
+app.get('/rooms/drawing', function (req, resp) {
+    result = []
+    rooms.forEach(room => {
+        var {id, name, location, ...re} = room;
+        result.push({"id": id, "name": name, "location": location})
+    })
+    resp.json(result)
+});
+
+app.get('/rooms/listinfo', function (req, resp) {
+    result = []
+    rooms.forEach(room => {
+        var {id, name, location, building, level, ...re} = room;
+        result.push({"id": id, "name": name, "location": location, "building": building, "level": level})
+    })
+    resp.json(result)
+});
+
+app.get('/rooms/popupinfo/:id', function (req, resp) {
+    id = req.params.id
+    console.log(id)
+    var room = getPlace("room", id)
+    var {id, name, description, hours, image, ...re} = room;
+    var result = {"id": id, "name": name, "description": description, "hours": hours, "image": image}
+    resp.json(result)
+});
+
 app.get('/buildings', function (req, resp) {
     resp.json(buildings);
 });
@@ -83,9 +110,6 @@ app.get('/unmarkedRooms', function (req, resp) {
     resp.json(unmarkedRooms);
 });
 
-/*app.get('/entities', function (req, resp) {
-    resp.json([entrances, corridorIndex, buildings, rooms]);
-});*/
 
 app.post('/entities/add', function (req, resp) {
     const name = req.body.newName;
