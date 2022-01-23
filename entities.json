@@ -1506,62 +1506,6 @@
 				"Closed"
 			],
 			"image": "default.jpeg"
-		},
-		{
-			"id": "r30",
-			"name": "New room",
-			"location": [
-				53.53009502364674,
-				-1.1114021797617966
-			],
-			"description": "New room at the hospital",
-			"hours": [
-				"08:30-17:30",
-				"12:00-17:30"
-			],
-			"image": "default.jpeg"
-		},
-		{
-			"id": "r31",
-			"name": "New room",
-			"location": [
-				53.53009502364674,
-				-1.1114021797617966
-			],
-			"description": "New room at the hospital",
-			"hours": [
-				"08:30-17:30",
-				"12:00-17:30"
-			],
-			"image": "default.jpeg"
-		},
-		{
-			"id": "r32",
-			"name": "New room",
-			"location": [
-				53.53009502364674,
-				-1.1114021797617966
-			],
-			"description": "New room at the hospital",
-			"hours": [
-				"08:30-17:30",
-				"12:00-17:30"
-			],
-			"image": "default.jpeg"
-		},
-		{
-			"id": "r33",
-			"name": "New room",
-			"location": [
-				53.53009502364674,
-				-1.1114021797617966
-			],
-			"description": "New room at the hospital",
-			"hours": [
-				"08:30-17:30",
-				"12:00-17:30"
-			],
-			"image": "default.jpeg"
 		}
 	],
 	"unmarkedRooms": [
