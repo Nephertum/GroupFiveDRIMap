@@ -52,7 +52,6 @@ function getPlace(category, id) {
     else{
         return undefined;
     }
-    console.log(searchThrough)
     for (let i = 0; i < searchThrough.length; i++) {
         if (searchThrough[i].id === id) {
             return searchThrough[i];
@@ -91,7 +90,6 @@ app.get('/rooms/listinfo', function (req, resp) {
 
 app.get('/rooms/popupinfo/:id', function (req, resp) {
     id = req.params.id
-    console.log(id)
     var room = getPlace("room", id)
     var {id, name, description, hours, image, ...re} = room;
     var result = {"id": id, "name": name, "description": description, "hours": hours, "image": image}
@@ -115,8 +113,6 @@ app.post('/entities/add', function (req, resp) {
     const name = req.body.newName;
     const category = req.body.category;
     const location = JSON.parse('[' + req.body.newLocation + ']');
-    
-    
     let id;
     if (category == "entrance"){
         id = 'e' + entrances.length;
@@ -160,9 +156,7 @@ app.post('/entities/add', function (req, resp) {
 
 app.post('/entities/edit', function (req, resp) {
     const id = req.body.IdOfEdit;
-    console.log(id)
     const category = req.body.category;
-    console.log(category)
     const place = getPlace(category, id);
     if (place === undefined) {
         resp.status(404).send('Sorry, this place was not found, check your id and category are correct!');
@@ -285,14 +279,12 @@ app.post('/entities/restore', function (req, resp) {
 });
 
 app.get('/entities/search/:word', function (req, resp) {
-    console.log(req.params.word)
     const word = req.params.word.toLowerCase().replace(/[^\w]|_/g, '');
     const matches = [];
     let name;
     for (let i = 0; i < placesForSearch.length; i++){
         let category = placesForSearch[i]
         for (let j = 0; j < category.length; j++) {
-            console.log(category[j])
             name = category[j].name.toLowerCase().replace(/[^\w]|_/g, '');
             if (name.includes(word)) {
                 matches.push([category[j].name, category[j].id]);

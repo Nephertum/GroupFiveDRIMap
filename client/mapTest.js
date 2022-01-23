@@ -64,7 +64,6 @@ fetch('/corridors')
 .then(response => response.json())
 .then(function(body){
   corridors = body;
-
 })
 
 let buildings;
@@ -510,18 +509,18 @@ function checkMouseClickForLocation(mouseX,mouseY) {
   const entrances_focus = 20;
 
   rooms.forEach((location) => {
-     setZoomAndPopup(mouseX, mouseY, location, room_width, room_height, room_focus)
+     setZoomAndPopup(mouseX, mouseY, location, room_width, room_height, room_focus, "Y")
     })
   buildings.forEach((location) => {
-    setZoomAndPopup(mouseX, mouseY, location, building_width, building_height, building_focus)
+    setZoomAndPopup(mouseX, mouseY, location, building_width, building_height, building_focus, "N")
   })
   entrances.forEach((location) => {
-    setZoomAndPopup(mouseX, mouseY, location, entrances_width, entrances_height, entrances_focus)
+    setZoomAndPopup(mouseX, mouseY, location, entrances_width, entrances_height, entrances_focus, "N")
   })
   return false;
 }
 
-function setZoomAndPopup(mouseX, mouseY, location, width, height, focusZoom){
+function setZoomAndPopup(mouseX, mouseY, location, width, height, focusZoom, makepopup){
   let element = myMap.latLngToPixel(location.location[0], location.location[1])
         // calculates x and y distances between location node center and mouse coordinate
         distanceX = Math.abs(element.x - mouseX)
@@ -529,7 +528,9 @@ function setZoomAndPopup(mouseX, mouseY, location, width, height, focusZoom){
         // if the distance between the mouse click and the center of the node is within the node's radius then zoom in on it
         if (distanceX <= width / 2 && distanceY <= height / 2) {
           zoomOnLocation(location.location, focusZoom);
-          placePopup(location.id, location.location, width, height);
+          if (makepopup == "Y"){
+            placePopup(location.id, location.location, width, height);
+          }
         }
 }
 
@@ -547,7 +548,6 @@ function getpopupOptions(width, height) {
     }
 }
 function placePopup(id, location, width, height) {
-  console.log(id)
   fetch('/rooms/popupinfo/'+id)
   .then(response => response.json())
   .then(function(room){
