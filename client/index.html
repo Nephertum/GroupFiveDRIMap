@@ -289,6 +289,19 @@ That change was successfully saved
 </div>
 </div>
 </div>
+<script>
+  window.watsonAssistantChatOptions = {
+      integrationID: "c2875335-500a-4cff-a57f-aab033b9d74d", // The ID of this integration.
+      region: "eu-gb", // The region your integration is hosted in.
+      serviceInstanceID: "ef486698-edc7-43fa-80ce-d9eb1d236a45", // The ID of your service instance.
+      onLoad: function(instance) { instance.render(); }
+    };
+  setTimeout(function(){
+    const t=document.createElement('script');
+    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js"
+    document.head.appendChild(t);
+  });
+</script>
   <script src="mapTest.js"></script>
   <script src="admin.js"></script>
 </body>

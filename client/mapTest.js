@@ -104,14 +104,17 @@ function setupButton() {
     let room = Searchinput.value;
     Searchinput.value = "";
     let element = getNodeByName(room);
-    zoomOnLocation(element, 20);
-    placePopup(element, 15, 15);
+    zoomOnLocation(element.location, 20);
+    placePopup(element.id,element.location, 15, 15);
   })
 
   const navigateButton = document.getElementById("navigateBtn");
   const input1 = document.getElementById("path1");
   const input2 = document.getElementById("path2");
   navigateButton.addEventListener("click", () => {
+    document.querySelectorAll(".routeStep").forEach(element => {
+      element.remove();
+    })
     setNavigation(input1.value, input2.value)
     input1.value = ""
     input2.value = ""
