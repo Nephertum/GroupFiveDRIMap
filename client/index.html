@@ -18,7 +18,7 @@
 </head>
 <body>
   <!-- <h1>DRI Map</h1> -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="index.html">DRI Map</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,12 +61,14 @@
 </div>
 
 <div id="mapContainer">
-  <div class="formType1" id='locationInput'>
-      <input id ="roomSearch" type="text" placeholder="Enter room..."><br>
-      <button id="SearchBtn" class="btn btn-primary">Find</button>
-  </div>
-  <div class="formType1" id='routeStepList'>
-    <h3>Directions</h3>
+  <div id="formsForSearching" style="position: relative; top: -50px;">
+    <div class="formType1" id='locationInput'>
+        <input id ="roomSearch" type="text" placeholder="Enter room..."><br>
+        <button id="SearchBtn" class="btn btn-primary">Find</button>
+    </div>
+    <div class="formType1" id='routeStepList'>
+      <h3>Directions</h3>
+    </div>
   </div>
   <div id='map'></div><br>
   <div id='roomlist' class="row">
