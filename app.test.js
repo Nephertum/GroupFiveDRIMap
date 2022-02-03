@@ -102,6 +102,9 @@ describe('Test GET routes', () => {
 });
 
 describe('Test POST routes', () => {
+    const entities = require('./entities.json');
+    const rooms = entities.rooms;
+    const archive = entities.archive;
     test('POST /entities/add succeeds', () => {
         const params =  {
             newName: "New room",
@@ -116,6 +119,51 @@ describe('Test POST routes', () => {
           };
         return request(app)
 	    .post('/entities/add')
+        .send(params)
+	    .expect(201);
+    });
+
+    test('POST /entities/edit succeeds', () => {
+        const params =  {
+            IdOfEdit: rooms[rooms.length - 1].id,
+            category: "room",
+            property: "name",
+            editNewValue: "Different name"
+          };
+        return request(app)
+	    .post('/entities/edit')
+        .send(params)
+	    .expect(201);
+    });
+
+    test('POST /entities/delete succeeds, archive mode', () => {
+        const params =  {
+            IdOfDelete: rooms[rooms.length - 1].id,
+            deleteType: "archive"
+          };
+        return request(app)
+	    .post('/entities/delete')
+        .send(params)
+	    .expect(201);
+    });
+
+    test('POST /entities/restore succeeds', () => {
+        const params =  {
+            IdOfRestore: archive[archive.length - 1].id
+          };
+        return request(app)
+	    .post('/entities/restore')
+        .send(params)
+	    .expect(201);
+    });
+
+    test('POST /entities/delete succeeds, permanent deletion', () => {
+        const params =  {
+            IdOfDelete: rooms[rooms.length - 1].id,
+            deleteType: "permanent"
+          };
+        return request(app)
+	    .post('/entities/delete')
         .send(params)
 	    .expect(201);
     });
