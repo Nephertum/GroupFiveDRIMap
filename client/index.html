@@ -15,6 +15,8 @@
   <!--CSS-->
   <link rel="stylesheet" href="styles.css">
   <link rel="shortcut icon" type="image/jpg" href="favicon.png"/>
+  <!--Font Awesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
   <!-- <h1>DRI Map</h1> -->
@@ -68,6 +70,11 @@
     </div>
     <div class="formType1" id='routeStepList'>
       <h3>Directions</h3>
+      <div>
+        <span>Volume</span>
+        <input type="range" min="0" max="1" value="1" step="0.1" id="volume" />
+        <span id="volume-label">1</span>
+      </div>
     </div>
   </div>
   <div id='map'></div><br>

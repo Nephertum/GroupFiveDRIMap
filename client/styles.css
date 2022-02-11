@@ -34,11 +34,15 @@ body {
     margin-bottom: 0;
 }
 .routeStep button {
-    display: none
+    display: none;
+}
+.soundBtn {
+    color: blue;
 }
 .routeStep.top button {
-    display: block
+    display: block;
 } 
+
 #routeStepList {
     top: 250px;
 }

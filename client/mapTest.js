@@ -402,7 +402,6 @@ function calculateNearestCorridor(location) {
 }
 // highlights a cooridoor red, to be used for navigation
 function highlight_path(cooridoor_list) {
-  console.log(cooridoor_list)
   !navigation_loaded && addRouteStep(start.name)
   cooridoor_list.forEach((path, index) => {
     !navigation_loaded && addRouteStep(path)
@@ -699,7 +698,6 @@ function navigate(adjacencyMatrix,startVertex,destination)
 		return printPath(destination-1, parents);
 }
 
-
 function printPath(currentVertex,parents)
 {
 	// Base case : Source node has
@@ -714,24 +712,39 @@ function printPath(currentVertex,parents)
 
 function addRouteStep(direction) {
   const container = document.getElementById("routeStepList")
-  console.log(container.childNodes)
   const element = document.createElement('div')
   element.className = "routeStep"
-  if (container.childNodes.length == 3) {
+  if (container.childNodes.length == 5) {
+    console.log(element, 'is at the top')
     element.className += " top"
   }
-  const label = document.createElement("p")
+  var label = document.createElement("p")
   label.innerText = direction
+
+  var soundButton = document.createElement('i')
+  soundButton.classList = "fa fa-volume-up soundBtn"
+
+  soundButton.addEventListener("click", () => {
+    // Set the text property with the value of the textarea
+    speech.text = label.innerText;
+  
+    // Start Speaking
+    window.speechSynthesis.speak(speech);
+  });
+
   element.appendChild(label)
+  element.appendChild(soundButton)
+
   const closeButton = document.createElement('button')
   closeButton.className = "bi bi-check"
   element.appendChild(closeButton)
   closeButton.onclick = () => {
     element.remove()
-    if (container.childNodes.length == 4) {
+    if (container.childNodes.length == 6) {
       clearHighlight()
     }
-    container.childNodes[3].className += " top"
+    container.childNodes[5].className += " top"
+    console.log(container.childNodes[5], 'is at the top')
     reduce_route()
   }
   
@@ -759,3 +772,30 @@ function calculate_route() {
 
 // This code is contributed by rag2127.
 
+
+// TEXT TO SPEECH
+// https://www.section.io/engineering-education/text-to-speech-in-javascript/
+// Initialize new SpeechSynthesisUtterance object
+let speech = new SpeechSynthesisUtterance();
+
+// Set Speech Language
+speech.lang = "en";
+
+// Get List of Voices
+voices = window.speechSynthesis.getVoices();
+
+// Initially set the First Voice in the Array.
+speech.voice = voices[0];
+//speech.pitch = 1;
+//speech.rate = 1;
+
+document.querySelector("#volume").addEventListener("input", () => {
+  // Get volume Value from the input
+  const volume = document.querySelector("#volume").value;
+
+  // Set volume property of the SpeechSynthesisUtterance instance
+  speech.volume = volume;
+
+  // Update the volume label
+  document.querySelector("#volume-label").innerHTML = volume;
+});
