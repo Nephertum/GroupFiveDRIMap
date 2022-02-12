@@ -62,6 +62,17 @@
   </div>
 </div>
 
+<h5>Speech recognition</h5>
+<div class="p-3" id="speechBox">
+  <span id="finalSpeech"></span>
+  <span id="interimSpeech"></span>
+</div>
+<div class="mt-4">
+  <button class="btn btn-primary" id="startSpeech">Start <i class="fa fa-microphone"></i></button>
+  <button class="btn btn-primary" id="stopSpeech" style="display:none;">Stop <i class="fa fa-microphone"></i></button>
+  <p id="status" class="lead mt-3 text-light" style="display: none">Listenting ...</p>
+</div><br>
+
 <div id="mapContainer">
   <div id="formsForSearching" style="position: relative; top: -50px;">
     <div class="formType1" id='locationInput'>
@@ -312,6 +323,7 @@ That change was successfully saved
 </script>
   <script src="mapTest.js"></script>
   <script src="admin.js"></script>
+  <script src="speechRecognition.js"></script>
 </body>
 
 </html>

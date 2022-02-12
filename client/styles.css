@@ -180,4 +180,14 @@ input[type=text] {
 .timeRange input {
     margin-left: 5px;
 }
-
+#speechBox {
+    border: 1px solid gray; 
+    height: 50px; 
+    border-radius: 8px;
+}
+#interimSpeech {
+    color: rgb(126, 126, 126);
+}
+#finalSpeech {
+    color: rgb(0, 0, 0);
+}
