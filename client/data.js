@@ -8,64 +8,79 @@ function makeTable(data, container) {
             }
         }
     }
-    // Create a table element
-    var table = document.createElement("table");
-    table = document.createElement('table');
-    table.className = "dataTable";
-    // Create table row tr element of a table
-    var tr = table.insertRow(-1);
+    // Make a table
+    let newHtml = '';
+    newHtml = "<table class='dataTable'><tr>"
+
+    // Add headings
+    let heading;
     for (var i = 0; i < cols.length; i++) {
-        // Create the table header th element
-        var theader = document.createElement("th");
-        theader.innerHTML = cols[i];
-        // Append columnName to the table row
-        tr.appendChild(theader);
+        heading = "<th>" + cols[i] + "</th>"; // Headings for each key
+        newHtml += heading;
     }
-    // Adding the data to the table
+    newHtml += "<th></th>" // Heading for delete buttons
+    newHtml += "</tr>"
+
+    // Add data as changeable inputs
     for (var i = 0; i < data.length; i++) {
-
-        // Create a new row
-        trow = table.insertRow(-1);
+        newHtml += "<tr>"
         for (var j = 0; j < cols.length; j++) {
-            var cell = trow.insertCell(-1);
+            newHtml += "<td><input id='" + container + i + j + "' value='" + data[i][cols[j]] + "'></input></td>"
+        }
+        newHtml += '<td><i class="fa-solid fa-circle-xmark dataDltBtn" id="delete'+container+i+'"></i></td>' // Delete button
+        newHtml += "</tr>"
+    }
+    newHtml+= "<tr>"
+    for (var j = 0; j < cols.length; j++){
+        newHtml += "<td></td>"
+    }
+    newHtml+= '<td><i class="fa-solid fa-circle-plus dataPlusBtn" id="plus'+container+i+'"></i></td></tr>'
+    newHtml += "</table>"
 
-            // Inserting the cell at particular place
-            cell.innerHTML = data[i][cols[j]];
+    // Add table to document
+    document.getElementById(container).innerHTML = newHtml;
+
+    // Add event listeners that change the background // colour when a value is changed
+    for (let i = 0; i < data.length; i++) {
+        for (let j = 0; j < cols.length; j++) {
+            document.getElementById(container + i + j).addEventListener('input', function (e) {
+                e.preventDefault();
+                box = document.getElementById(e.target.id)
+                if (box.value != box.defaultValue) {
+                    box.style.backgroundColor = "#FDCFF3";
+                }
+                else {
+                    box.style.backgroundColor = "transparent";
+                }
+            })
         }
     }
-    // Add the newly created table containing json data
-    var el = document.getElementById(container);
-    el.innerHTML = "";
-    el.appendChild(table);
 }
 
-let buildings;
-fetch('/buildings')
-    .then(response => response.json())
-    .then(function (body) {
-        makeTable(body, "buildingsData")
-    })
-let entrances;
-fetch('/entrances')
-    .then(response => response.json())
-    .then(function (body) {
-        makeTable(body, "entrancesData")
-    })
-let corridors;
-fetch('/corridors')
-    .then(response => response.json())
-    .then(function (body) {
-        makeTable(body, "corridorsData")
-    })
-let rooms;
-fetch('/rooms')
-    .then(response => response.json())
-    .then(function (body) {
-        makeTable(body, "roomsData")
-    })
-let unmarkedRooms;
-fetch('/unmarkedRooms')
-    .then(response => response.json())
-    .then(function (body) {
-        makeTable(body, "unmarkedRoomsData")
-    })
+window.addEventListener('load', function (e) {
+    fetch('/buildings')
+        .then(response => response.json())
+        .then(function (body) {
+            makeTable(body, "buildingsData")
+        })
+    fetch('/entrances')
+        .then(response => response.json())
+        .then(function (body) {
+            makeTable(body, "entrancesData")
+        })
+    fetch('/corridors')
+        .then(response => response.json())
+        .then(function (body) {
+            makeTable(body, "corridorsData")
+        })
+    fetch('/rooms')
+        .then(response => response.json())
+        .then(function (body) {
+            makeTable(body, "roomsData")
+        })
+    fetch('/unmarkedRooms')
+        .then(response => response.json())
+        .then(function (body) {
+            makeTable(body, "unmarkedRoomsData")
+        })
+})

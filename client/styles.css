@@ -196,21 +196,39 @@ input[type=text] {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
-  }
+}
   
-  .dataTable td, .dataTable th {
+.dataTable td, .dataTable th {
     border: 1px solid #ddd;
     padding: 8px;
-  }
+}
   
-  .dataTable tr:nth-child(even){background-color: #f2f2f2;}
+.dataTable tr:nth-child(even){background-color: #f2f2f2;}
   
-  .dataTable tr:hover {background-color: #ddd;}
+.dataTable tr:hover {background-color: #ddd;}
   
-  .dataTable th {
+.dataTable th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
     background-color: #04AA6D;
     color: white;
-  }
+}
+
+.dataTable input {
+    width: 100%;
+    border: none;
+    background: transparent;
+}
+
+#dataBtns {
+    margin: 0 auto;
+}
+
+.dataDltBtn {
+    color: rgb(224, 22, 22);
+}
+
+.dataPlusBtn {
+    color: #04AA6D;
+}
