@@ -6,7 +6,7 @@ body {
     box-sizing: border-box;
 }
 #map {
-    height: 600px;
+    height: 700px;
 }
 .formType1 {
     padding: 10px 10px 15px 20px;
@@ -191,3 +191,26 @@ input[type=text] {
 #finalSpeech {
     color: rgb(0, 0, 0);
 }
+
+.dataTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .dataTable td, .dataTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .dataTable tr:nth-child(even){background-color: #f2f2f2;}
+  
+  .dataTable tr:hover {background-color: #ddd;}
+  
+  .dataTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
