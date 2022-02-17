@@ -6,10 +6,10 @@ const options = {
   container: 'map',
   lat: 53.53094965890605,  
   lng: -1.1095832474735168,
-  zoom: 16,
+  zoom: 17,
   maxBounds: [
-  [-1.116291656055779, 53.5274202302019,], // Southwest coordinates
-  [-1.103938727347374, 53.533850335887024] // NorthEast coordinates
+  [ -1.1147841887079721,53.52933045167083], // Southwest coordinates
+  [-1.1063333233140895,53.532293206606084] // NorthEast coordinates
 
   ],
   bearing: -22,
@@ -33,7 +33,6 @@ window.addEventListener('mousedown', function() {
   setTimeout(function() {
     if(mouseIsDown) {
       // mouse was held down for > 3 seconds
-      console.log("hold");
       updatePinLocation();
     }
   }, 2000);
@@ -88,7 +87,7 @@ const drawFunctions = {
 }
 let loaded = false;
 function setup() {
-  const canvas = createCanvas(window.innerWidth, 700);
+  const canvas = createCanvas(window.innerWidth, 600);
   // Create a tile map and overlay the canvas on top.
   myMap = mappa.tileMap(options);
   myMap.overlay(canvas);
@@ -162,7 +161,6 @@ fetch('/rooms/listinfo')
       newItem.id = room.id;
       newItem.innerHTML = room.name;
       newItem.addEventListener("click", function(){
-        console.log('ahh');
         zoomOnLocation(room.location, room_focus);
         placePopup(room.id, room.location, room_width, room_height);
       });
@@ -171,7 +169,6 @@ fetch('/rooms/listinfo')
       newItem = document.createElement("br");
       div.appendChild(newItem);
 
-      console.log(document.getElementById(room.id));
     }
     else{
       return;
@@ -272,7 +269,6 @@ function setNavigation(source, destination) {
   }
 }
 function getNodeByName(name) {
-  console.log(name)
   let result = 0;
   rooms.forEach(element => {
     if (element.name.toLowerCase() == name.toLowerCase()) {
@@ -330,7 +326,6 @@ function drawRoute(node) {
 function updatePinLocation() {
   let newlocation = myMap.pixelToLatLng(mouseX,mouseY);
   pin.location = [newlocation.lat, newlocation.lng]
-  console.log(pin.location)
   updateMap();
 }
 function placePin() {
@@ -427,9 +422,15 @@ function calculateNearestCorridor(location) {
 }
 // highlights a cooridoor red, to be used for navigation
 function highlight_path(cooridoor_list) {
-  !navigation_loaded && addRouteStep(start.name)
+  !navigation_loaded && addRouteStep(start.name,-1)
   cooridoor_list.forEach((path, index) => {
-    !navigation_loaded && addRouteStep(path)
+    if (!navigation_loaded) {
+      if (index > 0) {
+        addRouteStep(path,cooridoor_list[index - 1])
+      } else {
+        addRouteStep(path,-1)
+      }
+    }
     switch (index) {
       case 0:
         if (Number.isInteger(start)) {
@@ -446,7 +447,7 @@ function highlight_path(cooridoor_list) {
         break;
     }
   });
-  !navigation_loaded && addRouteStep(dest.name)
+  !navigation_loaded && addRouteStep(dest.name,-1)
   navigation_loaded = true;
 }
 function highlight_cooridoor(index) {
@@ -592,7 +593,6 @@ function placePopup(id, location, width, height) {
   })
 }
 function mouseClicked() {
-  console.log(myMap.pixelToLatLng(mouseX, mouseY).lat + ", " + myMap.pixelToLatLng(mouseX, mouseY).lng)
   checkMouseClickForLocation(mouseX,mouseY);
   // checks if mouse was clicked over any of the location nodes and zooms in on them
 }
@@ -734,17 +734,30 @@ function printPath(currentVertex,parents)
     }
     return result.reverse();
 }
-
-function addRouteStep(direction) {
+function get_turn_type(corridor, previous) {
+  console.log(previous)
+    const end = corridors[corridor - 1].location
+    if (previous === -1) {
+      return " turn onto corridor outside of" + previous
+    }
+    const start = corridors[Number(previous) - 1].location
+    console.log(start)
+    console.log(end)
+}
+function addRouteStep(direction, previous) {
   const container = document.getElementById("routeStepList")
   const element = document.createElement('div')
   element.className = "routeStep"
   if (container.childNodes.length == 5) {
-    console.log(element, 'is at the top')
     element.className += " top"
   }
   var label = document.createElement("p")
-  label.innerText = direction
+  if (Number(direction)) {
+    label.innerText = get_turn_type(direction,previous)
+  } else {
+    label.innerText = direction
+  }
+  
 
   var soundButton = document.createElement('i')
   soundButton.classList = "fa fa-volume-up soundBtn"
@@ -769,7 +782,6 @@ function addRouteStep(direction) {
       clearHighlight()
     }
     container.childNodes[5].className += " top"
-    console.log(container.childNodes[5], 'is at the top')
     reduce_route()
   }
   
