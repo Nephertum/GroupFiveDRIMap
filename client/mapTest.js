@@ -216,6 +216,7 @@ function updateMap() {
     myMap.map.addControl(new mapboxgl.NavigationControl());
     graph = generateGraph()
     loaded = true;
+    const wsClient = new WebSocket("ws://127.0.0.1:3000")
   }
   
   // clears anything currently drawn on the map
