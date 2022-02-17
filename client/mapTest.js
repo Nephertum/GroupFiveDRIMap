@@ -210,13 +210,37 @@ fetch('/unmarkedRooms')
     })
 })
 }
+function AI_navigate() {
+  let previous_length = 0
+  let latest_message = ""
+  setInterval(() => {
+    const messages = document.querySelectorAll(".WACWidget__MarkdownP") 
+    let navigation_messages_count = 0
+    let latest_navigation_message = ""
+    for (let message of messages) {
+      let text = message.innerText;
+      if (text.includes(":")) {
+        navigation_messages_count += 1
+        latest_message = text
+      }
+    }
+    if (navigation_messages_count !== previous_length) {
+      let data = latest_message.split(":")
+      let locations = data[1].split(",")
+      previous_length = navigation_messages_count
+      setNavigation(locations[0],locations[1])
+      updateMap();
+    }
+    
+  },1000)
+}
 function updateMap() {
   if (!loaded) {
     myMap.map.addControl(new mapboxgl.FullscreenControl());
     myMap.map.addControl(new mapboxgl.NavigationControl());
     graph = generateGraph()
     loaded = true;
-    const wsClient = new WebSocket("ws://127.0.0.1:3000")
+    AI_navigate();
   }
   
   // clears anything currently drawn on the map
