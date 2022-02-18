@@ -23,6 +23,7 @@ var mouseIsDown = false;
 let start = 0;
 let dest = 0;
 let navigation_loaded = false
+let route;
 let pin = {
   name: "pin",
   location: 0
@@ -87,7 +88,7 @@ const drawFunctions = {
 }
 let loaded = false;
 function setup() {
-  const canvas = createCanvas(window.innerWidth, 600);
+  const canvas = createCanvas(window.innerWidth, 700);
   // Create a tile map and overlay the canvas on top.
   myMap = mappa.tileMap(options);
   myMap.overlay(canvas);
@@ -245,7 +246,10 @@ function updateMap() {
   drawNodes();
   placePin();
   if (start != 0 && dest != 0) {
-    highlight_path(calculate_route())
+    if (!navigation_loaded) {
+      route = calculate_route();
+    }
+    highlight_path(route)
   }
 }
 // changes the start and dest values for the next map update

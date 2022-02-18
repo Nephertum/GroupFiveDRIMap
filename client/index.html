@@ -53,10 +53,10 @@
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-    <input id="path1" type="text" placeholder="Enter your current location..." />
+    <input id="path1" type="text" placeholder="Enter your current location e.g. Fracture Clinic" />
     <button id="usePinToggle" class = "btn btn-outline-secondary">Use pin</button>
     <br>
-    <input id="path2" type="text" placeholder="Enter your destination..."/><br>
+    <input id="path2" type="text" placeholder="Enter your destination e.g. Outpatients"/><br>
     <button id="navigateBtn" class="btn btn-primary navBtn" data-bs-dismiss="offcanvas">Navigate</button>
     <button id="clearNavBtn" class="btn btn-outline-secondary navBtn" data-bs-dismiss="offcanvas"> Clear Route</button>
   </div>
@@ -73,12 +73,11 @@
   <p id="status" style="display: none">Listenting ...</p>
 </div><br>
 
+<input id ="roomSearch" type="text" placeholder="Enter room e.g. Fracture Clinic"><br>
+<button id="SearchBtn" class="btn btn-primary">Find</button>
+
 <div id="mapContainer">
   <div id="formsForSearching" style="position: relative; top: -50px;">
-    <div class="formType1" id='locationInput'>
-        <input id ="roomSearch" type="text" placeholder="Enter room..."><br>
-        <button id="SearchBtn" class="btn btn-primary">Find</button>
-    </div>
     <div class="formType1" id='routeStepList'>
       <h3>Directions</h3>
       <div>

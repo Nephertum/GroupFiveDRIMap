@@ -162,6 +162,9 @@ input[type=text] {
     padding: 15px;
     zoom: 60%;
 }
+#roomlist {
+    font-size: 30px;
+}
 
 .room-link {
     background: none!important;
