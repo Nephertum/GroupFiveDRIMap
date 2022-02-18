@@ -110,6 +110,10 @@ app.get('/unmarkedRooms', function (req, resp) {
     resp.json(unmarkedRooms);
 });
 
+app.get('/archive', function (req, resp) {
+    resp.json(archive);
+});
+
 app.post('/entities/add', function (req, resp) {
     const name = req.body.newName;
     const category = req.body.category;
