@@ -2,6 +2,8 @@ require('express');
 const express = require('express');
 const fs = require('fs');
 const sqlite3 = require('sqlite3');
+const session = require('express-session');
+const sqlitestore = require('connect-sqlite3')(session);
 const app = express();
 const cors = require('cors');
 app.use(express.static('client'));
@@ -9,7 +11,13 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static('body-parser'));
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
-
+app.use(session({
+    secret: 'hospitals are cool',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 1000*60*60 },
+    store: new sqlitestore()
+}))
 let db = new sqlite3.Database('./database/entities.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
         console.error(err.message);
@@ -65,6 +73,7 @@ function getPlace (category, id) {
 
 // Routes
 app.get('/entrances', function (req, resp) {
+    req.session.authorised = true;
     resp.json(entrances);
 });
 
