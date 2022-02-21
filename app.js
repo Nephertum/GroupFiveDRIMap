@@ -2,6 +2,7 @@ require('express');
 const express = require('express');
 const fs = require('fs');
 const sqlite3 = require('sqlite3');
+const path = require('path')
 const session = require('express-session');
 const sqlitestore = require('connect-sqlite3')(session);
 const app = express();
@@ -35,6 +36,14 @@ const unmarkedRooms = entities.unmarkedRooms;
 const archive = entities.archive;
 
 const placesForSearch = [rooms, buildings, archive];
+
+function check_authorisation(req,res,next) {
+    if (req.session.authorised) {
+        next()
+    } else {
+        res.status(401).redirect("/login.html")
+    }
+}
 
 function updateEntities () {
     entities.entrances = entrances;
@@ -70,10 +79,17 @@ function getPlace (category, id) {
     }
     return undefined;
 }
+app.get("/login", (req,res) => {
+    if (req.session.authorised) {
+        res.sendFile(path.resolve(__dirname,'./private_client/staff.html'))
+    } else {
+        res.sendFile(path.resolve(__dirname,'./private_client/login.html'))
+    }
+    
+})
 
 // Routes
 app.get('/entrances', function (req, resp) {
-    req.session.authorised = true;
     resp.json(entrances);
 });
 
@@ -122,6 +138,16 @@ app.get('/unmarkedRooms', function (req, resp) {
 app.get('/archive', function (req, resp) {
     resp.json(archive);
 });
+
+app.post('/login', (req,res) => {
+    if (req.body.username == "test" && req.body.password == 'test') {
+        req.session.authorised = true;
+        res.status(200).send();
+    } else {
+        req.session.authorised = null;
+        res.status(401).send()
+    }
+})
 
 app.post('/entities/add', function (req, resp) {
     const name = req.body.newName;
