@@ -1,9 +1,13 @@
 body {
     margin: 0;
     height: 100%;
+    background-color: #EEEEEE;
 }
 * {
     box-sizing: border-box;
+}
+.app_container {
+    margin: 10px;
 }
 #map {
     height: 700px;
