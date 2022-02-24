@@ -89,6 +89,15 @@ app.get("/login", (req,res) => {
 })
 
 // Routes
+app.get('/info/:category/:id', function (req, resp) {
+    const id = req.params.id;
+    const category = req.params.category;
+    const info = getPlace (category, id);
+    console.log(id, category)
+    console.log(info)
+    resp.json(info);
+});
+
 app.get('/entrances', function (req, resp) {
     resp.json(entrances);
 });

@@ -248,6 +248,17 @@ input[type=text] {
     color: #04AA6D;
 }
 
+.dataViewBtn {
+    color: #8519b8;
+}
+
+#info button {
+    cursor: pointer;
+ }
+ #info .message {
+    text-align: center;
+}
+
 #confirm {
     display: none;
     background-color: #f5f5f5;
