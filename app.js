@@ -24,6 +24,13 @@ let db = new sqlite3.Database('./database/entities.db', sqlite3.OPEN_READWRITE, 
         console.error(err.message);
     }
 })
+const staff_db = require('./staffDB')
+staff_db.get("SELECT * FROM staff",(err,rows) => {
+    if (err) console.log(err)
+    if (rows) {
+        console.log(rows)
+    }
+})
 
 // Entities
 const entities = require('./entities.json');
@@ -41,7 +48,7 @@ function check_authorisation(req,res,next) {
     if (req.session.authorised) {
         next()
     } else {
-        res.status(401).redirect("/login.html")
+        res.status(401).redirect("/login")
     }
 }
 
@@ -81,11 +88,18 @@ function getPlace (category, id) {
 }
 app.get("/login", (req,res) => {
     if (req.session.authorised) {
-        res.sendFile(path.resolve(__dirname,'./private_client/staff.html'))
+        res.redirect("/data")
     } else {
         res.sendFile(path.resolve(__dirname,'./private_client/login.html'))
     }
     
+})
+app.get('/data', check_authorisation, (req,res) => {
+    res.sendFile(path.resolve(__dirname,'./private_client/data.html'))
+})
+app.get('/logout', (req,res) => {
+    req.session.destroy();
+    res.status(200).send();
 })
 
 // Routes

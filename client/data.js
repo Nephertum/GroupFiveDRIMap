@@ -345,6 +345,16 @@ function checkChange(id) {
         }
     })
 }
+function logout() {
+    fetch("/logout",{
+        credentials: 'include'
+    })
+    .then (response => {
+        if (response.ok) {
+            window.location.href="http://127.0.0.1:3000"
+        }
+    })
+}
 
 function saveChanges() {
     alert("Changes: " + changes)
