@@ -25,12 +25,7 @@ let db = new sqlite3.Database('./database/entities.db', sqlite3.OPEN_READWRITE, 
     }
 })
 const staff_db = require('./staffDB')
-staff_db.get("SELECT * FROM staff",(err,rows) => {
-    if (err) console.log(err)
-    if (rows) {
-        console.log(rows)
-    }
-})
+
 
 // Entities
 const entities = require('./entities.json');
@@ -163,13 +158,18 @@ app.get('/archive', function (req, resp) {
 });
 
 app.post('/login', (req,res) => {
-    if (req.body.username == "test" && req.body.password == 'test') {
-        req.session.authorised = true;
-        res.status(200).send();
-    } else {
-        req.session.authorised = null;
-        res.status(401).send()
-    }
+    console.log("login received")
+    staff_db.get("SELECT username, password FROM staff WHERE username=? AND password=?",[req.body.username, req.body.password],(err,rows) => {
+        if (err) {
+            console.log(err)
+            res.status(500).send();
+        }
+        if (!rows) res.status(401).send();
+        if (rows) {
+            req.session.authorised = true;
+            res.status(200).send();
+        }
+    })
 })
 
 app.post('/entities/add', function (req, resp) {
