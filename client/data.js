@@ -149,6 +149,16 @@ function checkChange(id){
         inputs.push(box);
     })
 }
+function logout() {
+    fetch("/logout",{
+        credentials: 'include'
+    })
+    .then (response => {
+        if (response.ok) {
+            window.location.href="http://127.0.0.1:3000"
+        }
+    })
+}
 
 function undo() {
     console.log('here')
