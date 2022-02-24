@@ -19,23 +19,54 @@ app.use(session({
     cookie: { maxAge: 1000*60*60 },
     store: new sqlitestore()
 }))
+var entrances;
+var corridorIndex;
+var buildings;
+var rooms;
+var unmarkedRooms;
+var archive;
+
 let db = new sqlite3.Database('./database/entities.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
         console.error(err.message);
     }
+    db.all("SELECT * FROM entrances",[],(err,rows) => {
+        if (err) console.log(err)
+        if (!rows) console.log("no entrances found")
+        if (rows) entrances = rows;
+    })
+    db.all("SELECT * FROM corridorIndex",[],(err,rows) => {
+        if (err) console.log(err)
+        if (!rows) console.log("no entrances found")
+        if (rows) corridorIndex = rows;
+    })
+    db.all("SELECT * FROM buildings",[],(err,rows) => {
+        if (err) console.log(err)
+        if (!rows) console.log("no entrances found")
+        if (rows) buildings = rows;
+    })
+    db.all("SELECT * FROM rooms",[],(err,rows) => {
+        if (err) console.log(err)
+        if (!rows) console.log("no entrances found")
+        if (rows) rooms = rows;
+        if (rows) console.log(rows)
+    })
+    db.all("SELECT * FROM unmarkedRooms",[],(err,rows) => {
+        if (err) console.log(err)
+        if (!rows) console.log("no entrances found")
+        if (rows) unmarkedRooms = rows;
+    })
+    db.all("SELECT * FROM archive",[],(err,rows) => {
+        if (err) console.log(err)
+        if (!rows) console.log("no entrances found")
+        if (rows) archive = rows;
+    })
 })
 const staff_db = require('./staffDB')
 
 
 // Entities
 const entities = require('./entities.json');
-
-const entrances = entities.entrances;
-const corridorIndex = entities.corridorIndex;
-const buildings = entities.buildings;
-const rooms = entities.rooms;
-const unmarkedRooms = entities.unmarkedRooms;
-const archive = entities.archive;
 
 const placesForSearch = [rooms, buildings, archive];
 

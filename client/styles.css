@@ -373,3 +373,15 @@ input[type=text] {
  #info .message {
     text-align: center;
 }
+#mapContainer {
+    position: relative;
+}
+#directionBtn {
+    position: absolute;
+    left: 2rem;
+    top: 2rem;
+    z-index: 2;
+}
+.searchInput {
+    display:flex;
+}

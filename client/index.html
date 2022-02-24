@@ -38,14 +38,14 @@
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <button class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Navigate </button>
+          <button class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasNavigation" role="button" aria-controls="offcanvasNavigation">Navigate </button>
         </li>
     </ul>
     </div>
   </div>
 </nav>
 <div class="app_container">
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavigation" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasExampleLabel">navigation</h5>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -59,6 +59,25 @@
       <button id="clearNavBtn" class="btn btn-outline-secondary navBtn" data-bs-dismiss="offcanvas"> Clear Route</button>
     </div>
   </div>
+
+
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasDirections" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Directions</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="formType1" id='routeStepList'>
+        <h3>Directions</h3>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
   
   <h5>Speech recognition</h5>
   <div class="p-3" id="speechBox">
@@ -70,21 +89,14 @@
     <button class="btn btn-primary" id="stopSpeech" style="display:none;">Stop <i class="fa fa-microphone"></i></button>
     <p id="status" style="display: none">Listenting ...</p>
   </div><br>
+  <div class="searchInput">
+    <input id ="roomSearch" type="text" placeholder="Enter room e.g. Fracture Clinic"><br>
+    <button id="SearchBtn" class="btn btn-primary">Find</button>
+  </div>
   
-  <input id ="roomSearch" type="text" placeholder="Enter room e.g. Fracture Clinic"><br>
-  <button id="SearchBtn" class="btn btn-primary">Find</button>
   
   <div id="mapContainer">
-    <div id="formsForSearching" style="position: relative; top: -50px;">
-      <div class="formType1" id='routeStepList'>
-        <h3>Directions</h3>
-        <div>
-          <span>Volume</span>
-          <input type="range" min="0" max="1" value="1" step="0.1" id="volume" />
-          <span id="volume-label">1</span>
-        </div>
-      </div>
-    </div>
+    <button id="directionBtn" class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasDirections" role="button" aria-controls="offcanvasDirections">Directions</button>
     <div id='map'></div><br>
     <div id='roomlist' class="row">
       <div class="col-md-3">
@@ -197,7 +209,6 @@
   });
 </script>
 <script src="mapTest.js"></script>
-<script src="admin.js"></script>
 <script src="speechRecognition.js"></script>
 </body>
 
