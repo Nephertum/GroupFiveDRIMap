@@ -2,6 +2,9 @@ require('express');
 const express = require('express');
 const fs = require('fs');
 const sqlite3 = require('sqlite3');
+const path = require('path')
+const session = require('express-session');
+const sqlitestore = require('connect-sqlite3')(session);
 const app = express();
 const cors = require('cors');
 app.use(express.static('client'));
@@ -9,7 +12,13 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static('body-parser'));
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
-
+app.use(session({
+    secret: 'hospitals are cool',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 1000*60*60 },
+    store: new sqlitestore()
+}))
 let db = new sqlite3.Database('./database/entities.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
         console.error(err.message);
@@ -27,6 +36,14 @@ const unmarkedRooms = entities.unmarkedRooms;
 const archive = entities.archive;
 
 const placesForSearch = [rooms, buildings, archive];
+
+function check_authorisation(req,res,next) {
+    if (req.session.authorised) {
+        next()
+    } else {
+        res.status(401).redirect("/login.html")
+    }
+}
 
 function updateEntities () {
     entities.entrances = entrances;
@@ -62,8 +79,25 @@ function getPlace (category, id) {
     }
     return undefined;
 }
+app.get("/login", (req,res) => {
+    if (req.session.authorised) {
+        res.sendFile(path.resolve(__dirname,'./private_client/staff.html'))
+    } else {
+        res.sendFile(path.resolve(__dirname,'./private_client/login.html'))
+    }
+    
+})
 
 // Routes
+app.get('/info/:category/:id', function (req, resp) {
+    const id = req.params.id;
+    const category = req.params.category;
+    const info = getPlace (category, id);
+    console.log(id, category)
+    console.log(info)
+    resp.json(info);
+});
+
 app.get('/entrances', function (req, resp) {
     resp.json(entrances);
 });
@@ -113,6 +147,16 @@ app.get('/unmarkedRooms', function (req, resp) {
 app.get('/archive', function (req, resp) {
     resp.json(archive);
 });
+
+app.post('/login', (req,res) => {
+    if (req.body.username == "test" && req.body.password == 'test') {
+        req.session.authorised = true;
+        res.status(200).send();
+    } else {
+        req.session.authorised = null;
+        res.status(401).send()
+    }
+})
 
 app.post('/entities/add', function (req, resp) {
     const name = req.body.newName;

@@ -248,7 +248,11 @@ input[type=text] {
     color: #04AA6D;
 }
 
-#confirm {
+.dataViewBtn {
+    color: #8519b8;
+}
+
+#confirm, #info {
     display: none;
     background-color: #f5f5f5;
     border: 5px solid #aaa;
@@ -265,5 +269,12 @@ input[type=text] {
     cursor: pointer;
  }
  #confirm .message {
+    text-align: center;
+}
+
+#info button {
+    cursor: pointer;
+ }
+ #info .message {
     text-align: center;
 }

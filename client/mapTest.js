@@ -41,6 +41,19 @@ window.addEventListener('mousedown', function() {
 window.addEventListener('mouseup', function() {
   mouseIsDown = false;
 });
+window.addEventListener('load', async () => {
+  let room_list;
+  let res = await fetch('/rooms/listinfo')
+  let result = await res.json()
+  room_list = result;
+
+  let unmarked_room_list;
+  res = await fetch('/unmarkedrooms')
+  result = await res.json()
+  unmarked_room_list = result
+  populate_list(room_list, unmarked_room_list);
+})
+
 
 // locations section:
 // order of locations returned is [entrances, corridorIndex, buildings, rooms]
@@ -79,6 +92,8 @@ fetch('/rooms/drawing') // Rooms have extra info so only store drawing info glob
 .then(function(body){
   rooms = body;
 })
+
+
 
 const drawFunctions = {
   "building" : drawBuildings,
@@ -128,85 +143,8 @@ function setupButton() {
   clearButton.addEventListener('click', () => {
     clearHighlight()
   })
-fetch('/rooms/listinfo')
-.then(response => response.json())
-.then(function(body){
-  let block;
-  let div;
-  let building;
-  const room_width = 15;
-  const room_height = 15;
-  const room_focus = 20;
-  body.forEach(room => {
-    building = room.building
-    if (building === "Women's and Children's Hospital"){
-      block = "wch";
-    }
-    else if (building === "West Block"){
-      block = "wb";
-    }
-    else if (building === "South Block"){
-      block = "sb";
-    }
-    else if (building === "East Block"){
-      block = "eb";
-    }
-    else{
-      return;
-    }
-    if (!isNaN(room.level)){
-      div = document.getElementById(block.concat(room.level))
-      let newItem;
-      newItem = document.createElement("button");
-      newItem.classList.add("room-link");
-      newItem.id = room.id;
-      newItem.innerHTML = room.name;
-      newItem.addEventListener("click", function(){
-        zoomOnLocation(room.location, room_focus);
-        placePopup(room.id, room.location, room_width, room_height);
-      });
-      div.appendChild(newItem);
-    
-      newItem = document.createElement("br");
-      div.appendChild(newItem);
+  
 
-    }
-    else{
-      return;
-    }
-  })
-})
-
-fetch('/unmarkedRooms')
-.then(response => response.json())
-.then(function(body){
-  let block;
-  let div;
-    body.forEach(room => {
-  if (room.building === "Women's and Children's Hospital"){
-    block = "wch";
-  }
-  else if (room.building === "West Block"){
-    block = "wb";
-  }
-  else if (room.building === "South Block"){
-    block = "sb";
-  }
-  else if (room.building === "East Block"){
-    block = "eb";
-  }
-  else{
-    return;
-  }
-  if (!isNaN(room.level)){
-    div = document.getElementById(block.concat(room.level))
-    div.innerHTML += '<a>'+ room.name + '</a><br>'
-  }
-  else{
-    return;
-  }
-    })
-})
 }
 function AI_navigate() {
   let previous_length = 0
@@ -246,9 +184,9 @@ function updateMap() {
   drawNodes();
   placePin();
   if (start != 0 && dest != 0) {
-    if (!navigation_loaded) {
-      route = calculate_route();
-    }
+    
+    route = calculate_route();
+    
     highlight_path(route)
   }
 }
@@ -280,6 +218,88 @@ function getNodeByName(name) {
     }
   });
   return result;
+}
+function populate_list(room_list, unmarked_room_list) {
+  
+  
+    let block;
+    let div;
+    let building;
+    const room_width = 15;
+    const room_height = 15;
+    const room_focus = 20;
+    room_list.forEach(room => {
+      building = room.building
+      if (building === "Women's and Children's Hospital"){
+        block = "wch";
+      }
+      else if (building === "West Block"){
+        block = "wb";
+      }
+      else if (building === "South Block"){
+        block = "sb";
+      }
+      else if (building === "East Block"){
+        block = "eb";
+      }
+      else{
+        return;
+      }
+      if (!isNaN(room.level)){
+        div = document.getElementById(block.concat(room.level))
+        let newItem;
+        newItem = document.createElement("a");
+        newItem.classList.add("room-link");
+        newItem.id = room.id;
+        newItem.innerHTML = room.name;
+        newItem.setAttribute('onclick',`javascript:room_list_click("${room.name}");`)
+        div.appendChild(newItem);
+      
+        newItem = document.createElement("br");
+        div.appendChild(newItem);
+  
+      }
+      else{
+        return;
+      }
+    })
+    unmarked_room_list.forEach(room => {
+      if (room.building === "Women's and Children's Hospital"){
+        block = "wch";
+      }
+      else if (room.building === "West Block"){
+        block = "wb";
+      }
+      else if (room.building === "South Block"){
+        block = "sb";
+      }
+      else if (room.building === "East Block"){
+        block = "eb";
+      }
+      else{
+        return;
+      }
+      if (!isNaN(room.level)){
+        div = document.getElementById(block.concat(room.level))
+        div.innerHTML += '<a>'+ room.name + '</a><br>'
+      }
+      else{
+        return;
+      }
+        })
+      }
+  
+
+
+  
+function room_list_click(name) {
+  const room_width = 15;
+  const room_height = 15;
+  const room_focus = 20;
+  const node = getNodeByName(name);
+  zoomOnLocation(node.location,room_focus)
+  placePopup(node.id,node.location,room_width,room_height)
+  window.scrollTo(0,300)
 }
 function drawNodes(){
   const entrance_min_zoom = 1;
@@ -426,13 +446,14 @@ function calculateNearestCorridor(location) {
 }
 // highlights a cooridoor red, to be used for navigation
 function highlight_path(cooridoor_list) {
-  !navigation_loaded && addRouteStep(start.name,-1)
+  console.log(cooridoor_list)
+  // !navigation_loaded && addRouteStep(start.name,-1)
   cooridoor_list.forEach((path, index) => {
     if (!navigation_loaded) {
       if (index > 0) {
         addRouteStep(path,cooridoor_list[index - 1])
       } else {
-        addRouteStep(path,-1)
+        addRouteStep(path,start.name)
       }
     }
     switch (index) {
@@ -738,15 +759,34 @@ function printPath(currentVertex,parents)
     }
     return result.reverse();
 }
+function check_parallel(corridor_1,corridor_2) {
+  const corridor_1_location = corridors[corridor_1 - 1].location
+  const corridor_2_location = corridors[corridor_2 - 1].location
+  const direction_1 = [corridor_1_location[1][0] - corridor_1_location[0][0],corridor_1_location[1][1] - corridor_1_location[0][1]]
+  const direction_2 = [corridor_2_location[1][0] - corridor_2_location[0][0],corridor_2_location[1][1] - corridor_2_location[0][1]]
+  const direction_1_length = Math.sqrt(Math.pow(direction_1[0],2)+Math.pow(direction_1[1],2))
+  const direction_2_length = Math.sqrt(Math.pow(direction_2[0],2)+Math.pow(direction_2[1],2))
+  let direction_1_normalised = [direction_1[0] / direction_1_length,direction_1[1] / direction_1_length]
+  let direction_2_normalised = [direction_2[0] / direction_2_length,direction_2[1] / direction_2_length]
+  direction_1_normalised = [Number(direction_1_normalised[0].toFixed(2)),Number(direction_1_normalised[1].toFixed(2))]
+  direction_2_normalised = [Number(direction_2_normalised[0].toFixed(2)),Number(direction_2_normalised[1].toFixed(2))]
+  if (Math.abs(direction_1_normalised[0] - direction_2_normalised[0]) < 0.03 && Math.abs(direction_1_normalised[1] - direction_2_normalised[1]) < 0.03) {
+    return true;
+  } else {
+    return false;
+  }
+}
 function get_turn_type(corridor, previous) {
+  if (check_parallel(corridor,previous)) {
+    return "carry straight on"
+  } else {
+    return 'turn'
+  }
+
+  console.log(corridor)
   console.log(previous)
     const end = corridors[corridor - 1].location
-    if (previous === -1) {
-      return " turn onto corridor outside of" + previous
-    }
     const start = corridors[Number(previous) - 1].location
-    console.log(start)
-    console.log(end)
 }
 function addRouteStep(direction, previous) {
   const container = document.getElementById("routeStepList")
@@ -757,7 +797,12 @@ function addRouteStep(direction, previous) {
   }
   var label = document.createElement("p")
   if (Number(direction)) {
-    label.innerText = get_turn_type(direction,previous)
+    if (Number(previous)) {
+      label.innerText = get_turn_type(direction, previous)
+    }
+    else {
+      label.innerText = " turn onto corridor outside of " + previous
+    }
   } else {
     label.innerText = direction
   }
@@ -793,12 +838,15 @@ function addRouteStep(direction, previous) {
 }
 
 function reduce_route() {
+  console.log('reducing route')
   let route = calculate_route()
+  console.log(start)
   if (Number.isInteger(start)) {
     start = route[1]
   } else {
     start = route[0]
   }
+  console.log(start)
   updateMap()
 
 }

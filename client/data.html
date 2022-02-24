@@ -29,6 +29,10 @@
     <button id="confirmArchive" class="btn btn-danger confirmArchive">Move to Archive</button>
     <button id="confirmCancel" class="btn btn-info confirmCancel">Cancel</button>
  </div>
+ <div id="info">
+  <div class="message"></div>
+  <button class="btn btn-info confirmCancel">Close</button>
+</div>
   <div class="row">
     <div class="col-sm">
       <h1>Data</h1>
@@ -36,21 +40,21 @@
     <div class="col-sm">
       <span id="dataBtns">
       <button type="button" class="btn btn-primary" id="saveChanges" onclick="saveChanges()">Save changes</button>
-      <button type="button" class="btn btn-primary" id="undoBtn" onclick="undo()"><i class="fa-solid fa-arrow-rotate-left"></i></button>
       </span>
     </div>
   </div>
-  <h6>All buttons work and the changes are stored in an array but not actually posted to server yet. Undo button needs to get value before an input is changed rather than after to work. Also need to change rows when moved to archive so they match the new headings.</h6>
+  <h6>Changes are stored in an array but not actually posted to server yet. If an item is taken out of archive, can't put it back in. Otherwise everything works.</h6>
   <h4>Buildings</h4>
-  <div id="buildingsData"></div><br>
+  <div id="buildingData"></div><br>
   <h4>Rooms - Marked</h4>
-  <div id="roomsData"></div><br>
+  <div id="roomData"></div><br>
   <h4>Rooms - Unmarked</h4>
-  <div id="unmarkedRoomsData"></div><br>
+  <div id="unmarkedRoomData"></div><br>
   <h4>Entrances</h4>
-  <div id="entrancesData"></div><br>
+  <div id="entranceData"></div><br>
   <h4>Corridors</h4>
-  <div id="corridorsData"></div><br>
+  <p>Going to need id's for corridor table to work</p>
+  <div id="corridorData"></div><br>
   <h4>Archive</h4>
   <div id="archiveData"></div><br>
   <script src="data.js"></script>
