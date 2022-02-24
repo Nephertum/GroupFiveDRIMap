@@ -41,6 +41,19 @@ window.addEventListener('mousedown', function() {
 window.addEventListener('mouseup', function() {
   mouseIsDown = false;
 });
+window.addEventListener('load', async () => {
+  let room_list;
+  let res = await fetch('/rooms/listinfo')
+  let result = await res.json()
+  room_list = result;
+
+  let unmarked_room_list;
+  res = await fetch('/unmarkedrooms')
+  result = await res.json()
+  unmarked_room_list = result
+  populate_list(room_list, unmarked_room_list);
+})
+
 
 // locations section:
 // order of locations returned is [entrances, corridorIndex, buildings, rooms]
@@ -79,6 +92,8 @@ fetch('/rooms/drawing') // Rooms have extra info so only store drawing info glob
 .then(function(body){
   rooms = body;
 })
+
+
 
 const drawFunctions = {
   "building" : drawBuildings,
@@ -128,85 +143,8 @@ function setupButton() {
   clearButton.addEventListener('click', () => {
     clearHighlight()
   })
-fetch('/rooms/listinfo')
-.then(response => response.json())
-.then(function(body){
-  let block;
-  let div;
-  let building;
-  const room_width = 15;
-  const room_height = 15;
-  const room_focus = 20;
-  body.forEach(room => {
-    building = room.building
-    if (building === "Women's and Children's Hospital"){
-      block = "wch";
-    }
-    else if (building === "West Block"){
-      block = "wb";
-    }
-    else if (building === "South Block"){
-      block = "sb";
-    }
-    else if (building === "East Block"){
-      block = "eb";
-    }
-    else{
-      return;
-    }
-    if (!isNaN(room.level)){
-      div = document.getElementById(block.concat(room.level))
-      let newItem;
-      newItem = document.createElement("button");
-      newItem.classList.add("room-link");
-      newItem.id = room.id;
-      newItem.innerHTML = room.name;
-      newItem.addEventListener("click", function(){
-        zoomOnLocation(room.location, room_focus);
-        placePopup(room.id, room.location, room_width, room_height);
-      });
-      div.appendChild(newItem);
-    
-      newItem = document.createElement("br");
-      div.appendChild(newItem);
+  
 
-    }
-    else{
-      return;
-    }
-  })
-})
-
-fetch('/unmarkedRooms')
-.then(response => response.json())
-.then(function(body){
-  let block;
-  let div;
-    body.forEach(room => {
-  if (room.building === "Women's and Children's Hospital"){
-    block = "wch";
-  }
-  else if (room.building === "West Block"){
-    block = "wb";
-  }
-  else if (room.building === "South Block"){
-    block = "sb";
-  }
-  else if (room.building === "East Block"){
-    block = "eb";
-  }
-  else{
-    return;
-  }
-  if (!isNaN(room.level)){
-    div = document.getElementById(block.concat(room.level))
-    div.innerHTML += '<a>'+ room.name + '</a><br>'
-  }
-  else{
-    return;
-  }
-    })
-})
 }
 function AI_navigate() {
   let previous_length = 0
@@ -280,6 +218,87 @@ function getNodeByName(name) {
     }
   });
   return result;
+}
+function populate_list(room_list, unmarked_room_list) {
+  
+  
+    let block;
+    let div;
+    let building;
+    const room_width = 15;
+    const room_height = 15;
+    const room_focus = 20;
+    room_list.forEach(room => {
+      building = room.building
+      if (building === "Women's and Children's Hospital"){
+        block = "wch";
+      }
+      else if (building === "West Block"){
+        block = "wb";
+      }
+      else if (building === "South Block"){
+        block = "sb";
+      }
+      else if (building === "East Block"){
+        block = "eb";
+      }
+      else{
+        return;
+      }
+      if (!isNaN(room.level)){
+        div = document.getElementById(block.concat(room.level))
+        let newItem;
+        newItem = document.createElement("a");
+        newItem.classList.add("room-link");
+        newItem.id = room.id;
+        newItem.innerHTML = room.name;
+        newItem.setAttribute('onclick',`javascript:room_list_click("${room.name}");`)
+        div.appendChild(newItem);
+      
+        newItem = document.createElement("br");
+        div.appendChild(newItem);
+  
+      }
+      else{
+        return;
+      }
+    })
+    unmarked_room_list.forEach(room => {
+      if (room.building === "Women's and Children's Hospital"){
+        block = "wch";
+      }
+      else if (room.building === "West Block"){
+        block = "wb";
+      }
+      else if (room.building === "South Block"){
+        block = "sb";
+      }
+      else if (room.building === "East Block"){
+        block = "eb";
+      }
+      else{
+        return;
+      }
+      if (!isNaN(room.level)){
+        div = document.getElementById(block.concat(room.level))
+        div.innerHTML += '<a>'+ room.name + '</a><br>'
+      }
+      else{
+        return;
+      }
+        })
+      }
+  
+
+
+  
+function room_list_click(name) {
+  const room_width = 15;
+  const room_height = 15;
+  const room_focus = 20;
+  const node = getNodeByName(name);
+  zoomOnLocation(node.location,room_focus)
+  placePopup(node.id,node.location,room_width,room_height)
 }
 function drawNodes(){
   const entrance_min_zoom = 1;
