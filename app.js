@@ -503,6 +503,8 @@ app.get('/entities/search/:word', function (req, resp) {
 app.post('/info', (req, resp) => {
     const location = req.body.location;
     const question = req.body.Question;
+    console.log(question)
+    console.log(location)
     let response = '';
     if (question === 'time') {
         for (const room of rooms) {
