@@ -1,4 +1,3 @@
-require('express');
 const express = require('express');
 const fs = require('fs');
 const sqlite3 = require('sqlite3');
@@ -75,20 +74,6 @@ function check_authorisation (req, res, next) {
         res.status(401).redirect('/login');
     }
 }
-
-function updateEntities () {
-    entities.entrances = entrances;
-    entities.corridorIndex = corridorIndex;
-    entities.buildings = buildings;
-    entities.rooms = rooms;
-    entities.archive = archive;
-    fs.writeFile('entities.json', JSON.stringify(entities, null, '\t'), err => {
-        if (err) {
-            console.log(err);
-        }
-    });
-}
-
 // Functions used in routes
 function getPlace (category, id) {
     let searchThrough;
@@ -291,54 +276,91 @@ app.post('/signup', check_authorisation, (req,res) => {
  * @apiName PostNewEntity
  * @apiGroup entities
  *
- * @apiParam {String} newName Name of new object.
- * @apiParam {String="entrance","building","room","corridor"} category Category of new object.
- * @apiParam {String} newLocation Map location of new object
- * @apiParam {String} [newDescription] Description of new object.
- * @apiParam {String} [newHoursWeekStart] Start of the weekday opening hours of the new object if applicable.
- * @apiParam {String} [newHoursWeekEnd] End of the weekday opening hours of the new object if applicable.
- * @apiParam {String} [newHoursWeekendStart] Start of the weekend opening hours of the new object if applicable.
- * @apiParam {String} [newHoursWeekendEnd] End of the weekend opening hours of the new object if applicable.
- * @apiParam {String} [newImg] Name of the image file for the new object if applicable.
+ * @apiParam {String} name Name of new object.
+ * @apiParam {String="entrance","building","room","corridor","unmarkedRoom",} category Category of new object.
+ * @apiParam {String} latitude Latitude of new object.
+ * @apiParam {String} longitude Longitude of new object.
+ * @apiParam {String} building Building where new object is located.
+ * @apiParam {String} level Level new object is located on.
+ * @apiParam {String} description Description of new object.
+ * @apiParam {String} weekdayHours Start of the weekday opening hours of the new object if applicable.
+ * @apiParam {String} weekendHours Start of the weekend opening hours of the new object if applicable.
+ * @apiParam {String} latitudeStart Latitude of starting point for corridors.
+ * @apiParam {String} latitudeend Latitude of ending point for corridors.
+ * @apiParam {String} longitudeStart Longitude of starting point for corridors.
+ * @apiParam {String} longitudeEnd Longitude of ending point for corridors.
+ * @apiParam {String} [neighbours] Integer list representing all neighbouring corridors.
+ * @apiParam {String} image Name of the image file for the new object if applicable.
+ * 
  */
-app.post('/entities/add', function (req, resp) {
-    const name = req.body.newName;
+app.post('/entities/add', function (req, res) {
+    const name = req.body.name;
     const category = req.body.category;
-    const location = JSON.parse('[' + req.body.newLocation + ']');
     let id;
-    if (category === 'entrance') {
-        id = 'e' + entrances.length;
-    } else if (category === 'room') {
-        id = 'r' + rooms.length;
-    } else if (category === 'building') {
-        id = 'b' + rooms.length;
-    } else {
-        resp.status(400).send('No category defined');
+    switch (category) {
+        case 'room':
+            id = 'r' + (Number(rooms[rooms.length - 1].id.slice(1)) + 1)
+            break;
+        case 'entrance':
+            id = 'e' + (Number(enrtances[entrances.length - 1].id.slice(1)) + 1)
+            break;
+        case 'building':
+            id = 'b' + (Number(buildings[buildings.length - 1].id.slice(1)) + 1)
+            break;
+        case 'unmarkedRoom':
+            id = 'u' + (Number(unmarkedRooms[unmarkedRooms.length - 1].id.slice(1)) + 1)
+            break;
+        case 'corridor':
+            id = 'c' + (Number(unmarkedRooms[unmarkedRooms.length - 1].id.slice(1)) + 1)
+            break;
+        default:
+            break;
     }
-    const place = {
-        id: id,
-        name: name,
-        location: location
-    };
-    if (category === 'entrance') {
-        entrances.push(place);
-    } else if (category === 'room') {
-        const description = req.body.newDescription;
-        const hoursWeek = req.body.newHoursWeekStart + '-' + req.body.newHoursWeekEnd;
-        const hoursWeekend = req.body.newHoursWeekendStart + '-' + req.body.newHoursWeekendEnd;
-        const hours = [hoursWeek, hoursWeekend];
-        const img = req.body.newImg;
-        place.description = description;
-        place.hours = hours;
-        place.image = img;
-        rooms.push(place);
-    } else if (category === 'building') {
-        buildings.push(place);
+    switch (category) {
+        case 'room': {
+            let {level, building, description, latitude, longitude, weekdayHours, weekendHours, image} = req.body
+            db.run("INSERT INTO rooms VALUES (?,?,?,?,?,?,?,?,?,?)",[id,name,building, level,latitude,longitude,description,weekdayHours,weekendHours,image],(err) => {
+                if (!err) rooms.push({id, name, building, level, latitude, longitude, description, weekdayHours, weekendHours,image})
+                if (err) res.status(500).send()
+            })
+            break;
+        }
+        case 'entrance': {
+            let {latitude, longitude} = req.body;
+            db.run("INSERT INTO entrances VALUES (?,?,?,?)",[id,name,latitude, longitude],(err) => {
+                if (!err) entrances.push({id, name, latitude, longitude})
+                if (err) res.status(500).send()
+            })
+            break;
+        }
+        case 'building': {
+            let {latitude, longitude} = req.body;
+            db.run("INSERT INTO buildings VALUES (?,?,?,?)",[id,name,latitude, longitude],(err) => {
+                if (!err) buildings.push({id, name, latitude, longitude})
+                if (err) res.status(500).send()
+            })
+            break;
+        }
+        case 'unmarkedRoom': {
+            let {building, level} = req.body;
+            db.run("INSERT INTO unmarkedRooms VALUES (?,?,?,?)",[id, name, building, level],(err) => {
+                if (!err) unmarkedRooms.push({id, name, building, level})
+                if (err) res.status(500).send()
+            })
+            break;
+        }
+        case 'corridor': {
+            let {latitudeStart, longitudeStart, latitudeEnd, longitudeEnd, neighbours} = req.body;
+            db.run("INSERT INTO corridorIndex VALUES (?,?,?,?,?,?,?)",[id,name,latitudeStart, longitudeStart, latitudeEnd, longitudeEnd],(err) => {
+                if (!err) corridorIndex.push({id,name,latitudeStart,longitudeStart,latitudeEnd,longitudeEnd,neighbours})
+                if (err) res.status(500).send()
+            })
+            break;
+        }
+        default:
+            break;
     }
-    updateEntities();
-    // resp.set('Content-Type', 'text/html');
-    // const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the property has been updated! </h1> </body> </html>';
-    resp.status(201).send();
+    res.status(201).send()
 });
 
 /**
@@ -346,35 +368,69 @@ app.post('/entities/add', function (req, resp) {
  * @apiName PostEditEntity
  * @apiGroup entities
  *
- * @apiParam {String} IdOfEdit Unique id of object.
- * @apiParam {String="entrance","building","room","corridor"} category Category of object.
+ * @apiParam {String} id Unique id of object.
+ * @apiParam {String="entrance","building","room","corridor","unmarkedRoom"} category Category of object.
  * @apiParam {String} property Property of object to edit
- * @apiParam {String} editNewValue New value for the property.
+ * @apiParam {String} NewValue New value for the property.
  */
-app.post('/entities/edit', function (req, resp) {
-    const id = req.body.IdOfEdit;
+app.post('/entities/edit', function (req, res) {
+    const id = req.body.id;
     const category = req.body.category;
-    const place = getPlace(category, id);
-    if (place === undefined) {
-        resp.status(404).send('Sorry, this place was not found, check your id and category are correct!');
-        return;
+    let table;
+    switch (category) {
+        case 'room':
+            table = 'rooms';
+            break;
+        case 'building':
+            table = 'buildings';
+            break;
+        case 'entrance':
+            table = 'entrances';
+            break;
+        case 'unmarkedRoom':
+            table = 'unmarkedRooms';
+        case 'corridor':
+            table = 'corridorIndex'
+        default:
+            break;
     }
     const property = req.body.property;
-    let value = req.body.editNewValue;
-    if (property === 'location') {
-        value = JSON.parse('[' + value + ']');
-    } else if (property === 'hours') {
-        value = value.split(',');
-    }
-    if (value === undefined) {
-        resp.status(400).send("Sorry we couldn't update the property as it was not entered in the correct format.");
-        return;
-    }
-    place[property] = value;
-    updateEntities();
-    // resp.set('Content-Type', 'text/html');
-    // const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the property has been updated! </h1> </body> </html>';
-    resp.status(201).send();
+    let value = req.body.NewValue;
+    let query = `UPDATE ${table} SET ${property} = ? WHERE id=?`
+    db.run(query,[value,id],(err) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send();
+        }
+        if (!err) {
+            let data_list;
+            switch (category) {
+                case 'room':
+                    data_list = rooms;
+                    break;
+                case 'building':
+                    data_list = buildings
+                    break;
+                case 'entrance':
+                    data_list = entrances
+                    break;
+                case 'unmarkedRoom':
+                    data_list = unmarkedRooms
+                case 'corridor':
+                    data_list = corridorIndex
+                default:
+                    break;
+            
+            }
+            for (let data of data_list) {
+                if(data.id === id) {
+                    data[property] = value;
+                }
+            }
+
+            res.status(201).send()
+        }
+    })
 });
 
 /**
@@ -382,54 +438,63 @@ app.post('/entities/edit', function (req, resp) {
  * @apiName PostDeleteEntity
  * @apiGroup entities
  *
- * @apiParam {String} IdOfDelete Unique id of object.
+ * @apiParam {String} id Unique id of object.
  * @apiParam {String="archive","permanent"} deleteType Type of deletion.
  */
-app.post('/entities/delete', function (req, resp) {
-    const id = req.body.IdOfDelete;
+app.post('/entities/delete', function (req, res) {
+    const id = req.body.id;
     const deleteType = req.body.deleteType;
     let searchThrough;
-    if (id[0] === 'e') {
-        searchThrough = entrances;
-    } else if (id[0] === 'b') {
-        searchThrough = buildings;
-    } else if (id[0] === 'r') {
-        searchThrough = rooms;
-    } else {
-        resp.status(400).send('First letter of id should be a category.');
-    }
-    let place;
-    let placeFound = false;
-    for (let i = 0; i < searchThrough.length; i++) {
-        place = searchThrough[i];
-        if (place.id === id) {
-            // If delete type is archive, add location to archive
-            if (deleteType === 'archive') {
-                const archiveId = 'a' + archive.length + id[0];
-                place.id = archiveId;
-                archive.push(place);
-            }
-            // Delete location from current array
-            searchThrough.splice(i, 1);
-            placeFound = true;
-            // Move all the id's of other places in category up so there aren't gaps
-            let currentId;
-            for (let j = i; j < searchThrough.length; j++) {
-                currentId = searchThrough[j].id;
-                const newIdNumber = parseInt(currentId.substring(1)) - 1;
-                searchThrough[j].id = currentId.charAt(0).concat(newIdNumber.toString());
-            }
+    let searchTable;
+    switch (id[0]) {
+        case 'b':
+            searchThrough = buildings;
+            searchTable = 'buildings';
             break;
-        }
+        case 'r':
+            searchThrough = rooms;
+            searchTable = 'rooms';
+            break;
+        case 'e':
+            searchThrough = entrances;
+            searchTable = 'entrances';
+            break;
+        case 'c':
+            searchThrough = corridorIndex;
+            searchTable = 'corridorIndex';
+            break;
+        case 'u':
+            searchThrough = unmarkedRooms;
+            searchTable = 'unmarkedRooms'
+        default:
+            res.status(400).send()
+            break;
     }
-    if (placeFound === false) {
-        resp.status(404).send('Place not found, check id is correct and matches category');
-        return;
+    if (deleteType === 'archive') {
+        // archive needs implementing
+
+    } else {
+        
+        let query = `DELETE FROM ${searchTable} WHERE id = ?`
+        db.run(query,[id],(err) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send()
+            }
+            if (!err) {
+                let index = 0
+                for (let data of searchThrough) {
+                    if (data.id === id) {
+                        searchThrough.splice(index,1)
+                        break;
+                    }
+                    index += 1
+                }
+                res.status(201).send()
+            }
+        })
     }
-    updateEntities();
-    // resp.set('Content-Type', 'text/html');
-    // const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the property has been updated! </h1> </body> </html>';
-    resp.status(201).send();
+    
 });
 
 /**
