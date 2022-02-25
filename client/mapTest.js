@@ -26,7 +26,8 @@ let navigation_loaded = false
 let route;
 let pin = {
   name: "pin",
-  location: 0
+  latitude: 0,
+  longitude: 0
 }
 let graph;
 window.addEventListener('mousedown', function() {
@@ -186,6 +187,8 @@ function AI_navigate() {
       document.querySelectorAll(".routeStep").forEach(element => {
         element.remove();
       })
+      console.log(locations[0])
+      console.log(locations[1])
       setNavigation(locations[0],locations[1])
       updateMap();
     }
@@ -218,7 +221,7 @@ function setNavigation(source, destination) {
   let newStart = 0;
   let newDest = 0;
   if (source.toLowerCase() == "pin") {
-    if (pin.location !== 0) {
+    if (pin.latitude !== 0 && pin.longitude !== 0) {
       newStart = pin;
     }
   } else {
@@ -377,14 +380,15 @@ function drawRoute(node) {
   
 function updatePinLocation() {
   let newlocation = myMap.pixelToLatLng(mouseX,mouseY);
-  pin.location = [newlocation.lat, newlocation.lng]
+  pin.latitude = newlocation.lat;
+  pin.longitude = newlocation.lng
   updateMap();
 }
 function placePin() {
   fill(255,0,0);
   strokeWeight(1);
-  if (pin.location !== 0) {
-      let center = myMap.latLngToPixel(pin.location[0],pin.location[1]);
+  if (pin.latitude !== 0 && pin.longitude !== 0) {
+      let center = myMap.latLngToPixel(pin.latitude,pin.longitude);
       beginShape()
       vertex(center.x, center.y)
       vertex(center.x + 8, center.y - 16)
@@ -848,12 +852,16 @@ function addRouteStep(direction, previous) {
   element.appendChild(label)
   element.appendChild(soundButton)
 
-  const closeButton = document.createElement('button')
-  closeButton.className = "bi bi-check"
+  const closeButton = document.createElement('p')
+  closeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+  <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+</svg>`
   element.appendChild(closeButton)
   closeButton.onclick = () => {
     element.remove()
     if (container.childNodes.length == 4) {
+      speech.text = "You have arrived at " + dest.name;
+      window.speechSynthesis.speak(speech) 
       clearHighlight()
     }
     container.childNodes[3].className += " top"

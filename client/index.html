@@ -58,7 +58,7 @@
       <button class="btn btn-primary" id="startSpeech2">Start <i class="fa fa-microphone"></i></button>
       <button class="btn btn-primary" id="stopSpeech2" style="display:none;">Stop <i class="fa fa-microphone"></i></button>
 
-      <button id="navigateBtn" class="btn btn-primary navBtn" data-bs-dismiss="offcanvas">Navigate</button>
+      <button id="navigateBtn" class="btn btn-primary navBtn"  data-bs-toggle="offcanvas" href="#offcanvasDirections" role="button" aria-controls="offcanvasDirections">Navigate</button>
       <button id="clearNavBtn" class="btn btn-outline-secondary navBtn" data-bs-dismiss="offcanvas"> Clear Route</button>
     </div>
   </div>
@@ -66,11 +66,11 @@
 
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasDirections" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Directions</h5>
+      <br>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-      <div class="formType1" id='routeStepList'>
+      <div id='routeStepList'>
         <h3>Directions</h3>
       </div>
     </div>
@@ -85,7 +85,7 @@
   
   <div class="mt-4">
     <p id="status" style="display: none">Listenting ...</p>
-  </div><br>
+  </div>
   <div class="searchInput">
     <input id ="roomSearch" type="text" placeholder="Enter room e.g. Fracture Clinic"><br>
     <button id="SearchBtn" class="btn btn-primary">Find</button>
@@ -94,7 +94,7 @@
   
   
   <div id="mapContainer">
-    <button id="directionBtn" class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasDirections" role="button" aria-controls="offcanvasDirections">Directions</button>
+    <button id="directionBtn" class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasDirections" role="button" aria-controls="offcanvasDirections">Directions</button>
     <div id='map'></div><br>
     <div id='roomlist' class="row">
       <div class="col-md-3">

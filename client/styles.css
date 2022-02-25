@@ -128,13 +128,13 @@ ul{
     margin-right: 5px;
     margin-bottom: 0;
 }
-.routeStep button {
+.routeStep svg {
     display: none;
 }
 .soundBtn {
     color: blue;
 }
-.routeStep.top button {
+.routeStep.top svg {
     display: block;
 } 
 
