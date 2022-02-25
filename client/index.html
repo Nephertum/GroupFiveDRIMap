@@ -52,9 +52,15 @@
     </div>
     <div class="offcanvas-body">
       <input id="path1" type="text" placeholder="Enter your current location e.g. Fracture Clinic" />
+      <button class="btn btn-primary" id="startSpeech1">Start <i class="fa fa-microphone"></i></button>
+     <button class="btn btn-primary" id="stopSpeech1" style="display:none;">Stop <i class="fa fa-microphone"></i></button>
+
       <button id="usePinToggle" class = "btn btn-outline-secondary">Use pin</button>
       <br>
       <input id="path2" type="text" placeholder="Enter your destination e.g. Outpatients"/><br>
+      <button class="btn btn-primary" id="startSpeech2">Start <i class="fa fa-microphone"></i></button>
+      <button class="btn btn-primary" id="stopSpeech2" style="display:none;">Stop <i class="fa fa-microphone"></i></button>
+
       <button id="navigateBtn" class="btn btn-primary navBtn" data-bs-dismiss="offcanvas">Navigate</button>
       <button id="clearNavBtn" class="btn btn-outline-secondary navBtn" data-bs-dismiss="offcanvas"> Clear Route</button>
     </div>
@@ -79,14 +85,8 @@
 
 
   
-  <h5>Speech recognition</h5>
-  <div class="p-3" id="speechBox">
-    <span id="finalSpeech"></span>
-    <span id="interimSpeech"></span>
-  </div>
+  
   <div class="mt-4">
-    <button class="btn btn-primary" id="startSpeech">Start <i class="fa fa-microphone"></i></button>
-    <button class="btn btn-primary" id="stopSpeech" style="display:none;">Stop <i class="fa fa-microphone"></i></button>
     <p id="status" style="display: none">Listenting ...</p>
   </div><br>
   <div class="searchInput">

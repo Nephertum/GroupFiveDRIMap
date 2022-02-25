@@ -137,7 +137,12 @@ function setupButton() {
   })
   const usePinBtn = document.getElementById('usePinToggle');
   usePinBtn.addEventListener('click', () => {
-    input1.value = "pin"
+    if (pin.location != 0) {
+      input1.value = "pin"
+    } else {
+      alert('pin not placed')
+    }
+    
   })
   const clearButton = document.getElementById('clearNavBtn')
   clearButton.addEventListener('click', () => {
@@ -645,7 +650,7 @@ function popupHTML(id, name, description, hours, image){
   +openhourshtml+
   '</p></div><div class="col-sm"><img src="'
   +image+
-  '" alt="Picture of Building" class="img-responsive fit-image"></div></div><div class="popupBtn-wrapper"><button id="navHere'+id+'" class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Get Directions</button></div>'
+  '" alt="Picture of Building" class="img-responsive fit-image"></div></div><div class="popupBtn-wrapper"><button id="navHere'+id+'" class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasNavigation" role="button" aria-controls="offcanvasNavigation">Get Directions</button></div>'
   return(html)
 }
 
@@ -886,14 +891,3 @@ speech.voice = voices[0];
 //speech.pitch = 1;
 //speech.rate = 1;
 speech.volume = 1
-
-document.querySelector("#volume").addEventListener("input", () => {
-  // Get volume Value from the input
-  const volume = document.querySelector("#volume").value;
-
-  // Set volume property of the SpeechSynthesisUtterance instance
-  speech.volume = volume;
-
-  // Update the volume label
-  document.querySelector("#volume-label").innerHTML = volume;
-});

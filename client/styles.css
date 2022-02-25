@@ -385,3 +385,6 @@ input[type=text] {
 .searchInput {
     display:flex;
 }
+.errorText {
+    color: red;
+}

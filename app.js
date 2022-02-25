@@ -14,7 +14,7 @@ app.use(express.static('body-parser'));
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(session({
     secret: 'hospitals are cool',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     cookie: { maxAge: 1000 * 60 * 60 },
     store: new sqlitestore()
@@ -49,7 +49,6 @@ const db = new sqlite3.Database('./database/entities.db', sqlite3.OPEN_READWRITE
         if (err) console.log(err);
         if (!rows) console.log('no entrances found');
         if (rows) rooms = rows;
-        if (rows) console.log(rows);
     });
     db.all('SELECT * FROM unmarkedRooms', [], (err, rows) => {
         if (err) console.log(err);
@@ -277,6 +276,15 @@ app.post('/login', (req, res) => {
         }
     });
 });
+app.post('/signup', check_authorisation, (req,res) => {
+    staff_db.run('INSERT INTO staff (username, password) VALUES (?,?)',[req.body.username,req.body.password],(err) => {
+        if (err) {
+            console.log(err)
+            res.status(500).send()
+        }
+        if (!err) res.status(201).send()
+    })
+})
 
 /**
  * @api {post} /entities/add Add a New Entity
