@@ -29,14 +29,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Map<span class="sr-only">(current)</span></a>
-        </li>
+      </ul>
+      <ul class="navbar-nav">
         <li class="nav-item" id="adminMode">
           <a class="btn btn-outline-success" href="login" role="button">Login</a>
         </li>
-      </ul>
-      <ul class="navbar-nav">
         <li class="nav-item">
           <button class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasNavigation" role="button" aria-controls="offcanvasNavigation">Navigate </button>
         </li>
@@ -92,6 +89,7 @@
   <div class="searchInput">
     <input id ="roomSearch" type="text" placeholder="Enter room e.g. Fracture Clinic"><br>
     <button id="SearchBtn" class="btn btn-primary">Find</button>
+    <p id="searchError" class="errorText">Field can't be blank</p>
   </div>
   
   

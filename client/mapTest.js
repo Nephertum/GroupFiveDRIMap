@@ -117,10 +117,25 @@ function setupButton() {
   const Searchinput = document.getElementById('roomSearch')
   Searchbutton.addEventListener('click',() => {
     let room = Searchinput.value;
-    Searchinput.value = "";
-    let element = getNodeByName(room);
-    zoomOnLocation([element.latitude, element.longitude], 20);
-    placePopup(element.id,[element.latitude, element.longitude], 15, 15);
+    // when empty input
+    if (room.length !== 0) {
+      document.getElementById('searchError').style.display="none"
+      Searchinput.value = "";
+      let element = getNodeByName(room);
+      // when invalid input
+      if (element !== 0) {
+        zoomOnLocation([element.latitude, element.longitude], 20);
+        placePopup(element.id,[element.latitude, element.longitude], 15, 15);
+      } else {
+        document.getElementById('searchError').innerText = "No room found"
+        document.getElementById('searchError').style.display="block"
+      }
+      
+    } else {
+      document.getElementById('searchError').innerText = "Field can't be blank"
+      document.getElementById('searchError').style.display="block"
+    }
+    
   })
 
   const navigateButton = document.getElementById("navigateBtn");

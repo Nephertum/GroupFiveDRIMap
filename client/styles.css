@@ -385,6 +385,18 @@ input[type=text] {
 .searchInput {
     display:flex;
 }
+.searchInput button {
+    height: 80%;
+    margin: 8px 1rem;
+}
+.searchInput p {
+    height: 80%;
+    margin: 8px 1rem;
+}
 .errorText {
     color: red;
+    display: none;
+}
+#adminMode {
+    margin-right: 1rem;
 }
