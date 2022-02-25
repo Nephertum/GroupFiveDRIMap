@@ -507,7 +507,7 @@ app.post('/info', (req, resp) => {
     if (question === 'time') {
         for (const room of rooms) {
             if (room.name === location) {
-                response = room.hours[0] + ' ' + room.hours[1];
+                response = room.weekdayHours + ' ' + room.weekendHours;
             }
         }
     } else {

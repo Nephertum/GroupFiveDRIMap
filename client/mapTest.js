@@ -225,6 +225,11 @@ function getNodeByName(name) {
       result = element
     }
   });
+  buildings.forEach(element => {
+    if (element.name.toLowerCase() == name.toLowerCase()) {
+      result = element
+    }
+  });
   return result;
 }
 function populate_list(room_list, unmarked_room_list) {
