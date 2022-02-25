@@ -654,6 +654,7 @@ function popupBtnFunc(id, name){
   newNavBtn = document.getElementById("navHere"+id)
   
   newNavBtn.addEventListener("click", () => {
+    console.log(document.getElementById("path2"))
     document.getElementById("path2").value = name // Just autofills destination for now
   })
 }

@@ -2,7 +2,7 @@ require('express');
 const express = require('express');
 const fs = require('fs');
 const sqlite3 = require('sqlite3');
-const path = require('path')
+const path = require('path');
 const session = require('express-session');
 const sqlitestore = require('connect-sqlite3')(session);
 const app = express();
@@ -16,65 +16,64 @@ app.use(session({
     secret: 'hospitals are cool',
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 1000*60*60 },
+    cookie: { maxAge: 1000 * 60 * 60 },
     store: new sqlitestore()
-}))
-var entrances;
-var corridorIndex;
-var buildings;
-var rooms;
-var unmarkedRooms;
-var archive;
+}));
+let entrances;
+let corridorIndex;
+let buildings;
+let rooms;
+let unmarkedRooms;
+let archive;
 
-let db = new sqlite3.Database('./database/entities.db', sqlite3.OPEN_READWRITE, (err) => {
+const db = new sqlite3.Database('./database/entities.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
         console.error(err.message);
     }
-    db.all("SELECT * FROM entrances",[],(err,rows) => {
-        if (err) console.log(err)
-        if (!rows) console.log("no entrances found")
+    db.all('SELECT * FROM entrances', [], (err, rows) => {
+        if (err) console.log(err);
+        if (!rows) console.log('no entrances found');
         if (rows) entrances = rows;
-    })
-    db.all("SELECT * FROM corridorIndex",[],(err,rows) => {
-        if (err) console.log(err)
-        if (!rows) console.log("no entrances found")
+    });
+    db.all('SELECT * FROM corridorIndex', [], (err, rows) => {
+        if (err) console.log(err);
+        if (!rows) console.log('no entrances found');
         if (rows) corridorIndex = rows;
-    })
-    db.all("SELECT * FROM buildings",[],(err,rows) => {
-        if (err) console.log(err)
-        if (!rows) console.log("no entrances found")
+    });
+    db.all('SELECT * FROM buildings', [], (err, rows) => {
+        if (err) console.log(err);
+        if (!rows) console.log('no entrances found');
         if (rows) buildings = rows;
-    })
-    db.all("SELECT * FROM rooms",[],(err,rows) => {
-        if (err) console.log(err)
-        if (!rows) console.log("no entrances found")
+    });
+    db.all('SELECT * FROM rooms', [], (err, rows) => {
+        if (err) console.log(err);
+        if (!rows) console.log('no entrances found');
         if (rows) rooms = rows;
-        if (rows) console.log(rows)
-    })
-    db.all("SELECT * FROM unmarkedRooms",[],(err,rows) => {
-        if (err) console.log(err)
-        if (!rows) console.log("no entrances found")
+        if (rows) console.log(rows);
+    });
+    db.all('SELECT * FROM unmarkedRooms', [], (err, rows) => {
+        if (err) console.log(err);
+        if (!rows) console.log('no entrances found');
         if (rows) unmarkedRooms = rows;
-    })
-    db.all("SELECT * FROM archive",[],(err,rows) => {
-        if (err) console.log(err)
-        if (!rows) console.log("no entrances found")
+    });
+    db.all('SELECT * FROM archive', [], (err, rows) => {
+        if (err) console.log(err);
+        if (!rows) console.log('no entrances found');
         if (rows) archive = rows;
-    })
-})
-const staff_db = require('./staffDB')
-
+    });
+});
+const staff_db = require('./staffDB');
 
 // Entities
 const entities = require('./entities.json');
 
 const placesForSearch = [rooms, buildings, archive];
 
-function check_authorisation(req,res,next) {
+function check_authorisation (req, res, next) {
     if (req.session.authorised) {
-        next()
+        next();
     } else {
-        res.status(401).redirect("/login")
+        res.status(401).redirect('/login');
     }
 }
 
@@ -112,40 +111,72 @@ function getPlace (category, id) {
     }
     return undefined;
 }
-app.get("/login", (req,res) => {
+app.get('/login', (req, res) => {
     if (req.session.authorised) {
-        res.redirect("/data")
+        res.redirect('/data');
     } else {
-        res.sendFile(path.resolve(__dirname,'./private_client/login.html'))
+        res.sendFile(path.resolve(__dirname, './private_client/login.html'));
     }
-    
-})
-app.get('/data', check_authorisation, (req,res) => {
-    res.sendFile(path.resolve(__dirname,'./private_client/data.html'))
-})
-app.get('/logout', (req,res) => {
+});
+app.get('/data', check_authorisation, (req, res) => {
+    res.sendFile(path.resolve(__dirname, './private_client/data.html'));
+});
+app.get('/logout', (req, res) => {
     req.session.destroy();
     res.status(200).send();
-})
+});
 
 // Routes
+/**
+ * @api {get} /info/:category/:id Request an Object by its id and Category
+ * @apiName GetInfo
+ * @apiGroup entities
+ *
+ * @apiParam {String="entrance","building","room","corridor"} category Category of object.
+ * @apiParam {String} id Unique id of object (first letter of category followed by a number).
+ *
+ * @apiSuccess {Object[]} object The dictionary requested.
+ */
 app.get('/info/:category/:id', function (req, resp) {
     const id = req.params.id;
     const category = req.params.category;
-    const info = getPlace (category, id);
-    console.log(id, category)
-    console.log(info)
+    const info = getPlace(category, id);
+    if (info == undefined){
+        resp.status(404).send('Sorry, this place was not found, check your id and category are correct!');
+        return;
+    }
     resp.json(info);
 });
 
+/**
+ * @api {get} /entrances Request All Entrances
+ * @apiName GetEntrances
+ * @apiGroup Entrances
+ *
+ * @apiSuccess {Object[]} entrances List of all entrance objects.
+ */
 app.get('/entrances', function (req, resp) {
     resp.json(entrances);
 });
 
+/**
+ * @api {get} /rooms Request All Rooms
+ * @apiName GetRooms
+ * @apiGroup Rooms
+ *
+ * @apiSuccess {Object[]} rooms List of all room objects.
+ */
 app.get('/rooms', function (req, resp) {
     resp.json(rooms);
 });
 
+/**
+ * @api {get} /rooms/drawing Request Info for Drawing Rooms
+ * @apiName GetRoomsDrawingInfo
+ * @apiGroup Rooms
+ *
+ * @apiSuccess {Object[]} roomsdrawing List of dictionaries of the required info for drawing each room.
+ */
 app.get('/rooms/drawing', function (req, resp) {
     const result = [];
     rooms.forEach(room => {
@@ -155,6 +186,13 @@ app.get('/rooms/drawing', function (req, resp) {
     resp.json(result);
 });
 
+/**
+ * @api {get} /rooms/listinfo Request Info for Writing a List of Rooms
+ * @apiName GetRoomsListInfo
+ * @apiGroup Rooms
+ *
+ * @apiSuccess {Object[]} roomsinfo List of dictionaries of the required info for listing each room.
+ */
 app.get('/rooms/listinfo', function (req, resp) {
     const result = [];
     rooms.forEach(room => {
@@ -164,6 +202,15 @@ app.get('/rooms/listinfo', function (req, resp) {
     resp.json(result);
 });
 
+/**
+ * @api {get} /rooms/popupinfo/:id Request Info for Creating a Popup of a Room
+ * @apiName GetARoomsPopupInfo
+ * @apiGroup Rooms
+ * 
+ * @apiParam {String} id Unique id of room.
+ *
+ * @apiSuccess {Object[]} roompopup Dictionary of the required info for creating a popup of the room.
+ */
 app.get('/rooms/popupinfo/:id', function (req, resp) {
     const id = req.params.id;
     const room = getPlace('room', id);
@@ -172,27 +219,55 @@ app.get('/rooms/popupinfo/:id', function (req, resp) {
     resp.json(result);
 });
 
+/**
+ * @api {get} /buildings Request All Buildings
+ * @apiName GetBuildings
+ * @apiGroup Buildings
+ *
+ * @apiSuccess {Object[]} buildings List of all building objects.
+ */
 app.get('/buildings', function (req, resp) {
     resp.json(buildings);
 });
 
+/**
+ * @api {get} /corridors Request All Corridors
+ * @apiName GetCorridors
+ * @apiGroup Corridors
+ *
+ * @apiSuccess {Object[]} corridors List of all corridor objects.
+ */
 app.get('/corridors', function (req, resp) {
     resp.json(corridorIndex);
 });
 
+/**
+ * @api {get} /unmarkedRooms Request All Rooms That are Not Marked on Map
+ * @apiName GetUnmarkedRooms
+ * @apiGroup UnmarkedRooms
+ *
+ * @apiSuccess {Object[]} unmarkedRooms List of all unmarked room objects.
+ */
 app.get('/unmarkedRooms', function (req, resp) {
     resp.json(unmarkedRooms);
 });
 
+/**
+ * @api {get} /archive Request All Objects in Archive
+ * @apiName GetArchive
+ * @apiGroup Archive
+ *
+ * @apiSuccess {Object[]} archive List of all archived objects.
+ */
 app.get('/archive', function (req, resp) {
     resp.json(archive);
 });
 
-app.post('/login', (req,res) => {
-    console.log("login received")
-    staff_db.get("SELECT username, password FROM staff WHERE username=? AND password=?",[req.body.username, req.body.password],(err,rows) => {
+app.post('/login', (req, res) => {
+    console.log('login received');
+    staff_db.get('SELECT username, password FROM staff WHERE username=? AND password=?', [req.body.username, req.body.password], (err, rows) => {
         if (err) {
-            console.log(err)
+            console.log(err);
             res.status(500).send();
         }
         if (!rows) res.status(401).send();
@@ -200,9 +275,24 @@ app.post('/login', (req,res) => {
             req.session.authorised = true;
             res.status(200).send();
         }
-    })
-})
+    });
+});
 
+/**
+ * @api {post} /entities/add Add a New Entity
+ * @apiName PostNewEntity
+ * @apiGroup entities
+ *
+ * @apiParam {String} newName Name of new object.
+ * @apiParam {String="entrance","building","room","corridor"} category Category of new object.
+ * @apiParam {String} newLocation Map location of new object
+ * @apiParam {String} [newDescription] Description of new object.
+ * @apiParam {String} [newHoursWeekStart] Start of the weekday opening hours of the new object if applicable.
+ * @apiParam {String} [newHoursWeekEnd] End of the weekday opening hours of the new object if applicable.
+ * @apiParam {String} [newHoursWeekendStart] Start of the weekend opening hours of the new object if applicable.
+ * @apiParam {String} [newHoursWeekendEnd] End of the weekend opening hours of the new object if applicable.
+ * @apiParam {String} [newImg] Name of the image file for the new object if applicable.
+ */
 app.post('/entities/add', function (req, resp) {
     const name = req.body.newName;
     const category = req.body.category;
@@ -243,6 +333,16 @@ app.post('/entities/add', function (req, resp) {
     resp.status(201).send();
 });
 
+/**
+ * @api {post} /entities/edit Edit an Existing Entity
+ * @apiName PostEditEntity
+ * @apiGroup entities
+ *
+ * @apiParam {String} IdOfEdit Unique id of object.
+ * @apiParam {String="entrance","building","room","corridor"} category Category of object.
+ * @apiParam {String} property Property of object to edit
+ * @apiParam {String} editNewValue New value for the property.
+ */
 app.post('/entities/edit', function (req, resp) {
     const id = req.body.IdOfEdit;
     const category = req.body.category;
@@ -269,6 +369,14 @@ app.post('/entities/edit', function (req, resp) {
     resp.status(201).send();
 });
 
+/**
+ * @api {post} /entities/delete Delete an Existing Entity
+ * @apiName PostDeleteEntity
+ * @apiGroup entities
+ *
+ * @apiParam {String} IdOfDelete Unique id of object.
+ * @apiParam {String="archive","permanent"} deleteType Type of deletion.
+ */
 app.post('/entities/delete', function (req, resp) {
     const id = req.body.IdOfDelete;
     const deleteType = req.body.deleteType;
@@ -316,6 +424,13 @@ app.post('/entities/delete', function (req, resp) {
     resp.status(201).send();
 });
 
+/**
+ * @api {post} /entities/restore Restore an Entity From Archive
+ * @apiName PostRestoreEntity
+ * @apiGroup entities
+ *
+ * @apiParam {String} IdOfRestore Unique id of object.
+ */
 app.post('/entities/restore', function (req, resp) {
     const id = req.body.IdOfRestore;
     let place;
