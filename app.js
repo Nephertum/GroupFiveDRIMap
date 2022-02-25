@@ -508,14 +508,17 @@ app.post('/info', (req, resp) => {
     let response = '';
     if (question === 'time') {
         for (const room of rooms) {
-            if (room.name === location) {
-                response = room.weekdayHours + ' ' + room.weekendHours;
+            if (room.name.toLowerCase() === location.toLowerCase()) {
+                response = [room.weekdayHours,room.weekendHours];
             }
         }
     } else {
         response = 'this aspect has not been added to the database';
     }
-    resp.json(response);
+    console.log(response);
+    const message = {weekDay: response[0],weekEnd: response[1]};
+    resp.set('content-type','application/json');
+    resp.send(JSON.stringify(message));
 });
 
 module.exports = app;
