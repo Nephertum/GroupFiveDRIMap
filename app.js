@@ -293,7 +293,8 @@ app.post('/signup', check_authorisation, (req,res) => {
  * @apiParam {String} image Name of the image file for the new object if applicable.
  * 
  */
-app.post('/entities/add', function (req, res) {
+app.post('/entities/add', check_authorisation, function (req, res) {
+    console.log(req.body)
     const name = req.body.name;
     const category = req.body.category;
     let id;
@@ -318,9 +319,9 @@ app.post('/entities/add', function (req, res) {
     }
     switch (category) {
         case 'room': {
-            let {level, building, description, latitude, longitude, weekdayHours, weekendHours, image} = req.body
-            db.run("INSERT INTO rooms VALUES (?,?,?,?,?,?,?,?,?,?)",[id,name,building, level,latitude,longitude,description,weekdayHours,weekendHours,image],(err) => {
-                if (!err) rooms.push({id, name, building, level, latitude, longitude, description, weekdayHours, weekendHours,image})
+            let {level, building, description, latitude, longitude, weekdayHours, weekendHours, image, facilities, products} = req.body
+            db.run("INSERT INTO rooms VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",[id,name,building, level,latitude,longitude,description,weekdayHours,weekendHours,image, facilities, products],(err) => {
+                if (!err) rooms.push({id, name, building, level, latitude, longitude, description, weekdayHours, weekendHours,image,facilities,products})
                 if (err) res.status(500).send()
             })
             break;
@@ -360,7 +361,7 @@ app.post('/entities/add', function (req, res) {
         default:
             break;
     }
-    res.status(201).send()
+    res.status(201).send(id)
 });
 
 /**
@@ -373,9 +374,10 @@ app.post('/entities/add', function (req, res) {
  * @apiParam {String} property Property of object to edit
  * @apiParam {String} NewValue New value for the property.
  */
-app.post('/entities/edit', function (req, res) {
+app.post('/entities/edit', check_authorisation, function (req, res) {
     const id = req.body.id;
     const category = req.body.category;
+    console.log(req.body)
     let table;
     switch (category) {
         case 'room':
@@ -441,7 +443,7 @@ app.post('/entities/edit', function (req, res) {
  * @apiParam {String} id Unique id of object.
  * @apiParam {String="archive","permanent"} deleteType Type of deletion.
  */
-app.post('/entities/delete', function (req, res) {
+app.post('/entities/delete', check_authorisation, function (req, res) {
     const id = req.body.id;
     const deleteType = req.body.deleteType;
     let searchThrough;
@@ -575,15 +577,16 @@ app.post('/info', (req, resp) => {
         for (const room of rooms) {
             if (room.name.toLowerCase() === location.toLowerCase()) {
                 response = [room.weekdayHours,room.weekendHours];
+                const message = {weekDay: response[0],weekEnd: response[1]};
+                resp.set('content-type','application/json');
+                resp.send(JSON.stringify(message));
             }
         }
     } else {
         response = 'this aspect has not been added to the database';
     }
     console.log(response);
-    const message = {weekDay: response[0],weekEnd: response[1]};
-    resp.set('content-type','application/json');
-    resp.send(JSON.stringify(message));
+    
 });
 
 module.exports = app;

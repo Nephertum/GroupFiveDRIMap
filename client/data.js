@@ -114,27 +114,29 @@ function makeTable(data, type, container) {
         tableId = container + 'Tbl';
         type = tableId.charAt(0);
         id = 'new' + numberOfNewObjs + type;
-        console.log(id);
-
-        console.log('New ' + id)
-        newRowName = "row" + id
+        
+        const table = document.getElementById(container + 'Tbl').childNodes[0].childNodes
+        console.log(table[table.length - 2])
+        let new_id = table[table.length - 2].id.slice(3)
+        new_id = new_id.slice(0,1) + (Number(new_id.slice(1)) + 1)
+        newRowName = "row" + new_id
         newRow = "<tr id='" + newRowName + "'>";
         for (var j = 0; j < cols.length; j++) {
             if (cols[j] == 'id') {
-                newRow += "<td><p id='" + id + '-' + 'id' + "'>tbd</p></td>";
+                newRow += `<td><p id=${new_id}>${new_id}</p></td>`;
             }
             else {
                 property = cols[j];
-                inputName = id + '-' + property;
-                newRow += "<td><input class='changedValue' id='" + inputName + "''></input></td>";
+                inputName = new_id + '-' + property;
+                newRow += `<td><input class='changedValue ${new_id}' id=${inputName}></input></td>`;
             }
         }
-        deleteBtnName = "delete" + id;
+        deleteBtnName = "delete" + new_id;
         newRow += '<td><i class="fa-solid fa-circle-xmark dataDltBtn" id="' + deleteBtnName + '"></i></td>'; // Delete button
         newRow += "</tr>";
         document.getElementById('addRow' + container).parentElement.insertAdjacentHTML('beforebegin', newRow);
         enableDeleteButton(deleteBtnName);
-        change = 'New row ' + newRowName;
+        change = ['ADD',newRowName]
         changes.push(change);
         numberOfNewObjs += 1;
     });
@@ -335,10 +337,14 @@ function checkChange(id) {
         e.preventDefault();
         box = document.getElementById(e.target.id)
         change = box.id + ' value altered';
-        changes = changes.filter(function (e) { return e !== change });
+        change = box.id.split('-')
+        change.push(box.value)
+        change.unshift("CHANGE")
+        changes = changes.filter(function (e) { return (e[1] !== change[1] || e[2] !== change[2]) });
         if (box.value != box.defaultValue) {
             box.className += " changedValue";
             changes.push(change);
+            console.log(change)
         }
         else {
             box.classList.remove("changedValue");
@@ -375,9 +381,82 @@ function signup() {
         }
     })
 }
+function saveEdit(change) {
+    const message = {"id" : change[1], "category": getCategory(change[1].slice(0,1)), "property": change[2], "NewValue": change[3]}
+        console.log(message)
+        fetch("/entities/edit",{
+            method: "POST",
+            credentials: "include",
+            headers: {
+                'Content-Type' : "application/json"
+            },
+            body: JSON.stringify(message)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log("change succesful")
+            } else {
+                throw Error
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+function saveAdd(change) {
+    const new_id = change[1].slice(3);
+    const values = document.querySelectorAll(`.${new_id}`)
+    if (values.length === 0) return
+    const message = {}
+    for (let input of values) {
+        let property = input.id.split('-')[1]
+        if (input.value === '') return
+        message[property] = input.value
+    }
+    message["category"] = getCategory(new_id.slice(0,1))
+    fetch("/entities/add",{
+        method: 'POST',
+        credentials: 'include',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(message)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.text()
+        } else {
+            throw Error
+        }
+    })
+    .then(result => {
+        document.getElementById(new_id).id = result
+        document.getElementById(result).innerText = result
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}
 
 function saveChanges() {
-    alert("Changes: " + changes)
+    alert(changes)
+    for (let change of changes) {
+        switch (change[0]) {
+            case 'ADD':
+                saveAdd(change);
+                break;
+            case 'CHANGE':
+                saveEdit(change);
+                break;
+            default:
+                break;
+        }
+        
+    }
+    document.querySelectorAll(".changedValue").forEach(element => {
+        element.classList = [];
+        element.defaultValue = element.value
+    })
     // Will go through changes and post them all
 }
 

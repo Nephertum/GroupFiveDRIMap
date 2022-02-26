@@ -20,6 +20,7 @@ if ("webkitSpeechRecognition" in window) {
 
   speechRecognition.onstart = () => {
     document.querySelector("#status").style.display = "block";
+    final_transcript = ""
   };
   speechRecognition.onerror = () => {
     document.querySelector("#status").style.display = "none";
@@ -40,7 +41,10 @@ if ("webkitSpeechRecognition" in window) {
         interim_transcript += event.results[i][0].transcript;
       }
     }
-    target_input.innerHtml = final_transcript;
+    console.log(final_transcript)
+    console.log(target_input)
+    target_input.value = "";
+    target_input.value = final_transcript;
   };
 
   start_speech_input_1.onclick = () => {
