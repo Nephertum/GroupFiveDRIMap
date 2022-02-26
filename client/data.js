@@ -43,7 +43,7 @@ function makeTable(data, type, container) {
     // Make a table
     let newHtml = '';
     let tableName = container + 'Tbl'
-    newHtml = "<table class='dataTable' id='" + tableName + "'><tr>"
+    newHtml = "<table style='overflow-x:auto;' class='dataTable' id='" + tableName + "'><tr>"
 
     // Add headings
     let heading;
@@ -356,7 +356,7 @@ function logout() {
     })
     .then (response => {
         if (response.ok) {
-            window.location.href="http://127.0.0.1:3000"
+            window.location.pathname="/"
         }
     })
 }

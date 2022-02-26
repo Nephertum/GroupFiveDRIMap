@@ -403,3 +403,25 @@ input[type=text] {
 .data_page {
     margin: 1rem;
 }
+
+@media only screen and (max-width: 500px) {
+    table {
+        display: block;
+        width: 100%;
+    }
+    tbody {
+        width: 20rem;
+    }
+    tr {
+        display: block;
+        width: 30rem;
+    }
+    td {
+        display: block;
+        width: 100%;
+    }
+    th {
+        display: block;
+        width: 100%;
+    }
+  }
