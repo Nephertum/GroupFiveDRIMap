@@ -355,6 +355,26 @@ function logout() {
         }
     })
 }
+function signup() {
+    const username = prompt("enter username for new staff member")
+    const password = prompt("enter password for new staff member")
+    const message = {username, password}
+    fetch("/signup",{
+        method: 'POST',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        credentials: 'include',
+        body : JSON.stringify(message)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("account created")
+        } else {
+            alert("error in account creation")
+        }
+    })
+}
 
 function saveChanges() {
     alert("Changes: " + changes)

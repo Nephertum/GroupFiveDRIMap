@@ -2,6 +2,7 @@
 body {
     margin: 0;
     height: 100%;
+    background-color: #EEEEEE;
     line-height: 1.5;
 	font-family: 'Poppins', sans-serif;
 }
@@ -9,6 +10,9 @@ body {
     margin:0;
 	padding:0;
     box-sizing: border-box;
+}
+.app_container {
+    margin: 10px;
 }
 #map {
     height: 700px;
@@ -124,13 +128,13 @@ ul{
     margin-right: 5px;
     margin-bottom: 0;
 }
-.routeStep button {
+.routeStep svg {
     display: none;
 }
 .soundBtn {
     color: blue;
 }
-.routeStep.top button {
+.routeStep.top svg {
     display: block;
 } 
 
@@ -368,4 +372,31 @@ input[type=text] {
  }
  #info .message {
     text-align: center;
+}
+#mapContainer {
+    position: relative;
+}
+#directionBtn {
+    position: absolute;
+    left: 2rem;
+    top: 2rem;
+    z-index: 2;
+}
+.searchInput {
+    display:flex;
+}
+.searchInput button {
+    height: 80%;
+    margin: 8px 1rem;
+}
+.searchInput p {
+    height: 80%;
+    margin: 8px 1rem;
+}
+.errorText {
+    color: red;
+    display: none;
+}
+#adminMode {
+    margin-right: 1rem;
 }

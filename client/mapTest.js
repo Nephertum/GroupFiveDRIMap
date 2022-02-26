@@ -26,7 +26,8 @@ let navigation_loaded = false
 let route;
 let pin = {
   name: "pin",
-  location: 0
+  latitude: 0,
+  longitude: 0
 }
 let graph;
 window.addEventListener('mousedown', function() {
@@ -87,7 +88,7 @@ fetch('/buildings')
 })
 
 let rooms;
-fetch('/rooms/drawing') // Rooms have extra info so only store drawing info globally
+fetch('/rooms') // Rooms have extra info so only store drawing info globally
 .then(response => response.json())
 .then(function(body){
   rooms = body;
@@ -117,10 +118,25 @@ function setupButton() {
   const Searchinput = document.getElementById('roomSearch')
   Searchbutton.addEventListener('click',() => {
     let room = Searchinput.value;
-    Searchinput.value = "";
-    let element = getNodeByName(room);
-    zoomOnLocation(element.location, 20);
-    placePopup(element.id,element.location, 15, 15);
+    // when empty input
+    if (room.length !== 0) {
+      document.getElementById('searchError').style.display="none"
+      Searchinput.value = "";
+      let element = getNodeByName(room);
+      // when invalid input
+      if (element !== 0) {
+        zoomOnLocation([element.latitude, element.longitude], 20);
+        placePopup(element.id,[element.latitude, element.longitude], 15, 15);
+      } else {
+        document.getElementById('searchError').innerText = "No room found"
+        document.getElementById('searchError').style.display="block"
+      }
+      
+    } else {
+      document.getElementById('searchError').innerText = "Field can't be blank"
+      document.getElementById('searchError').style.display="block"
+    }
+    
   })
 
   const navigateButton = document.getElementById("navigateBtn");
@@ -137,7 +153,12 @@ function setupButton() {
   })
   const usePinBtn = document.getElementById('usePinToggle');
   usePinBtn.addEventListener('click', () => {
-    input1.value = "pin"
+    if (pin.location != 0) {
+      input1.value = "pin"
+    } else {
+      alert('pin not placed')
+    }
+    
   })
   const clearButton = document.getElementById('clearNavBtn')
   clearButton.addEventListener('click', () => {
@@ -152,7 +173,6 @@ function AI_navigate() {
   setInterval(() => {
     const messages = document.querySelectorAll(".WACWidget__MarkdownP") 
     let navigation_messages_count = 0
-    let latest_navigation_message = ""
     for (let message of messages) {
       let text = message.innerText;
       if (text.includes(":")) {
@@ -164,6 +184,11 @@ function AI_navigate() {
       let data = latest_message.split(":")
       let locations = data[1].split(",")
       previous_length = navigation_messages_count
+      document.querySelectorAll(".routeStep").forEach(element => {
+        element.remove();
+      })
+      console.log(locations[0])
+      console.log(locations[1])
       setNavigation(locations[0],locations[1])
       updateMap();
     }
@@ -192,10 +217,11 @@ function updateMap() {
 }
 // changes the start and dest values for the next map update
 function setNavigation(source, destination) {
+  clearHighlight
   let newStart = 0;
   let newDest = 0;
   if (source.toLowerCase() == "pin") {
-    if (pin.location !== 0) {
+    if (pin.latitude !== 0 && pin.longitude !== 0) {
       newStart = pin;
     }
   } else {
@@ -213,6 +239,11 @@ function setNavigation(source, destination) {
 function getNodeByName(name) {
   let result = 0;
   rooms.forEach(element => {
+    if (element.name.toLowerCase() == name.toLowerCase()) {
+      result = element
+    }
+  });
+  buildings.forEach(element => {
     if (element.name.toLowerCase() == name.toLowerCase()) {
       result = element
     }
@@ -297,8 +328,8 @@ function room_list_click(name) {
   const room_height = 15;
   const room_focus = 20;
   const node = getNodeByName(name);
-  zoomOnLocation(node.location,room_focus)
-  placePopup(node.id,node.location,room_width,room_height)
+  zoomOnLocation([node.latitude, node.longitude],room_focus)
+  placePopup(node.id,[node.latitude, node.longitude],room_width,room_height)
   window.scrollTo(0,300)
 }
 function drawNodes(){
@@ -338,8 +369,8 @@ function drawRoute(node) {
     stroke(0,0,0);
     strokeWeight(2);
     beginShape();
-    const routeStart = myMap.latLngToPixel(node.location[0][0],node.location[0][1])
-    const routeEnd = myMap.latLngToPixel(node.location[1][0],node.location[1][1])
+    const routeStart = myMap.latLngToPixel(node.latitudeStart,node.longitudeStart)
+    const routeEnd = myMap.latLngToPixel(node.latitudeEnd,node.longitudeEnd)
     vertex(routeStart.x,routeStart.y);
     vertex(routeEnd.x,routeEnd.y);
     endShape();
@@ -349,14 +380,15 @@ function drawRoute(node) {
   
 function updatePinLocation() {
   let newlocation = myMap.pixelToLatLng(mouseX,mouseY);
-  pin.location = [newlocation.lat, newlocation.lng]
+  pin.latitude = newlocation.lat;
+  pin.longitude = newlocation.lng
   updateMap();
 }
 function placePin() {
   fill(255,0,0);
   strokeWeight(1);
-  if (pin.location !== 0) {
-      let center = myMap.latLngToPixel(pin.location[0],pin.location[1]);
+  if (pin.latitude !== 0 && pin.longitude !== 0) {
+      let center = myMap.latLngToPixel(pin.latitude,pin.longitude);
       beginShape()
       vertex(center.x, center.y)
       vertex(center.x + 8, center.y - 16)
@@ -375,7 +407,7 @@ function drawEntrances(node) {
   stroke(100,100,100);
   textSize(15);
   const zoom = myMap.zoom();
-  const point = myMap.latLngToPixel(node.location[0], node.location[1])
+  const point = myMap.latLngToPixel(node.latitude, node.longitude)
   fill(200, 100, 100);
   ellipse(point.x, point.y, width, height)
   fill(0,0,0)
@@ -389,7 +421,7 @@ function drawBuildings(node) {
   strokeWeight(1)
   rectMode(CENTER)
   textAlign(CENTER, CENTER);
-  pos = myMap.latLngToPixel(node.location[0], node.location[1])
+  pos = myMap.latLngToPixel(node.latitude, node.longitude)
   fill(0,0,0)
   text(node.name,pos.x,pos.y,width,height)
 }
@@ -399,7 +431,7 @@ function drawRooms(node) {
   strokeWeight(1)
   rectMode(CENTER)
   textAlign(CENTER,CENTER);
-  pos = myMap.latLngToPixel(node.location[0], node.location[1])
+  pos = myMap.latLngToPixel(node.latitude, node.longitude)
   fill(2, 117, 216)
 
   ellipse(pos.x, pos.y,15,15)
@@ -412,7 +444,7 @@ function generateGraph() {
   for (let i = 0; i< corridors.length; i++) {
     let current = [];
     
-    let nodes = corridors[i].neighbours;
+    let nodes = Array.from(corridors[i].neighbours.split(', '),Number);
     // loops through every other cooridoor
     for (let j = 0; j< corridors.length; j++) {
       // if the jth cooridoor is a neighbour of the ith cooridoor then store a one
@@ -429,12 +461,12 @@ function generateGraph() {
   return graph;
 }
 function calculateNearestCorridor(location) {
-    const room = myMap.latLngToPixel(location.location[0],location.location[1]);
+    const room = myMap.latLngToPixel(location.latitude,location.longitude);
     let minDistance = Infinity;
     let result = 0;
     corridors.forEach((corridor, index) => {
-      corridorStart = myMap.latLngToPixel(corridor.location[0][0],corridor.location[0][1])
-      corridorEnd = myMap.latLngToPixel(corridor.location[1][0],corridor.location[1][1])
+      corridorStart = myMap.latLngToPixel(corridor.latitudeStart,corridor.longitudeStart)
+      corridorEnd = myMap.latLngToPixel(corridor.latitudeEnd,corridor.longitudeEnd)
       center = { x: (corridorStart.x + corridorEnd.x) / 2, y: (corridorStart.y + corridorEnd.y) / 2}
       let distance = Math.sqrt(((center.x - room.x) ** 2) + ((center.y - room.y) ** 2))
       if (distance < minDistance) {
@@ -473,15 +505,17 @@ function highlight_path(cooridoor_list) {
     }
   });
   !navigation_loaded && addRouteStep(dest.name,-1)
+  !navigation_loaded && speak_next_step();
   navigation_loaded = true;
+  
 }
 function highlight_cooridoor(index) {
   noFill();
   stroke(0,123,255);
   strokeWeight(3);
   let highlight = corridors[index-1];
-  let highlight_start = myMap.latLngToPixel(highlight.location[0][0], highlight.location[0][1]);
-  let highlight_end = myMap.latLngToPixel(highlight.location[1][0], highlight.location[1][1]);
+  let highlight_start = myMap.latLngToPixel(highlight.latitudeStart, highlight.longitudeStart);
+  let highlight_end = myMap.latLngToPixel(highlight.latitudeEnd, highlight.longitudeEnd);
   beginShape();
   vertex(highlight_start.x, highlight_start.y);
   vertex(highlight_end.x, highlight_end.y);    
@@ -500,9 +534,9 @@ function highlightEndpoint(cooridoor,adj_cooridoor, node) {
   strokeWeight(3);
   let cooridoorData = corridors[cooridoor - 1];
   let prevCooridoorData = corridors[adj_cooridoor - 1];
-  let current_start = myMap.latLngToPixel(cooridoorData.location[0][0], cooridoorData.location[0][1]);
-  let current_end = myMap.latLngToPixel(cooridoorData.location[1][0], cooridoorData.location[1][1]);
-  let prev_end = myMap.latLngToPixel(prevCooridoorData.location[1][0], prevCooridoorData.location[1][1]);
+  let current_start = myMap.latLngToPixel(cooridoorData.latitudeStart, cooridoorData.longitudeStart);
+  let current_end = myMap.latLngToPixel(cooridoorData.latitudeEnd, cooridoorData.longitudeEnd);
+  let prev_end = myMap.latLngToPixel(prevCooridoorData.latitudeEnd, prevCooridoorData.longitudeEnd);
   let diff_start = Math.abs(current_start.x - prev_end.x) + Math.abs(current_start.y - prev_end.y)
   let diff_end = Math.abs(current_end.x - prev_end.x) + Math.abs(current_end.y - prev_end.y)
   let highlight_start;
@@ -512,7 +546,7 @@ function highlightEndpoint(cooridoor,adj_cooridoor, node) {
     highlight_start = current_start;
   }
 
-  let point = myMap.latLngToPixel(node.location[0],node.location[1])
+  let point = myMap.latLngToPixel(node.latitude,node.longitude)
   let highlight_middle = calculate_intersect(current_start.x, current_start.y, current_end.x, current_end.y, point.x, point.y)
 
   beginShape();
@@ -574,15 +608,15 @@ function checkMouseClickForLocation(mouseX,mouseY) {
 }
 
 function setZoomAndPopup(mouseX, mouseY, location, width, height, focusZoom, makepopup){
-  let element = myMap.latLngToPixel(location.location[0], location.location[1])
+  let element = myMap.latLngToPixel(location.latitude, location.longitude)
         // calculates x and y distances between location node center and mouse coordinate
         distanceX = Math.abs(element.x - mouseX)
         distanceY = Math.abs(element.y - mouseY)
         // if the distance between the mouse click and the center of the node is within the node's radius then zoom in on it
         if (distanceX <= width / 2 && distanceY <= height / 2) {
-          zoomOnLocation(location.location, focusZoom);
+          zoomOnLocation([location.latitude, location.longitude], focusZoom);
           if (makepopup == "Y"){
-            placePopup(location.id, location.location, width, height);
+            placePopup(location.id, [location.latitude, location.longitude], width, height);
           }
         }
 }
@@ -610,7 +644,7 @@ function placePopup(id, location, width, height) {
       }
       popup = new mapboxgl.Popup({offset: getpopupOptions(width, height),closeOnClick: false})
       .setLngLat([location[1],location[0]])
-      .setHTML(popupHTML(room.id, room.name, room.description, room.hours, room.image))
+      .setHTML(popupHTML(room.id, room.name, room.description, [room.weekdayHours, room.weekendHours], room.image))
       .addTo(myMap.map)
       popupBtnFunc(id, room.name)
       popupExists = true
@@ -640,7 +674,7 @@ function popupHTML(id, name, description, hours, image){
   +openhourshtml+
   '</p></div><div class="col-sm"><img src="'
   +image+
-  '" alt="Picture of Building" class="img-responsive fit-image"></div></div><div class="popupBtn-wrapper"><button id="navHere'+id+'" class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Get Directions</button></div>'
+  '" alt="Picture of Building" class="img-responsive fit-image"></div></div><div class="popupBtn-wrapper"><button id="navHere'+id+'" class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasNavigation" role="button" aria-controls="offcanvasNavigation">Get Directions</button></div>'
   return(html)
 }
 
@@ -649,6 +683,7 @@ function popupBtnFunc(id, name){
   newNavBtn = document.getElementById("navHere"+id)
   
   newNavBtn.addEventListener("click", () => {
+    console.log(document.getElementById("path2"))
     document.getElementById("path2").value = name // Just autofills destination for now
   })
 }
@@ -760,8 +795,8 @@ function printPath(currentVertex,parents)
     return result.reverse();
 }
 function check_parallel(corridor_1,corridor_2) {
-  const corridor_1_location = corridors[corridor_1 - 1].location
-  const corridor_2_location = corridors[corridor_2 - 1].location
+  const corridor_1_location = [[corridors[corridor_1 - 1].latitudeStart, corridors[corridor_1 - 1].longitudeStart], [corridors[corridor_1 - 1].latitudeEnd, corridors[corridor_1 - 1].longitudeEnd]]
+  const corridor_2_location = [[corridors[corridor_2 - 1].latitudeStart, corridors[corridor_2 - 1].longitudeStart], [corridors[corridor_2 - 1].latitudeEnd, corridors[corridor_2 - 1].longitudeEnd]]
   const direction_1 = [corridor_1_location[1][0] - corridor_1_location[0][0],corridor_1_location[1][1] - corridor_1_location[0][1]]
   const direction_2 = [corridor_2_location[1][0] - corridor_2_location[0][0],corridor_2_location[1][1] - corridor_2_location[0][1]]
   const direction_1_length = Math.sqrt(Math.pow(direction_1[0],2)+Math.pow(direction_1[1],2))
@@ -782,17 +817,12 @@ function get_turn_type(corridor, previous) {
   } else {
     return 'turn'
   }
-
-  console.log(corridor)
-  console.log(previous)
-    const end = corridors[corridor - 1].location
-    const start = corridors[Number(previous) - 1].location
 }
 function addRouteStep(direction, previous) {
   const container = document.getElementById("routeStepList")
   const element = document.createElement('div')
   element.className = "routeStep"
-  if (container.childNodes.length == 5) {
+  if (container.childNodes.length == 3) {
     element.className += " top"
   }
   var label = document.createElement("p")
@@ -822,21 +852,32 @@ function addRouteStep(direction, previous) {
   element.appendChild(label)
   element.appendChild(soundButton)
 
-  const closeButton = document.createElement('button')
-  closeButton.className = "bi bi-check"
+  const closeButton = document.createElement('p')
+  closeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+  <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+</svg>`
   element.appendChild(closeButton)
   closeButton.onclick = () => {
     element.remove()
-    if (container.childNodes.length == 6) {
+    if (container.childNodes.length == 4) {
+      speech.text = "You have arrived at " + dest.name;
+      window.speechSynthesis.speak(speech) 
       clearHighlight()
     }
-    container.childNodes[5].className += " top"
+    container.childNodes[3].className += " top"
     reduce_route()
+    speak_next_step()
   }
   
   container.appendChild(element)
 }
-
+function speak_next_step() {
+  const container = document.getElementById("routeStepList")
+  const top_label = container.childNodes[3];
+  console.log(top_label)
+  speech.text = top_label.innerText;
+  window.speechSynthesis.speak(speech);
+}
 function reduce_route() {
   console.log('reducing route')
   let route = calculate_route()
@@ -877,14 +918,4 @@ voices = window.speechSynthesis.getVoices();
 speech.voice = voices[0];
 //speech.pitch = 1;
 //speech.rate = 1;
-
-document.querySelector("#volume").addEventListener("input", () => {
-  // Get volume Value from the input
-  const volume = document.querySelector("#volume").value;
-
-  // Set volume property of the SpeechSynthesisUtterance instance
-  speech.volume = volume;
-
-  // Update the volume label
-  document.querySelector("#volume-label").innerHTML = volume;
-});
+speech.volume = 1

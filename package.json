@@ -17,6 +17,7 @@
     "connect-sqlite3": "^0.9.13",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
+    "mappa-mundi": "^0.0.5",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
