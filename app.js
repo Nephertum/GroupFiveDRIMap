@@ -573,7 +573,8 @@ app.post('/info', (req, resp) => {
     console.log(question)
     console.log(location)
     let response = '';
-    if (question === 'time') {
+    if (question === 'time') 
+    {
         for (let room of rooms) {
             if (room.name.toLowerCase() === location.toLowerCase()) {
                 response = [room.weekdayHours,room.weekendHours];
@@ -582,9 +583,41 @@ app.post('/info', (req, resp) => {
                 resp.send(JSON.stringify(message));
             }
         }
-    } else {
-        response = 'this aspect has not been added to the database';
+    } 
+    else if (question === 'facility')
+    {
+        for (let room of rooms) {
+            if (room.name.toLowerCase() === location.toLowerCase()) {
+                response = room.facilities;
+                const message = {'facilities': response};
+                resp.set('content-type','application/json');
+                resp.send(JSON.stringify(message));
+            }
+        }
     }
+    else if (question === 'products')
+    {
+        for (let room of rooms) {
+            if (room.name.toLowerCase() === location.toLowerCase()) {
+                response = room.products;
+                const message = {'products': response};
+                resp.set('content-type','application/json');
+                resp.send(JSON.stringify(message));
+            }
+        }
+    }
+    else if (question === 'general')
+    {
+        for (let room of rooms) {
+            if (room.name.toLowerCase() === location.toLowerCase()) {
+                response = room.description;
+                const message = {'description': response};
+                resp.set('content-type','application/json');
+                resp.send(JSON.stringify(message));
+            }
+        }
+    }
+
     console.log(response);
     
 });
