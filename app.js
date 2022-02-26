@@ -198,8 +198,8 @@ app.get('/rooms/listinfo', function (req, resp) {
 app.get('/rooms/popupinfo/:id', function (req, resp) {
     const id = req.params.id;
     const room = getPlace('room', id);
-    const { name, description, hours, image } = room;
-    const result = { id: id, name: name, description: description, hours: hours, image: image };
+    const { name, description, weekdayHours, weekendHours, image } = room;
+    const result = { id, name, description, weekdayHours, weekendHours, image };
     resp.json(result);
 });
 
@@ -574,7 +574,7 @@ app.post('/info', (req, resp) => {
     console.log(location)
     let response = '';
     if (question === 'time') {
-        for (const room of rooms) {
+        for (let room of rooms) {
             if (room.name.toLowerCase() === location.toLowerCase()) {
                 response = [room.weekdayHours,room.weekendHours];
                 const message = {weekDay: response[0],weekEnd: response[1]};

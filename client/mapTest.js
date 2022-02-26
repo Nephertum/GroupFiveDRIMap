@@ -189,8 +189,16 @@ function AI_navigate() {
       })
       console.log(locations[0])
       console.log(locations[1])
-      setNavigation(locations[0],locations[1])
+      const directionMenu = document.getElementById("offcanvasDirections");
+      var canvas = new bootstrap.Offcanvas(directionMenu)
+      canvas.show()
+      if (locations[1] === 'pin') {
+        setNavigation(locations[1],locations[0])
+      } else {
+        setNavigation(locations[0],locations[1])
+      }
       updateMap();
+      
     }
     
   },1000)
@@ -642,6 +650,7 @@ function placePopup(id, location, width, height) {
       if (popupExists == true){
         popup.remove() // remove any existing popups
       }
+      console.log(room)
       popup = new mapboxgl.Popup({offset: getpopupOptions(width, height),closeOnClick: false})
       .setLngLat([location[1],location[0]])
       .setHTML(popupHTML(room.id, room.name, room.description, [room.weekdayHours, room.weekendHours], room.image))
@@ -661,6 +670,7 @@ function mouseDragged() {
 
 // function renders HTML for popup
 function popupHTML(id, name, description, hours, image){
+  console.log(hours)
   let openhourshtml = ''
   openhourshtml += "Monday - Friday" + ": " + hours[0] + "<br>";
   openhourshtml += "Saturday - Sunday" + ": " + hours[1] + "<br>";
@@ -831,7 +841,7 @@ function addRouteStep(direction, previous) {
       label.innerText = get_turn_type(direction, previous)
     }
     else {
-      label.innerText = " turn onto corridor outside of " + previous
+      label.innerText = " turn onto corridor outside of " + (previous !== 'pin' ? previous : "Your location")
     }
   } else {
     label.innerText = direction
@@ -863,10 +873,12 @@ function addRouteStep(direction, previous) {
       speech.text = "You have arrived at " + dest.name;
       window.speechSynthesis.speak(speech) 
       clearHighlight()
+    } else {
+      container.childNodes[3].className += " top"
+      reduce_route()
+      speak_next_step()
     }
-    container.childNodes[3].className += " top"
-    reduce_route()
-    speak_next_step()
+    
   }
   
   container.appendChild(element)

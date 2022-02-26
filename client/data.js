@@ -132,7 +132,7 @@ function makeTable(data, type, container) {
             }
         }
         deleteBtnName = "delete" + new_id;
-        newRow += '<td><i class="fa-solid fa-circle-xmark dataDltBtn" id="' + deleteBtnName + '"></i></td>'; // Delete button
+        newRow += '<td><i class="fa-solid fa-circle-xmark dataDltBtn new" id="' + deleteBtnName + '"></i></td>'; // Delete button
         newRow += "</tr>";
         document.getElementById('addRow' + container).parentElement.insertAdjacentHTML('beforebegin', newRow);
         enableDeleteButton(deleteBtnName);
@@ -213,20 +213,19 @@ function enableDeleteButton(id) {
     document.getElementById(id).addEventListener('click', function (e) {
         e.preventDefault();
         let id = e.target.id.slice(6);
-        let checkType = id.charAt(0);
         let rowId = "row" + e.target.id.slice(6);
-        if (checkType == 'a' || checkType == 'n') {
+        if (e.target.classList.contains('new')) {
             functionConfirm("Are you sure you want to delete this? (Note new or already-archived objects cannot be archived)",
                 function del() {
                     document.getElementById(rowId).remove();
-                    changes.push('Deleted ' + id)
+                    // changes.push('Deleted ' + id)
                 });
         }
         else {
             functionConfirm("Are you sure you want to delete this?",
                 function del() {
                     document.getElementById(rowId).remove();
-                    changes.push('Deleted ' + id)
+                    changes.push(['DELETE',id])
                 },
                 function archive() {
                     archiveTbl = document.getElementById("archiveDataTbl")
@@ -437,9 +436,30 @@ function saveAdd(change) {
         console.log(err)
     })
 }
+function saveDelete(change) {
+    const id = change[1]
+    const message ={"id":id,"deleteType":"permanent"}
+    fetch("entities/delete",{
+        method: "POST",
+        credentials: 'include',
+        headers : {
+            'Content-Type' : "application/json"
+        },
+        body: JSON.stringify(message)
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log("change succesful")
+        } else {
+            throw Error
+        }
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}
 
 function saveChanges() {
-    alert(changes)
     for (let change of changes) {
         switch (change[0]) {
             case 'ADD':
@@ -447,6 +467,9 @@ function saveChanges() {
                 break;
             case 'CHANGE':
                 saveEdit(change);
+                break;
+            case 'DELETE':
+                saveDelete(change);
                 break;
             default:
                 break;

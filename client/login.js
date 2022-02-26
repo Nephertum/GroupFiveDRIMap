@@ -17,7 +17,7 @@ const login = () => {
             body: JSON.stringify({username, password})
         }).then(response => {
             if (response.ok) {
-                window.location.href= 'http://127.0.0.1:3000/login'
+                location.reload()
             }
             else {
                 document.getElementById("loginError").innerText = "Invalid Login"
