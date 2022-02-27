@@ -346,6 +346,9 @@ input[type=text] {
 .dataViewBtn {
     color: #8519b8;
 }
+.undoBtn {
+    color: #007bff;
+}
 
 #confirm, #info {
     display: none;

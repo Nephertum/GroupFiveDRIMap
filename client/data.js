@@ -344,9 +344,24 @@ function checkChange(id) {
             box.className += " changedValue";
             changes.push(change);
             console.log(change)
+            if (document.getElementById("undo-" + box.id) == undefined) {
+                var undoBtn = document.createElement("i")
+                undoBtn.id = 'undo-' + box.id;
+                undoBtn.className = "fas fa-undo undoBtn";
+                undoBtn.addEventListener("click", () => {
+                    boxId = e.target.id
+                    box = document.getElementById(boxId);
+                    box.value = box.defaultValue;
+                    changes = changes.filter(function (e) { return (e[1] !== change[1] || e[2] !== change[2]) });
+                    box.classList.remove("changedValue");
+                    document.getElementById("undo-" + boxId).remove();
+                });
+                box.parentElement.appendChild(undoBtn);
+            }
         }
         else {
             box.classList.remove("changedValue");
+            document.getElementById("undo-" + box.id).remove();
         }
     })
 }
