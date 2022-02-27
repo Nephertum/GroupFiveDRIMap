@@ -403,6 +403,20 @@ input[type=text] {
 .data_page {
     margin: 1rem;
 }
+#tutorial_container {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65);
+    z-index: 5;
+    height: 125rem;
+    position: absolute;
+    text-align: center;
+}
+#tutorial_container h1 {
+    color: white;
+}
+
 
 @media only screen and (max-width: 500px) {
     table {
@@ -423,5 +437,8 @@ input[type=text] {
     th {
         display: block;
         width: 100%;
+    }
+    .col-md-3 {
+        margin-bottom: 1rem;
     }
   }

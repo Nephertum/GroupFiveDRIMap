@@ -53,6 +53,13 @@ window.addEventListener('load', async () => {
   result = await res.json()
   unmarked_room_list = result
   populate_list(room_list, unmarked_room_list);
+  if (!localStorage.visited) {
+    document.getElementById('tutorial_container').style.display = "block"
+    document.getElementById('end_tutorial').addEventListener('click',() => {
+      document.getElementById('tutorial_container').style.display = "none"
+    })
+  }
+  localStorage.visited = true;
 })
 
 

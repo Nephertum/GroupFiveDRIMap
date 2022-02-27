@@ -20,6 +20,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+  <div id = "tutorial_container">
+    <h1>This is the tutorial</h1>
+    <button class="btn btn-primary" id="end_tutorial">Skip</button>
+  </div>
   <!-- <h1>DRI Map</h1> -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
   <div class="container-fluid">
@@ -86,10 +90,11 @@
   <div class="mt-4">
     <p id="status" style="display: none">Listenting ...</p>
   </div>
+  <p id="searchError" class="errorText">Field can't be blank</p>
   <div class="searchInput">
     <input id ="roomSearch" type="text" placeholder="Enter room e.g. Fracture Clinic"><br>
     <button id="SearchBtn" class="btn btn-primary">Find</button>
-    <p id="searchError" class="errorText">Field can't be blank</p>
+    
   </div>
   
   
