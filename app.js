@@ -198,6 +198,10 @@ app.get('/rooms/listinfo', function (req, resp) {
 app.get('/rooms/popupinfo/:id', function (req, resp) {
     const id = req.params.id;
     const room = getPlace('room', id);
+    if (!room) {
+        resp.status(404).send()
+        return
+    }
     const { name, description, weekdayHours, weekendHours, image } = room;
     const result = { id, name, description, weekdayHours, weekendHours, image };
     resp.json(result);
