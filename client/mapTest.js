@@ -644,7 +644,10 @@ function getpopupOptions(width, height) {
 }
 function placePopup(id, location, width, height) {
   fetch('/rooms/popupinfo/'+id)
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) throw Error
+    return response.json()
+  })
   .then(function(room){
     if (typeof room.description !== 'undefined') {
       if (popupExists == true){
@@ -659,6 +662,9 @@ function placePopup(id, location, width, height) {
       popupExists = true
     }
   })
+  .catch(err => {
+      console.log("zooming on building")
+  }) 
 }
 function mouseClicked() {
   checkMouseClickForLocation(mouseX,mouseY);
