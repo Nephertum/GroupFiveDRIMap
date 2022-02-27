@@ -175,7 +175,7 @@ function AI_navigate() {
     let navigation_messages_count = 0
     for (let message of messages) {
       let text = message.innerText;
-      if (text.includes(":")) {
+      if (text.includes(":") && text.slice(0,5) === "Route") {
         navigation_messages_count += 1
         latest_message = text
       }
