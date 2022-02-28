@@ -219,6 +219,19 @@ app.get('/buildings', function (req, resp) {
 });
 
 /**
+ * @api {get} /building/name/:id Request Name of a Building by Id
+ * @apiName GetBuildingName
+ * @apiGroup Buildings
+ *
+ * @apiSuccess {String} buildingName Name of building.
+ */
+app.get('/building/name/:id', function (req, resp) {
+    id = req.params.id;
+    building = getPlace('building', id);
+    resp.json(building.name);
+});
+
+/**
  * @api {get} /corridors Request All Corridors
  * @apiName GetCorridors
  * @apiGroup Corridors
