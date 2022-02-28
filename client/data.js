@@ -401,7 +401,7 @@ function checkChange (id) {
       box.className += ' changedValue'
       changes.push(change)
       console.log(change)
-      if (document.getElementById('undo-' + box.id) === undefined) {
+      if (document.getElementById('undo-' + box.id) == undefined) {
         const undoBtn = document.createElement('i')
         undoBtn.id = 'undo-' + box.id
         undoBtn.className = 'fas fa-undo undoBtn'
