@@ -1,25 +1,9 @@
 CREATE TABLE IF NOT EXISTS `entrances` (`id` VARCHAR(3),`name` VARCHAR(8),`latitude` NUMERIC(18, 16),`longitude` NUMERIC(18, 16), PRIMARY KEY(id));
 CREATE TABLE IF NOT EXISTS `corridorIndex` (`id` VARCHAR(3),`name` VARCHAR(12), `latitudeStart` NUMERIC(18, 16), `longitudeStart` NUMERIC(18, 16), `latitudeEnd` NUMERIC(18, 16), `longitudeEnd` NUMERIC(18, 16), `neighbours` VARCHAR(32), PRIMARY KEY(id));
-CREATE TABLE IF NOT EXISTS `buildings` (`id` VARCHAR(2),`name` VARCHAR(16),`latitude` NUMERIC(18, 16),`longitude` NUMERIC(18, 16), PRIMARY KEY(id));
-CREATE TABLE IF NOT EXISTS `rooms` (`id` VARCHAR(3) ,`name` VARCHAR(21) ,`building` VARCHAR(11) ,`level` VARCHAR(7) ,`latitude` NUMERIC(18, 16),`longitude` NUMERIC(18, 16),`description` VARCHAR(36) ,`weekdayHours` VARCHAR(11) , `weekendHours` VARCHAR(11) ,`image` VARCHAR(12),`facilities` TEXT, `products` TEXT PRIMARY KEY(id));
-
-CREATE TABLE IF NOT EXISTS `unmarkedRooms` (
-    `id` VARCHAR(3) ,
-    `name` VARCHAR(54) ,
-    `building` VARCHAR(31) ,
-    `level` INT
-);
-
-CREATE TABLE IF NOT EXISTS `archive` (
-    `id` VARCHAR(3) ,
-    `name` VARCHAR(4) ,
-    `latitude` NUMERIC(18, 16),
-    `longitude` NUMERIC (18, 16),
-    `description` VARCHAR(4) ,
-    `weekdayHours` VARCHAR(11) ,
-    `weekendHours` VARCHAR(11) ,
-    `image` VARCHAR(12) 
-);
+CREATE TABLE IF NOT EXISTS `buildings` (`id` VARCHAR(2),`name` VARCHAR(16),`latitude` NUMERIC(18, 16),`longitude` NUMERIC(18, 16),`listColours` VARCHAR(30), PRIMARY KEY(id));
+CREATE TABLE IF NOT EXISTS `rooms` (`id` VARCHAR(3) ,`name` VARCHAR(21) ,`building` VARCHAR(11) ,`level` VARCHAR(7) ,`latitude` NUMERIC(18, 16),`longitude` NUMERIC(18, 16),`description` VARCHAR(36) ,`weekdayHours` VARCHAR(11) , `weekendHours` VARCHAR(11) ,`image` VARCHAR(12),`facilities` TEXT, `products` TEXT, PRIMARY KEY(id));
+CREATE TABLE IF NOT EXISTS `unmarkedRooms` (`id` VARCHAR(3),`name` VARCHAR(54) ,`building` VARCHAR(31) ,`level` INT, PRIMARY KEY(id));
+CREATE TABLE IF NOT EXISTS `archive` (`id` VARCHAR(3) ,`name` VARCHAR(4) ,`latitude` NUMERIC(18, 16),`longitude` NUMERIC (18, 16),`description` VARCHAR(4),`weekdayHours` VARCHAR(11),`weekendHours` VARCHAR(11) ,`image` VARCHAR(12),PRIMARY KEY (id));
 
 INSERT INTO entrances VALUES
     ('e0','entrance',53.53036036284166,-1.1127345482058217),
@@ -86,47 +70,47 @@ INSERT INTO corridorIndex VALUES
     ('c46','corridor 47',53.53029529259007,-1.111187396197323,53.53026183027555,-1.1111640689963735,'45');
     
 INSERT INTO buildings VALUES
-    ('b0','Women + Children',53.53024455226753,-1.1126034005113183),
-    ('b1','West Block',53.53069179653954,-1.1105351374701513),
-    ('b2','South Block',53.53055885767401,-1.1084207985776686),
-    ('b3','East Block',53.53115754402981,-1.1075016917824883),
-    ('b4','Carousel',53.52967385366341,-1.1120872592508988),
-    ('b5','A Block',53.52960223948364,-1.1135195943024314),
-    ('b6','B Block',53.52970020366635,-1.112693291174395),
-    ('b7','C Block',53.52946105272787,-1.113025788083064),
-    ('b8','D Block',53.53008930660272,-1.1139106344718073);
+    ('b0','Women + Children',53.53024455226753,-1.1126034005113183, NULL),
+    ('b1','West Block',53.53069179653954,-1.1105351374701513, NULL),
+    ('b2','South Block',53.53055885767401,-1.1084207985776686, NULL),
+    ('b3','East Block',53.53115754402981,-1.1075016917824883, NULL),
+    ('b4','Carousel',53.52967385366341,-1.1120872592508988, NULL),
+    ('b5','A Block',53.52960223948364,-1.1135195943024314, NULL),
+    ('b6','B Block',53.52970020366635,-1.112693291174395, NULL),
+    ('b7','C Block',53.52946105272787,-1.113025788083064, NULL),
+    ('b8','D Block',53.53008930660272,-1.1139106344718073, NULL);
     
 INSERT INTO rooms VALUES
-    ('r0','MRI','West Block','Unknown',53.53036640939672,-1.111265543620732,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r1','Fracture Clinic','West Block','2',53.53078613726959,-1.1112192728198238,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r2','X-Ray','Unknown','Unknown',53.53036425859261,-1.1099108784393081,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r3','East Dining Room','East Block','Unknown',53.53142886029542,-1.1068973618855011,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r4','Eye Clinic','Unknown','Unknown',53.53080818539843,-1.1095244241106172,'Eye Clinics are cool','09:00-21:00','Closed','default.jpeg'),
-    ('r5','Silks','West Block','Unknown',53.53065695769388,-1.1116248242026074,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r6','Park Hill','West Block','Unknown',53.530410805531886,-1.111684747303599,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r7','Chatsfield','West Block','Unknown',53.53009502364674,-1.1114021797617966,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r8','Photography','West Block','2',53.53062713320077,-1.1114295293859584,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r9','Orthotics','West Block','2',53.531130016611115,-1.1108878653139982,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r10','GU Medicine','West Block','2',53.53097137941282,-1.1108079529433326,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r11','Speech Therapy','West Block','2',53.530721285824995,-1.110913122133212,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r12','Ultrasound','Unknown','Unknown',53.530316247454294,-1.1098679643502862,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r13','Endoscopy','Unknown','Unknown',53.53042474387004,-1.109665208092764,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r14','DDU/CT Suite','Unknown','Unknown',53.530328034163034,-1.11045885662179,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r15','DSA Suite','Unknown','Unknown',53.53023518318841,-1.1105839753300586,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r16','Nuclear Medicine','Unknown','Unknown',53.53010967886712,-1.1105208045966606,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r17','Library','South Block','Unknown',53.53069213449251,-1.1085054139979889,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r18','Discharge Lounge','South Block','Unknown',53.53089408561448,-1.1087900019945778,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r19','Education Centre','South Block','Unknown',53.530772653422076,-1.1085890955822606,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r20','General Office','East Block','Unknown',53.53140264872661,-1.1080783195389188,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r21','PALs Office','East Block','2',53.53143646479583,-1.1079184974332748,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r22','Stirling Ward','East Block','2',53.53122218745378,-1.1073809681216176,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r23','Frailty Assement Unit','East Block','2',53.53109260651874,-1.1072914906759195,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r24','Blood Tests','West Block','2',53.53089938144828,-1.1095242163076193,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r25','Outpatients 1 & 2','West Block','Unknown',53.53099044074301,-1.1095923486917343,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r26','CDU','West Block','Unknown',53.53065783468816,-1.1101111888647495,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r27','Renal Medicine','East Block','Unknown',53.5311962859445,-1.106246215475494,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r28','Gresley Unit','East Block','Unknown',53.531037455112994,-1.1061995241464047,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg'),
-    ('r29','Childrens Outpatients','East Block','2',53.531243248981326,-1.1065530197825808,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg');
+    ('r0','MRI','West Block','Unknown',53.53036640939672,-1.111265543620732,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r1','Fracture Clinic','West Block','2',53.53078613726959,-1.1112192728198238,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r2','X-Ray','Unknown','Unknown',53.53036425859261,-1.1099108784393081,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r3','East Dining Room','East Block','Unknown',53.53142886029542,-1.1068973618855011,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r4','Eye Clinic','Unknown','Unknown',53.53080818539843,-1.1095244241106172,'Eye Clinics are cool','09:00-21:00','Closed','default.jpeg', NULL, NULL),
+    ('r5','Silks','West Block','Unknown',53.53065695769388,-1.1116248242026074,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r6','Park Hill','West Block','Unknown',53.530410805531886,-1.111684747303599,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r7','Chatsfield','West Block','Unknown',53.53009502364674,-1.1114021797617966,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r8','Photography','West Block','2',53.53062713320077,-1.1114295293859584,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r9','Orthotics','West Block','2',53.531130016611115,-1.1108878653139982,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r10','GU Medicine','West Block','2',53.53097137941282,-1.1108079529433326,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r11','Speech Therapy','West Block','2',53.530721285824995,-1.110913122133212,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r12','Ultrasound','Unknown','Unknown',53.530316247454294,-1.1098679643502862,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r13','Endoscopy','Unknown','Unknown',53.53042474387004,-1.109665208092764,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r14','DDU/CT Suite','Unknown','Unknown',53.530328034163034,-1.11045885662179,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r15','DSA Suite','Unknown','Unknown',53.53023518318841,-1.1105839753300586,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r16','Nuclear Medicine','Unknown','Unknown',53.53010967886712,-1.1105208045966606,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r17','Library','South Block','Unknown',53.53069213449251,-1.1085054139979889,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r18','Discharge Lounge','South Block','Unknown',53.53089408561448,-1.1087900019945778,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r19','Education Centre','South Block','Unknown',53.530772653422076,-1.1085890955822606,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r20','General Office','East Block','Unknown',53.53140264872661,-1.1080783195389188,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r21','PALs Office','East Block','2',53.53143646479583,-1.1079184974332748,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r22','Stirling Ward','East Block','2',53.53122218745378,-1.1073809681216176,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r23','Frailty Assement Unit','East Block','2',53.53109260651874,-1.1072914906759195,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r24','Blood Tests','West Block','2',53.53089938144828,-1.1095242163076193,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r25','Outpatients 1 & 2','West Block','Unknown',53.53099044074301,-1.1095923486917343,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r26','CDU','West Block','Unknown',53.53065783468816,-1.1101111888647495,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r27','Renal Medicine','East Block','Unknown',53.5311962859445,-1.106246215475494,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r28','Gresley Unit','East Block','Unknown',53.531037455112994,-1.1061995241464047,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL),
+    ('r29','Childrens Outpatients','East Block','2',53.531243248981326,-1.1065530197825808,'Doncaster Royal Infirmarys MRI room','08:30-17:00','Closed','default.jpeg', NULL, NULL);
 
 INSERT INTO unmarkedRooms VALUES
     ('u0','Reception Desk-Admissons','Women''s and Children''s Hospital',2),
