@@ -234,7 +234,9 @@ app.get('/buildings', function (req, resp) {
  */
 app.get('/building/name/:id', function (req, resp) {
     id = req.params.id;
+    console.log(id)
     building = getPlace('building', id);
+    console.log(building)
     resp.json(building.name);
 });
 

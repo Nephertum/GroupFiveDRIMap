@@ -285,8 +285,7 @@ function populate_list(room_list, unmarked_room_list) {
     levelsFound = []; // Global store of levels added to the list
     listColours = ['rgba(76, 197, 96, 0.664)', 'rgba(220, 144, 223, 0.548)', 'rgba(85, 190, 194, 0.692)', 'rgba(233, 132, 203, 0.582)'];  // Global store of colours for the list boxes
     room_list.forEach(room => addRoomToList(room))
-    document.getElementById("roomlist").innerHTML += "<h6>Unmarked rooms will show up on rooms list when their building property in the database is changed to id's instead of names</h6>"
-    //unmarked_room_list.forEach(room => addRoomToList(room,"no"))
+    unmarked_room_list.forEach(room => addRoomToList(room,"no"))
   }
 
 function addRoomToList(room, marked = "yes") {
@@ -333,30 +332,41 @@ function addRoomToList(room, marked = "yes") {
       levelsFound.push(thisLevel);
       newLevel = document.createElement("div");
       newLevel.id = thisLevel;
-      newLevelHeading = document.createElement("h4");
+      newLevelHeading = document.createElement("h2");
+      newLevelHeading.innerHTML += "<hr>"
       if (level == 2) {
-        newLevelHeading.innerHTML = 'Ground Floor (Level 2)';
+        newLevelHeading.innerHTML += 'Ground Floor (Level 2)';
       }
       else {
-        newLevelHeading.innerHTML = 'Level ' + level;
+        newLevelHeading.innerHTML += 'Level ' + level;
       }
+      newLevelHeading.innerHTML += "<hr>"
       newLevel.appendChild(newLevelHeading);
       document.getElementById(building).appendChild(newLevel);
     }
     // Add the room to the list in the right place
     div = document.getElementById(thisLevel);
     let newItem;
-    newItem = document.createElement("a");
+   
+    
+    if (marked === "yes") {
+      // If it is a marked room, make the name clickable
+      newItem = document.createElement("a");
+      newItem.setAttribute('onclick', `javascript:room_list_click("${room.name}");`)
+    }
+    else {
+      newItem = document.createElement("p")
+      newItem.classList.add('unmarked')
+    }
     newItem.classList.add("room-link");
     newItem.id = room.id;
     newItem.innerHTML = room.name;
-    if (marked === "yes") {
-      // If it is a marked room, make the name clickable
-      newItem.setAttribute('onclick', `javascript:room_list_click("${room.name}");`)
+    div.appendChild(newItem);
+    if (marked === 'yes') {
+      newItem = document.createElement("br");
+      div.appendChild(newItem);
     }
-    div.appendChild(newItem);
-    newItem = document.createElement("br");
-    div.appendChild(newItem);
+    
   }
   else {
     return;
