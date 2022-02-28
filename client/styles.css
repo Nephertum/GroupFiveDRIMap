@@ -469,7 +469,13 @@ nav li {
     margin-top: .5rem;
     margin-bottom: .5rem;
 }
-
+#minimap {
+    width: 400px;
+    height: 150px
+}
+#mapMenu {
+    display: flex;
+}
 
 @media only screen and (max-width: 500px) {
     table {

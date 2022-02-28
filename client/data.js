@@ -1,3 +1,66 @@
+const key = 'pk.eyJ1Ijoid29yZHlzdW1vIiwiYSI6ImNrdmw4M2tuaDBqMmQyb281YWVrNTd4cjEifQ.K9oZUZYiwAd2sJs2_KTAug';
+const options = {
+    container: 'minimap',
+    lat: 53.53094965890605,  
+    lng: -1.1095832474735168,
+    zoom: 12,
+    maxBounds: [
+    [ -1.1147841887079721,53.52933045167083], // Southwest coordinates
+    [-1.104507565152795,53.53294975268597] // NorthEast coordinates
+  
+    ],
+    bearing: -22,
+    style: 'mapbox://styles/mapbox/streets-v10',
+  };
+const mappa = new Mappa('MapboxGL', key);
+let myMap;
+let corridors;
+fetch('/corridors')
+.then(response => response.json())
+.then(function(body){
+  corridors = body;
+})
+function setup() {
+    const canvas = createCanvas(400, 150);
+  // Create a tile map and overlay the canvas on top.
+    myMap = mappa.tileMap(options);
+    myMap.overlay(canvas);
+    myMap.onChange(updateMap)
+}
+function drawRoute(node) {
+    noFill();
+    stroke(0,0,0);
+    strokeWeight(2);
+    beginShape();
+    const routeStart = myMap.latLngToPixel(node.latitudeStart,node.longitudeStart)
+    const routeEnd = myMap.latLngToPixel(node.latitudeEnd,node.longitudeEnd)
+    vertex(routeStart.x,routeStart.y);
+    vertex(routeEnd.x,routeEnd.y);
+    endShape();
+  }
+function updateMap() {
+    clear();
+    for(let node of corridors) {
+        drawRoute(node);
+    }
+}
+function draw() {
+    // sets the mouse cursor to a cross symbol while hovering over the map
+    cursor(CROSS)
+}
+function mouseClicked() {
+    if (mouseX >= 0 && mouseX <= 400 && mouseY >= 0 && mouseY <= 150) {
+        let position = myMap.pixelToLatLng(mouseX,mouseY);
+        document.getElementById('latitude').innerText = 'Latitude: ' + position.lat
+        document.getElementById('longitude').innerText = 'Longitude: ' + position.lng
+    }
+    
+
+    // checks if mouse was clicked over any of the location nodes and zooms in on them
+  }
+
+
+
 // THESE FIRST FUNCTIONS ARE JUST FOR SHORTENING CODE
 function getCols(data) {
     var cols = [];
