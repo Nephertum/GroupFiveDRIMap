@@ -226,18 +226,16 @@ app.get('/buildings', function (req, resp) {
 })
 
 /**
- * @api {get} /building/name/:id Request Name of a Building by Id
- * @apiName GetBuildingName
+ * @api {get} /building/listInfo/:id Request Name and Room List Colour of a Building by Id
+ * @apiName GetBuildingListInfo
  * @apiGroup Buildings
  *
- * @apiSuccess {String} buildingName Name of building.
+ * @apiSuccess {Object[]} buildingListInfo Name and Room List Colour of building.
  */
-app.get('/building/name/:id', function (req, resp) {
+app.get('/building/listInfo/:id', function (req, resp) {
     id = req.params.id;
-    console.log(id)
     building = getPlace('building', id);
-    console.log(building)
-    resp.json(building.name);
+    resp.json([building.name, building.listColours]);
 });
 
 /**

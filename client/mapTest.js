@@ -309,19 +309,22 @@ function addRoomToList(room, marked = "yes") {
       newColumn.classList += "col-md-3";
       innerColumn = document.createElement("div");
       innerColumn.classList += "col-sm listCol";
-      innerColumn.style.backgroundColor = listColours[buildingsFound.length -1];
       innerColumn.id = building;
       newColumn.appendChild(innerColumn);
       document.getElementById('roomlist').appendChild(newColumn);
-      fetch('/building/name/' + building)
+      fetch('/building/listInfo/' + building)
         .then(response => {
           if (!response.ok) throw Error
           return response.json()
         })
-        .then(function (bName) {
+        .then(function (bInfo) {
           heading = document.createElement("h2");
-          heading.innerHTML = bName;
+          heading.innerHTML = bInfo[0];
           document.getElementById(building).prepend(heading);
+          console.log(bInfo)
+          if (bInfo[1] != undefined){
+            document.getElementById(building).style.backgroundColor = bInfo[1];
+          }
         })
         .catch(err => {
           console.log("Retrieving building name for rooms list")
