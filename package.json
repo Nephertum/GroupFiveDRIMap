@@ -6,13 +6,13 @@
   "scripts": {
     "test": "jest",
     "test2": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "pretest": "npx eslint app.js"
+    "start": "node server.js"
   },
   "author": "Group 5",
   "license": "ISC",
   "dependencies": {
     "apidoc": "^0.27.1",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "connect-sqlite3": "^0.9.13",
     "express": "^4.17.1",
@@ -24,11 +24,11 @@
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^4.20.0",
     "cors": "^2.8.5",
-    "eslint": "^7.23.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-promise": "^5.2.0",
     "jest": "^26.6.3",
     "nodemon": "^2.0.7",
     "supertest": "^6.1.3"

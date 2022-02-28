@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `entrances` (`id` VARCHAR(3),`name` VARCHAR(8),`latitude` NUMERIC(18, 16),`longitude` NUMERIC(18, 16), PRIMARY KEY(id));
 CREATE TABLE IF NOT EXISTS `corridorIndex` (`id` VARCHAR(3),`name` VARCHAR(12), `latitudeStart` NUMERIC(18, 16), `longitudeStart` NUMERIC(18, 16), `latitudeEnd` NUMERIC(18, 16), `longitudeEnd` NUMERIC(18, 16), `neighbours` VARCHAR(32), PRIMARY KEY(id));
 CREATE TABLE IF NOT EXISTS `buildings` (`id` VARCHAR(2),`name` VARCHAR(16),`latitude` NUMERIC(18, 16),`longitude` NUMERIC(18, 16), PRIMARY KEY(id));
-CREATE TABLE IF NOT EXISTS `rooms` (`id` VARCHAR(3) ,`name` VARCHAR(21) ,`building` VARCHAR(11) ,`level` VARCHAR(7) ,`latitude` NUMERIC(18, 16),`longitude` NUMERIC(18, 16),`description` VARCHAR(36) ,`weekdayHours` VARCHAR(11) , `weekendHours` VARCHAR(11) ,`image` VARCHAR(12), PRIMARY KEY(id));
+CREATE TABLE IF NOT EXISTS `rooms` (`id` VARCHAR(3) ,`name` VARCHAR(21) ,`building` VARCHAR(11) ,`level` VARCHAR(7) ,`latitude` NUMERIC(18, 16),`longitude` NUMERIC(18, 16),`description` VARCHAR(36) ,`weekdayHours` VARCHAR(11) , `weekendHours` VARCHAR(11) ,`image` VARCHAR(12),`facilities` TEXT, `products` TEXT PRIMARY KEY(id));
 
 CREATE TABLE IF NOT EXISTS `unmarkedRooms` (
     `id` VARCHAR(3) ,

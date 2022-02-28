@@ -1,172 +1,181 @@
-'use strict';
+
+/**
+ * @jest-environment jsdom
+ */
 
 const request = require('supertest');
 const app = require('./app');
-
 describe('Test GET routes', () => {
-    test('GET /entrances succeeds', () => {
-        return request(app)
+    test('GET /entrances succeeds', async () => {
+        
+        const res = await request(app)
+        .get('/entrances')
+        expect(res.statusCode).toBe(200)
+    });
+
+    test('GET /entrances returns JSON', async () => {
+        const res = await request(app)
 	    .get('/entrances')
-	    .expect(200);
+	    expect(res.headers['content-type'].includes("application/json")).toBe(true)
     });
 
-    test('GET /entrances returns JSON', () => {
-        return request(app)
-	    .get('/entrances')
-	    .expect('Content-type', /json/);
-    });
-
-    test('GET /rooms succeeds', () => {
-        return request(app)
+    test('GET /rooms succeeds', async () => {
+        const res = await request(app)
 	    .get('/rooms')
-	    .expect(200);
+	    expect(res.statusCode).toBe(200)
     });
 
-    test('GET /rooms returns JSON', () => {
-        return request(app)
+    test('GET /rooms returns JSON', async () => {
+        const res = await request(app)
 	    .get('/rooms')
-	    .expect('Content-type', /json/);
+	    expect(res.headers['content-type'].includes("application/json")).toBe(true)
     });
 
-    test('GET /rooms/drawing succeeds', () => {
-        return request(app)
+    test('GET /rooms/drawing succeeds', async() => {
+        const res = await request(app)
+        .get('/rooms/drawing')
+        expect(res.statusCode).toBe(200)
+    });
+
+    test('GET /rooms/drawing returns JSON', async() => {
+        const res = await request(app)
 	    .get('/rooms/drawing')
-	    .expect(200);
+	    expect(res.headers['content-type'].includes("application/json")).toBe(true)
     });
 
-    test('GET /rooms/drawing returns JSON', () => {
-        return request(app)
-	    .get('/rooms/drawing')
-	    .expect('Content-type', /json/);
+    test('GET /rooms/listinfo succeeds', async() => {
+        const res = await request(app)
+        .get('/rooms/listinfo')
+        expect(res.statusCode).toBe(200)
     });
 
-    test('GET /rooms/listinfo succeeds', () => {
-        return request(app)
+    test('GET /rooms/listinfo returns JSON', async() => {
+        const res = await request(app)
 	    .get('/rooms/listinfo')
-	    .expect(200);
+        
+	    expect(res.headers['content-type'].includes("application/json")).toBe(true)
     });
 
-    test('GET /rooms/listinfo returns JSON', () => {
-        return request(app)
-	    .get('/rooms/listinfo')
-	    .expect('Content-type', /json/);
+    test('GET /rooms/popupinfo/r0 succeeds', async () => {
+        const res = await request(app)
+        .get('/rooms/popupinfo/r0')
+        expect(res.statusCode).toBe(200)
     });
 
-    test('GET /rooms/popupinfo/r0 succeeds', () => {
-        return request(app)
+    test('GET /rooms/popupinfo/r0 returns json', async () => {
+        const res = await request(app)
 	    .get('/rooms/popupinfo/r0')
-	    .expect(200);
+	    expect(res.headers['content-type'].includes("application/json")).toBe(true)
     });
 
-    test('GET /rooms/popupinfo/r0 returns text', () => {
-        return request(app)
-	    .get('/popupinfo/r0')
-	    .expect('Content-type', /text\/html/);
+    test('GET /buildings succeeds', async () => {
+        const res = await request(app)
+        .get('/buildings')
+        expect(res.statusCode).toBe(200)
     });
 
-    test('GET /buildings succeeds', () => {
-        return request(app)
+    test('GET /buildings returns JSON', async () => {
+        const res = await request(app)
 	    .get('/buildings')
-	    .expect(200);
+	    expect(res.headers['content-type'].includes("application/json")).toBe(true)
     });
 
-    test('GET /buildings returns JSON', () => {
-        return request(app)
-	    .get('/buildings')
-	    .expect('Content-type', /json/);
+    test('GET /corridors succeeds', async () => {
+        const res = await request(app)
+        .get('/corridors')
+        expect(res.statusCode).toBe(200)
     });
 
-    test('GET /corridors succeeds', () => {
-        return request(app)
+    test('GET /corridors returns JSON', async () => {
+        const res = await request(app)
 	    .get('/corridors')
-	    .expect(200);
+	    expect(res.headers['content-type'].includes("application/json")).toBe(true)
     });
 
-    test('GET /corridors returns JSON', () => {
-        return request(app)
-	    .get('/corridors')
-	    .expect('Content-type', /json/);
+    test('GET /unmarkedRooms succeeds', async () => {
+        const res = await request(app)
+        .get('/unmarkedRooms')
+        expect(res.statusCode).toBe(200)
     });
 
-    test('GET /unmarkedRooms succeeds', () => {
-        return request(app)
+    test('GET /unmarkedRooms returns JSON', async () => {
+        const res = await request(app)
 	    .get('/unmarkedRooms')
-	    .expect(200);
-    });
-
-    test('GET /unmarkedRooms returns JSON', () => {
-        return request(app)
-	    .get('/unmarkedRooms')
-	    .expect('Content-type', /json/);
+	    expect(res.headers['content-type'].includes("application/json")).toBe(true)
     });
 });
 
 describe('Test POST routes', () => {
-    const entities = require('./entities.json');
-    const rooms = entities.rooms;
-    const archive = entities.archive;
-    test('POST /entities/add succeeds', () => {
-        const params =  {
-            newName: "New room",
-            category: "room",
-            newLocation: "53.53009502364674, -1.1114021797617966",
-            newDescription: "New room at the hospital",
-            newHoursWeekStart: "08:30",
-            newHoursWeekEnd: "17:30",
-            newHoursWeekendStart: "12:00",
-            newHoursWeekendEnd: "17:30",
-            newImg: "default.jpeg"
+    test('POST /entities/add succeeds', async () => {
+        const params = {
+            name: "New room",
+            category: "unmarkedRoom",
+            level: "1",
+            building: "west block"
           };
-        return request(app)
+        const res = await request(app)
 	    .post('/entities/add')
         .send(params)
-	    .expect(201);
+        console.log(res)
+	    expect(res.statusCode).toBe(201)
     });
 
-    test('POST /entities/edit succeeds', () => {
-        const params =  {
-            IdOfEdit: rooms[rooms.length - 1].id,
-            category: "room",
-            property: "name",
-            editNewValue: "Different name"
+    test('POST /entities/add fails', async () => {
+        const params = {
+            name: "New room",
+            category: "unmarkedRoom",
+            level: "1"
           };
-        return request(app)
-	    .post('/entities/edit')
+        const res = await request(app)
+	    .post('/entities/add')
         .send(params)
-	    .expect(201);
+	    expect(res.statusCode).toBe(400)
     });
 
-    test('POST /entities/delete succeeds, archive mode', () => {
-        const params =  {
-            IdOfDelete: rooms[rooms.length - 1].id,
-            deleteType: "archive"
-          };
-        return request(app)
-	    .post('/entities/delete')
-        .send(params)
-	    .expect(201);
-    });
+    // test('POST /entities/edit succeeds', () => {
+    //     const params =  {
+    //         IdOfEdit: rooms[rooms.length - 1].id,
+    //         category: "room",
+    //         property: "name",
+    //         editNewValue: "Different name"
+    //       };
+    //     return request(app)
+	//     .post('/entities/edit')
+    //     .send(params)
+	//     .expect(201);
+    // });
 
-    test('POST /entities/restore succeeds', () => {
-        const params =  {
-            IdOfRestore: archive[archive.length - 1].id
-          };
-        return request(app)
-	    .post('/entities/restore')
-        .send(params)
-	    .expect(201);
-    });
+    // test('POST /entities/delete succeeds, archive mode', () => {
+    //     const params =  {
+    //         IdOfDelete: rooms[rooms.length - 1].id,
+    //         deleteType: "archive"
+    //       };
+    //     return request(app)
+	//     .post('/entities/delete')
+    //     .send(params)
+	//     .expect(201);
+    // });
 
-    test('POST /entities/delete succeeds, permanent deletion', () => {
-        const params =  {
-            IdOfDelete: rooms[rooms.length - 1].id,
-            deleteType: "permanent"
-          };
-        return request(app)
-	    .post('/entities/delete')
-        .send(params)
-	    .expect(201);
-    });
+    // test('POST /entities/restore succeeds', () => {
+    //     const params =  {
+    //         IdOfRestore: archive[archive.length - 1].id
+    //       };
+    //     return request(app)
+	//     .post('/entities/restore')
+    //     .send(params)
+	//     .expect(201);
+    // });
+
+    // test('POST /entities/delete succeeds, permanent deletion', () => {
+    //     const params =  {
+    //         IdOfDelete: rooms[rooms.length - 1].id,
+    //         deleteType: "permanent"
+    //       };
+    //     return request(app)
+	//     .post('/entities/delete')
+    //     .send(params)
+	//     .expect(201);
+    // });
 });
 
 module.exports = app;
