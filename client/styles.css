@@ -420,12 +420,11 @@ input[type=text] {
     color: white;
 }
 #tutorial_container p {
-    font-size: 1rem;
+    font-size: .7rem;
 }
 #tutorialStep1 {
     position: absolute;
     top: 20%;
-    left: 18%;
 }
 #tutorialStep2 {
     position: absolute;
@@ -439,7 +438,7 @@ input[type=text] {
     display: none;
     width: 12rem;
     top: 9%;
-    left: 5%;
+    left: 8%;
 }
 #tutorialStep4 {
     position: fixed;
@@ -505,6 +504,9 @@ p.unmarked {
     }
     .col-md-3 {
         margin-bottom: 1rem;
+    }
+    #tutorialStep4 {
+        right: 25%
     }
   }
 
