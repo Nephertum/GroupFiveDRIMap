@@ -430,6 +430,11 @@ input[type=text] {
     margin: 0;
 }
 
+nav li {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
 
 @media only screen and (max-width: 500px) {
     table {
@@ -455,3 +460,5 @@ input[type=text] {
         margin-bottom: 1rem;
     }
   }
+
+

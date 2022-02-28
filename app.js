@@ -261,7 +261,7 @@ app.post('/login', (req, res) => {
         if (!rows) res.status(401).send();
         if (rows) {
             req.session.authorised = true;
-            res.status(200).send();
+            res.status(200).redirect("/data");
         }
     });
 });

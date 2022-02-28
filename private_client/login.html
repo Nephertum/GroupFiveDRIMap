@@ -24,22 +24,36 @@
 <body>
     <div class="login_page">
         <a href="/" id="returnLink">Return to Map</a>
+        
+        
+        
         <div class="login_form">
             <h2>Staff Menu</h2>
             <p id="loginError" class="errorText">Field cannot be blank</p>
+            <form action="/login" method="POST">
             <div class="login_section">
                 <label>Username</label>
                 <br>
-                <input id="username">
+                <input required name="username" id="username">
             </div>
             <div class="login_section">
                 <label>Password</label>
                 <br>
-                <input id="password">
+                <input type="password" required name="password" id="password">
             </div>
-            <button class="btn btn-primary" id="login_btn">Login</button>
+            <button type="submit" class="btn btn-primary" id="logi_btn">Login</button>
+          </form>
         </div>
+
+
+
+
     </div>
+    
+    
+    
+    
+    
     <footer class="footer">
         <div class="container">
           <div class="row">
