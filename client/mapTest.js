@@ -70,6 +70,25 @@ window.addEventListener('load', async () => {
     document.getElementById('end_tutorial').addEventListener('click',() => {
       document.getElementById('tutorial_container').style.display = "none"
     })
+    document.getElementById('startStep2').addEventListener('click', () => {
+      document.getElementById('tutorialStep2').style.display = 'block'
+      document.getElementById('tutorialStep1').style.display = 'none'
+    })
+    document.getElementById('startStep3').addEventListener('click', () => {
+      document.getElementById('tutorialStep3').style.display = 'block'
+      document.getElementById('tutorialStep2').style.display = 'none'
+    })
+    document.getElementById('startStep4').addEventListener('click', () => {
+      document.getElementById('tutorialStep4').style.display = 'block'
+      document.getElementById('tutorialStep3').style.display = 'none'
+    })
+    document.getElementById('startStep5').addEventListener('click', () => {
+      document.getElementById('tutorialStep5').style.display = 'block'
+      document.getElementById('tutorialStep4').style.display = 'none'
+    })
+    document.getElementById('completeTutorial').addEventListener('click',() => {
+      document.getElementById('tutorial_container').style.display = "none"
+    })
   }
   localStorage.visited = true;
 })

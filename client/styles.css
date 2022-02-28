@@ -411,13 +411,48 @@ input[type=text] {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.65);
-    z-index: 5;
+    z-index: 500;
     height: 125rem;
     position: absolute;
     text-align: center;
 }
-#tutorial_container h1 {
+#tutorial_container {
     color: white;
+}
+#tutorial_container p {
+    font-size: 1rem;
+}
+#tutorialStep1 {
+    position: absolute;
+    top: 20%;
+    left: 18%;
+}
+#tutorialStep2 {
+    position: absolute;
+    top: 1.5%;
+    right: 3%;
+    display : none;
+    width: 12rem;
+}
+#tutorialStep3 {
+    position: absolute;
+    display: none;
+    width: 12rem;
+    top: 9%;
+    left: 5%;
+}
+#tutorialStep4 {
+    position: fixed;
+    display: none;
+    top: 90%;
+    right: 7%;
+}
+#tutorialStep5 {
+    position: absolute;
+    display: none;
+    top: 1.5%;
+    right: 9%;
+    width: 12rem;
 }
 .navColumn {
     display: flex
