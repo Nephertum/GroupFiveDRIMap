@@ -321,7 +321,6 @@ function addRoomToList(room, marked = "yes") {
           heading = document.createElement("h2");
           heading.innerHTML = bInfo[0];
           document.getElementById(building).prepend(heading);
-          console.log(bInfo)
           if (bInfo[1] != undefined){
             document.getElementById(building).style.backgroundColor = bInfo[1];
           }
@@ -732,7 +731,7 @@ function popupHTML (id, name, description, hours, image) {
   description +
   '</i></p><div class="row"><div class="col-sm d-flex justify-content-center"><p><b>Opening Hours:</b><br>' +
   openhourshtml +
-  '</p></div><div class="col-sm"><img src="' +
+  '</p></div><div class="col-sm"><img src="imgs/' +
   image +
   '" alt="Picture of Building" class="img-responsive fit-image"></div></div><div class="popupBtn-wrapper"><button id="navHere' + id + '" class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasNavigation" role="button" aria-controls="offcanvasNavigation">Get Directions</button></div>'
   return (html)
