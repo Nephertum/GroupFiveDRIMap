@@ -419,6 +419,16 @@ input[type=text] {
 #tutorial_container h1 {
     color: white;
 }
+.navColumn {
+    display: flex
+}
+.navColumn button {
+    margin-left: 1rem;
+}
+.navColumn .errorText {
+    padding: .375rem;
+    margin: 0;
+}
 
 
 @media only screen and (max-width: 500px) {

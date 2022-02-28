@@ -42,6 +42,18 @@ window.addEventListener('mousedown', function() {
 window.addEventListener('mouseup', function() {
   mouseIsDown = false;
 });
+window.addEventListener('touchstart', function() {
+  mouseIsDown = true;
+  setTimeout(function() {
+    if(mouseIsDown) {
+      // mouse was held down for > 3 seconds
+      updatePinLocation();
+    }
+  }, 2000);
+});
+window.addEventListener('touchend', function() {
+  mouseIsDown = false;
+});
 window.addEventListener('load', async () => {
   let room_list;
   let res = await fetch('/rooms/listinfo')
@@ -160,10 +172,11 @@ function setupButton() {
   })
   const usePinBtn = document.getElementById('usePinToggle');
   usePinBtn.addEventListener('click', () => {
-    if (pin.location != 0) {
+    if (pin.latitude != 0) {
+      document.getElementById('pinError').style.display = 'none';
       input1.value = "pin"
     } else {
-      alert('pin not placed')
+      document.getElementById('pinError').style.display = 'block';
     }
     
   })

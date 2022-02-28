@@ -397,25 +397,26 @@ function signup() {
 }
 function saveEdit(change) {
     const message = {"id" : change[1], "category": getCategory(change[1].slice(0,1)), "property": change[2], "NewValue": change[3]}
-        console.log(message)
-        fetch("/entities/edit",{
-            method: "POST",
-            credentials: "include",
-            headers: {
-                'Content-Type' : "application/json"
-            },
-            body: JSON.stringify(message)
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log("change succesful")
-            } else {
-                throw Error
-            }
-        })
-        .catch(err => {
-            console.log(err)
-        })
+    if (change[3] === '') return;
+    console.log(message)
+    fetch("/entities/edit",{
+        method: "POST",
+        credentials: "include",
+        headers: {
+            'Content-Type' : "application/json"
+        },
+        body: JSON.stringify(message)
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log("change succesful")
+        } else {
+            throw Error
+        }
+    })
+    .catch(err => {
+        console.log(err)
+    })
 }
 function saveAdd(change) {
     const new_id = change[1].slice(3);
@@ -492,8 +493,16 @@ function saveChanges() {
         
     }
     document.querySelectorAll(".changedValue").forEach(element => {
-        element.classList = [];
-        element.defaultValue = element.value
+        if (element.value === '') {
+            element.classList = [];
+            element.value = element.defaultValue;
+        } else {
+            element.classList = [];
+            element.defaultValue = element.value
+        }
+    })
+    document.querySelectorAll(".undoBtn").forEach(element => {
+        element.remove()
     })
     // Will go through changes and post them all
 }
