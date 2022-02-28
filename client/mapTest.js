@@ -276,77 +276,112 @@ function getNodeByName (name) {
     if (element.name.toLowerCase() === name.toLowerCase()) {
       result = element
     }
-  })
-  return result
+  });
+  return result;
 }
-function populate_list (room_list, unmarked_room_list) {
-  let block
-  let div
-  let building
-  room_list.forEach(room => {
-    building = room.building
-    if (building === "Women's and Children's Hospital") {
-      block = 'wch'
-    } else if (building === 'West Block') {
-      block = 'wb'
-    } else if (building === 'South Block') {
-      block = 'sb'
-    } else if (building === 'East Block') {
-      block = 'eb'
-    } else {
-      return
+
+function populate_list(room_list, unmarked_room_list) {
+    buildingsFound = []; // Global store of buildings added to the list
+    levelsFound = []; // Global store of levels added to the list
+    listColours = ['rgba(76, 197, 96, 0.664)', 'rgba(220, 144, 223, 0.548)', 'rgba(85, 190, 194, 0.692)', 'rgba(233, 132, 203, 0.582)'];  // Global store of colours for the list boxes
+    room_list.forEach(room => addRoomToList(room))
+    document.getElementById("roomlist").innerHTML += "<h6>Unmarked rooms will show up on rooms list when their building property in the database is changed to id's instead of names</h6>"
+    //unmarked_room_list.forEach(room => addRoomToList(room,"no"))
+  }
+
+function addRoomToList(room, marked = "yes") {
+  let div;
+  let building;
+  let thisLevel;
+  let level;
+  let newColumn;
+  let innerColumn;
+  let heading;
+  let newLevel;
+  building = room.building;
+  level = room.level;
+  thisLevel = building + '-' + level;
+  // Check level not unknown
+  if (!isNaN(level)) {
+    // If building list has not already been made, make it
+    if (!buildingsFound.includes(building)) {
+      buildingsFound.push(building);
+      newColumn = document.createElement("div");
+      newColumn.classList += "col-md-3";
+      innerColumn = document.createElement("div");
+      innerColumn.classList += "col-sm listCol";
+      innerColumn.style.backgroundColor = listColours[buildingsFound.length];
+      innerColumn.id = building;
+      newColumn.appendChild(innerColumn);
+      document.getElementById('roomlist').appendChild(newColumn);
+      fetch('/building/name/' + building)
+        .then(response => {
+          if (!response.ok) throw Error
+          return response.json()
+        })
+        .then(function (bName) {
+          heading = document.createElement("h2");
+          heading.innerHTML = bName;
+          document.getElementById(building).prepend(heading);
+        })
+        .catch(err => {
+          console.log("Retrieving building name for rooms list")
+        })
     }
-    if (!isNaN(room.level)) {
-      div = document.getElementById(block.concat(room.level))
-      let newItem
-      newItem = document.createElement('a')
-      newItem.classList.add('room-link')
-      newItem.id = room.id
-      newItem.innerHTML = room.name
+    // If this level has not been added to the list before, add it 
+    if (!levelsFound.includes(thisLevel)) {
+      levelsFound.push(thisLevel);
+      newLevel = document.createElement("div");
+      newLevel.id = thisLevel;
+      newLevelHeading = document.createElement("h4");
+      if (level == 2) {
+        newLevelHeading.innerHTML = 'Ground Floor (Level 2)';
+      }
+      else {
+        newLevelHeading.innerHTML = 'Level ' + level;
+      }
+      newLevel.appendChild(newLevelHeading);
+      document.getElementById(building).appendChild(newLevel);
+    }
+    // Add the room to the list in the right place
+    div = document.getElementById(thisLevel);
+    let newItem;
+    newItem = document.createElement("a");
+    newItem.classList.add("room-link");
+    newItem.id = room.id;
+    newItem.innerHTML = room.name;
+    if (marked === "yes") {
+      // If it is a marked room, make the name clickable
       newItem.setAttribute('onclick', `javascript:room_list_click("${room.name}");`)
-      div.appendChild(newItem)
-
-      newItem = document.createElement('br')
-      div.appendChild(newItem)
     }
-  })
-  unmarked_room_list.forEach(room => {
-    if (room.building === "Women's and Children's Hospital") {
-      block = 'wch'
-    } else if (room.building === 'West Block') {
-      block = 'wb'
-    } else if (room.building === 'South Block') {
-      block = 'sb'
-    } else if (room.building === 'East Block') {
-      block = 'eb'
-    } else {
-      return
-    }
-    if (!isNaN(room.level)) {
-      div = document.getElementById(block.concat(room.level))
-      div.innerHTML += '<a>' + room.name + '</a><br>'
-    }
-  })
+    div.appendChild(newItem);
+    newItem = document.createElement("br");
+    div.appendChild(newItem);
+  }
+  else {
+    return;
+  }
 }
 
-function room_list_click (name) {
-  const room_width = 15
-  const room_height = 15
-  const room_focus = 20
-  const node = getNodeByName(name)
-  zoomOnLocation([node.latitude, node.longitude], room_focus)
-  placePopup(node.id, [node.latitude, node.longitude], room_width, room_height)
-  window.scrollTo(0, 100)
+  
+function room_list_click(name) {
+  const room_width = 15;
+  const room_height = 15;
+  const room_focus = 20;
+  const node = getNodeByName(name);
+  zoomOnLocation([node.latitude, node.longitude],room_focus)
+  placePopup(node.id,[node.latitude, node.longitude],room_width,room_height)
+  window.scrollTo(0,300)
 }
-function drawNodes () {
-  const entrance_min_zoom = 1
-  const entrance_max_zoom = 100
-  const building_min_zoom = 1
-  const building_max_zoom = 17
-  const room_min_zoom = 18
-  const room_max_zoom = 100
-  const corridor_min_zoom = 18
-  const corridor_max_zoom = 100
+function drawNodes(){
+  const entrance_min_zoom = 1;
+  const entrance_max_zoom = 100;
+  const building_min_zoom = 1;
+  const building_max_zoom = 17;
+  const room_min_zoom = 18;
+  const room_max_zoom = 100;
+  const corridor_min_zoom = 18;
+  const corridor_max_zoom = 100;
 
   entrances.forEach(entrance => {
     if (checkValidZoom(entrance_min_zoom, entrance_max_zoom)) {
