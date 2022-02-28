@@ -309,7 +309,7 @@ function addRoomToList(room, marked = "yes") {
       newColumn.classList += "col-md-3";
       innerColumn = document.createElement("div");
       innerColumn.classList += "col-sm listCol";
-      innerColumn.style.backgroundColor = listColours[buildingsFound.length];
+      innerColumn.style.backgroundColor = listColours[buildingsFound.length -1];
       innerColumn.id = building;
       newColumn.appendChild(innerColumn);
       document.getElementById('roomlist').appendChild(newColumn);
