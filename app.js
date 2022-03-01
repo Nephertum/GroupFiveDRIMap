@@ -279,8 +279,8 @@ app.post('/login', (req, res) => {
       console.log(err)
       res.status(500).send()
     }
-    if (!rows) res.status(401).send()
-    if (rows) {
+    if (!rows.length > 0) res.status(200).redirect('/login')
+    if (rows.length > 0) {
       for (const user of rows) {
         const valid = await bcrypt.compare(req.body.password, user.password)
         if (valid) {

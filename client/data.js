@@ -401,7 +401,7 @@ function checkChange (id) {
       box.className += ' changedValue'
       changes.push(change)
       console.log(change)
-      if (document.getElementById('undo-' + box.id) == undefined) {
+      if (!document.getElementById('undo-' + box.id)) {
         const undoBtn = document.createElement('i')
         undoBtn.id = 'undo-' + box.id
         undoBtn.className = 'fas fa-undo undoBtn'
@@ -464,14 +464,15 @@ function saveEdit (change) {
     body: JSON.stringify(message)
   })
     .then(response => {
+        removeServerErrorMessage()
       if (response.ok) {
         console.log('change succesful')
       } else {
         throw Error
       }
     })
-    .catch(err => {
-      console.log(err)
+    .catch(() => {
+      displayServerErrorMessage()
     })
 }
 function saveAdd (change) {
@@ -494,6 +495,7 @@ function saveAdd (change) {
     body: JSON.stringify(message)
   })
     .then(response => {
+        removeServerErrorMessage()
       if (response.ok) {
         return response.text()
       } else {
@@ -504,8 +506,8 @@ function saveAdd (change) {
       document.getElementById(newId).id = result
       document.getElementById(result).innerText = result
     })
-    .catch(err => {
-      console.log(err)
+    .catch(() => {
+      displayServerErrorMessage()
     })
 }
 function saveDelete (change) {
@@ -520,14 +522,15 @@ function saveDelete (change) {
     body: JSON.stringify(message)
   })
     .then(response => {
+        removeServerErrorMessage()
       if (response.ok) {
         console.log('change succesful')
       } else {
         throw Error
       }
     })
-    .catch(err => {
-      console.log(err)
+    .catch(() => {
+      displayServerErrorMessage()
     })
 }
 
@@ -562,6 +565,12 @@ function saveChanges () {
   // Will go through changes and post them all
 }
 
+function displayServerErrorMessage() {
+    document.getElementById('serverError').style.display = "block"
+}
+function removeServerErrorMessage() {
+    document.getElementById('serverError').style.display = "none"
+}
 // FOLLOWING FUNCTIONS MAKE POPUP BOXES
 function functionConfirm (msg, del, archive, cancel) {
   const confirmBox = $('#confirm')

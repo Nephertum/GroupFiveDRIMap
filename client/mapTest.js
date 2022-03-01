@@ -23,8 +23,10 @@ let myMap
 let mouseIsDown = false
 let start = 0
 let dest = 0
+let count = 0
 let navigation_loaded = false
 let route
+let interval
 const pin = {
   name: 'pin',
   latitude: 0,
@@ -33,15 +35,19 @@ const pin = {
 let graph
 window.addEventListener('mousedown', function () {
   mouseIsDown = true
-  setTimeout(function () {
+  interval = setInterval(() => {
     if (mouseIsDown) {
-      // mouse was held down for > 3 seconds
-      updatePinLocation()
+      count += 1
+      if (count === 3) {
+        updatePinLocation()
+      }
     }
-  }, 2000)
+  }, 1000)
 })
 window.addEventListener('mouseup', function () {
   mouseIsDown = false
+  count = 0
+  clearInterval(interval)
 })
 window.addEventListener('touchstart', function () {
   mouseIsDown = true
@@ -56,40 +62,44 @@ window.addEventListener('touchend', function () {
   mouseIsDown = false
 })
 window.addEventListener('load', async () => {
-  let res = await fetch('/rooms/listinfo')
-  let result = await res.json()
-  const room_list = result
+  try {
+    let res = await fetch('/rooms/listinfo')
+    let result = await res.json()
+    const room_list = result
 
-  res = await fetch('/unmarkedrooms')
-  result = await res.json()
-  const unmarked_room_list = result
-  populate_list(room_list, unmarked_room_list)
-  if (!localStorage.visited) {
-    document.getElementById('tutorial_container').style.display = 'block'
-    document.getElementById('end_tutorial').addEventListener('click', () => {
-      document.getElementById('tutorial_container').style.display = 'none'
-    })
-    document.getElementById('startStep2').addEventListener('click', () => {
-      document.getElementById('tutorialStep2').style.display = 'block'
-      document.getElementById('tutorialStep1').style.display = 'none'
-    })
-    document.getElementById('startStep3').addEventListener('click', () => {
-      document.getElementById('tutorialStep3').style.display = 'block'
-      document.getElementById('tutorialStep2').style.display = 'none'
-    })
-    document.getElementById('startStep4').addEventListener('click', () => {
-      document.getElementById('tutorialStep4').style.display = 'block'
-      document.getElementById('tutorialStep3').style.display = 'none'
-    })
-    document.getElementById('startStep5').addEventListener('click', () => {
-      document.getElementById('tutorialStep5').style.display = 'block'
-      document.getElementById('tutorialStep4').style.display = 'none'
-    })
-    document.getElementById('completeTutorial').addEventListener('click', () => {
-      document.getElementById('tutorial_container').style.display = 'none'
-    })
+    res = await fetch('/unmarkedrooms')
+    result = await res.json()
+    const unmarked_room_list = result
+    populate_list(room_list, unmarked_room_list)
+    if (!localStorage.visited) {
+      document.getElementById('tutorial_container').style.display = 'block'
+      document.getElementById('end_tutorial').addEventListener('click', () => {
+        document.getElementById('tutorial_container').style.display = 'none'
+      })
+      document.getElementById('startStep2').addEventListener('click', () => {
+        document.getElementById('tutorialStep2').style.display = 'block'
+        document.getElementById('tutorialStep1').style.display = 'none'
+      })
+      document.getElementById('startStep3').addEventListener('click', () => {
+        document.getElementById('tutorialStep3').style.display = 'block'
+        document.getElementById('tutorialStep2').style.display = 'none'
+      })
+      document.getElementById('startStep4').addEventListener('click', () => {
+        document.getElementById('tutorialStep4').style.display = 'block'
+        document.getElementById('tutorialStep3').style.display = 'none'
+      })
+      document.getElementById('startStep5').addEventListener('click', () => {
+        document.getElementById('tutorialStep5').style.display = 'block'
+        document.getElementById('tutorialStep4').style.display = 'none'
+      })
+      document.getElementById('completeTutorial').addEventListener('click', () => {
+        document.getElementById('tutorial_container').style.display = 'none'
+      })
+    }
+    localStorage.visited = true
+  } catch (error) {
+    displayServerErrorMessage()
   }
-  localStorage.visited = true
 })
 
 // locations section:
@@ -108,12 +118,18 @@ fetch('/entrances')
   .then(function (body) {
     entrances = body
   })
+  .catch(() => {
+    displayServerErrorMessage()
+  })
 
 let corridors
 fetch('/corridors')
   .then(response => response.json())
   .then(function (body) {
     corridors = body
+  })
+  .catch(() => {
+    displayServerErrorMessage()
   })
 
 let buildings
@@ -122,12 +138,18 @@ fetch('/buildings')
   .then(function (body) {
     buildings = body
   })
+  .catch(() => {
+    displayServerErrorMessage()
+  })
 
 let rooms
-fetch('/rooms') // Rooms have extra info so only store drawing info globally
+fetch('/rooms')
   .then(response => response.json())
   .then(function (body) {
     rooms = body
+  })
+  .catch(() => {
+    displayServerErrorMessage()
   })
 
 let loaded = false
@@ -194,16 +216,19 @@ function setupButton () {
 function AI_navigate () {
   let previous_length = 0
   let latest_message = ''
+  // every second the DOM is checked to see if new chatbot conversation nodes have appeared
   setInterval(() => {
     const messages = document.querySelectorAll('.WACWidget__MarkdownP')
     let navigation_messages_count = 0
     for (const message of messages) {
       const text = message.innerText
+      // checks if any messages relate to navigation
       if (text.includes(':') && text.slice(0, 5) === 'Route') {
         navigation_messages_count += 1
         latest_message = text
       }
     }
+    // if there are new messages
     if (navigation_messages_count !== previous_length) {
       const data = latest_message.split(':')
       const locations = data[1].split(',')
@@ -216,6 +241,7 @@ function AI_navigate () {
       const directionMenu = document.getElementById('offcanvasDirections')
       const canvas = new bootstrap.Offcanvas(directionMenu)
       canvas.show()
+      // realistically, a user will want to navigate from the pin as opposed to towards it
       if (locations[1] === 'pin') {
         setNavigation(locations[1], locations[0])
       } else {
@@ -225,7 +251,10 @@ function AI_navigate () {
     }
   }, 1000)
 }
+
+// main update loop for the map, this is where any additional drawing functionality should be added
 function updateMap () {
+  // on initial load, add interaction controls to map
   if (!loaded) {
     myMap.map.addControl(new mapboxgl.FullscreenControl())
     myMap.map.addControl(new mapboxgl.NavigationControl())
@@ -276,124 +305,114 @@ function getNodeByName (name) {
     if (element.name.toLowerCase() === name.toLowerCase()) {
       result = element
     }
-  });
-  return result;
+  })
+  return result
 }
 
-function populate_list(room_list, unmarked_room_list) {
-    buildingsFound = []; // Global store of buildings added to the list
-    levelsFound = []; // Global store of levels added to the list
-    listColours = ['rgba(76, 197, 96, 0.664)', 'rgba(220, 144, 223, 0.548)', 'rgba(85, 190, 194, 0.692)', 'rgba(233, 132, 203, 0.582)'];  // Global store of colours for the list boxes
-    room_list.forEach(room => addRoomToList(room))
-    unmarked_room_list.forEach(room => addRoomToList(room,"no"))
-  }
+function populate_list (room_list, unmarked_room_list) {
+  buildingsFound = [] // Global store of buildings added to the list
+  levelsFound = [] // Global store of levels added to the list
+  listColours = ['rgba(76, 197, 96, 0.664)', 'rgba(220, 144, 223, 0.548)', 'rgba(85, 190, 194, 0.692)', 'rgba(233, 132, 203, 0.582)'] // Global store of colours for the list boxes
+  room_list.forEach(room => addRoomToList(room))
+  unmarked_room_list.forEach(room => addRoomToList(room, 'no'))
+}
 
-function addRoomToList(room, marked = "yes") {
-  let div;
-  let building;
-  let thisLevel;
-  let level;
-  let newColumn;
-  let innerColumn;
-  let heading;
-  let newLevel;
-  building = room.building;
-  level = room.level;
-  thisLevel = building + '-' + level;
+function addRoomToList (room, marked = 'yes') {
+  let div
+  const building = room.building
+  const level = room.level
+  const thisLevel = building + '-' + level
+  let newColumn
+  let innerColumn
+  let heading
+  let newLevel
   // Check level not unknown
   if (!isNaN(level)) {
     // If building list has not already been made, make it
     if (!buildingsFound.includes(building)) {
-      buildingsFound.push(building);
-      newColumn = document.createElement("div");
-      newColumn.classList += "col-md-3";
-      innerColumn = document.createElement("div");
-      innerColumn.classList += "col-sm listCol";
-      innerColumn.id = building;
-      newColumn.appendChild(innerColumn);
-      document.getElementById('roomlist').appendChild(newColumn);
+      buildingsFound.push(building)
+      newColumn = document.createElement('div')
+      newColumn.classList += 'col-md-3'
+      innerColumn = document.createElement('div')
+      innerColumn.classList += 'col-sm listCol'
+      innerColumn.id = building
+      newColumn.appendChild(innerColumn)
+      document.getElementById('roomlist').appendChild(newColumn)
       fetch('/building/listInfo/' + building)
         .then(response => {
+          removeServerErrorMessage()
           if (!response.ok) throw Error
           return response.json()
         })
         .then(function (bInfo) {
-          heading = document.createElement("h2");
-          heading.innerHTML = bInfo[0];
-          document.getElementById(building).prepend(heading);
-          if (bInfo[1] != undefined){
-            document.getElementById(building).style.backgroundColor = bInfo[1];
+          heading = document.createElement('h2')
+          heading.innerHTML = bInfo[0]
+          document.getElementById(building).prepend(heading)
+          if (bInfo[1]) {
+            document.getElementById(building).style.backgroundColor = bInfo[1]
           }
         })
-        .catch(err => {
-          console.log("Retrieving building name for rooms list")
+        .catch(() => {
+          displayServerErrorMessage()
         })
     }
-    // If this level has not been added to the list before, add it 
+    // If this level has not been added to the list before, add it
     if (!levelsFound.includes(thisLevel)) {
-      levelsFound.push(thisLevel);
-      newLevel = document.createElement("div");
-      newLevel.id = thisLevel;
-      newLevelHeading = document.createElement("h2");
-      newLevelHeading.innerHTML += "<hr>"
-      if (level == 2) {
-        newLevelHeading.innerHTML += 'Ground Floor (Level 2)';
+      levelsFound.push(thisLevel)
+      newLevel = document.createElement('div')
+      newLevel.id = thisLevel
+      newLevelHeading = document.createElement('h2')
+      newLevelHeading.innerHTML += '<hr>'
+      if (level === 2) {
+        newLevelHeading.innerHTML += 'Ground Floor (Level 2)'
+      } else {
+        newLevelHeading.innerHTML += 'Level ' + level
       }
-      else {
-        newLevelHeading.innerHTML += 'Level ' + level;
-      }
-      newLevelHeading.innerHTML += "<hr>"
-      newLevel.appendChild(newLevelHeading);
-      document.getElementById(building).appendChild(newLevel);
+      newLevelHeading.innerHTML += '<hr>'
+      newLevel.appendChild(newLevelHeading)
+      document.getElementById(building).appendChild(newLevel)
     }
     // Add the room to the list in the right place
-    div = document.getElementById(thisLevel);
-    let newItem;
-   
-    
-    if (marked === "yes") {
+    div = document.getElementById(thisLevel)
+    let newItem
+
+    if (marked === 'yes') {
       // If it is a marked room, make the name clickable
-      newItem = document.createElement("a");
+      newItem = document.createElement('a')
       newItem.setAttribute('onclick', `javascript:room_list_click("${room.name}");`)
-    }
-    else {
-      newItem = document.createElement("p")
+    } else {
+      newItem = document.createElement('p')
       newItem.classList.add('unmarked')
     }
-    newItem.classList.add("room-link");
-    newItem.id = room.id;
-    newItem.innerHTML = room.name;
-    div.appendChild(newItem);
+    newItem.classList.add('room-link')
+    newItem.id = room.id
+    newItem.innerHTML = room.name
+    div.appendChild(newItem)
     if (marked === 'yes') {
-      newItem = document.createElement("br");
-      div.appendChild(newItem);
+      newItem = document.createElement('br')
+      div.appendChild(newItem)
     }
-    
-  }
-  else {
-    return;
   }
 }
 
-  
-function room_list_click(name) {
-  const room_width = 15;
-  const room_height = 15;
-  const room_focus = 20;
-  const node = getNodeByName(name);
-  zoomOnLocation([node.latitude, node.longitude],room_focus)
-  placePopup(node.id,[node.latitude, node.longitude],room_width,room_height)
-  window.scrollTo(0,300)
+function room_list_click (name) {
+  const room_width = 15
+  const room_height = 15
+  const room_focus = 20
+  const node = getNodeByName(name)
+  zoomOnLocation([node.latitude, node.longitude], room_focus)
+  placePopup(node.id, [node.latitude, node.longitude], room_width, room_height)
+  window.scrollTo(0, 100)
 }
-function drawNodes(){
-  const entrance_min_zoom = 1;
-  const entrance_max_zoom = 100;
-  const building_min_zoom = 1;
-  const building_max_zoom = 17;
-  const room_min_zoom = 18;
-  const room_max_zoom = 100;
-  const corridor_min_zoom = 18;
-  const corridor_max_zoom = 100;
+function drawNodes () {
+  const entrance_min_zoom = 1
+  const entrance_max_zoom = 100
+  const building_min_zoom = 1
+  const building_max_zoom = 17
+  const room_min_zoom = 18
+  const room_max_zoom = 100
+  const corridor_min_zoom = 18
+  const corridor_max_zoom = 100
 
   entrances.forEach(entrance => {
     if (checkValidZoom(entrance_min_zoom, entrance_max_zoom)) {
@@ -513,10 +532,12 @@ function generateGraph () {
 
   return graph
 }
+// calculates nearest corridor to a location node
 function calculateNearestCorridor (location) {
   const room = myMap.latLngToPixel(location.latitude, location.longitude)
   let minDistance = Infinity
   let result = 0
+  // calculates distance for each corridor
   corridors.forEach((corridor, index) => {
     corridorStart = myMap.latLngToPixel(corridor.latitudeStart, corridor.longitudeStart)
     corridorEnd = myMap.latLngToPixel(corridor.latitudeEnd, corridor.longitudeEnd)
@@ -529,11 +550,20 @@ function calculateNearestCorridor (location) {
   })
   return result
 }
+function displayServerErrorMessage () {
+  document.getElementById('serverError').style.display = 'block'
+}
+function removeServerErrorMessage () {
+  document.getElementById('serverError').style.display = 'none'
+}
 // highlights a cooridoor red, to be used for navigation
 function highlight_path (cooridoor_list) {
   console.log(cooridoor_list)
   // !navigation_loaded && addRouteStep(start.name,-1)
-  cooridoor_list.forEach((path, index) => {
+  if (cooridoor_list.length === 1) {
+    highlight_small_route(cooridoor_list[0], start, dest)
+  }
+  cooridoor_list.length > 1 && cooridoor_list.forEach((path, index) => {
     if (!navigation_loaded) {
       if (index > 0) {
         addRouteStep(path, cooridoor_list[index - 1])
@@ -573,6 +603,7 @@ function highlight_cooridoor (index) {
   vertex(highlight_end.x, highlight_end.y)
   endShape()
 }
+// calculate intersect between line containing points (x_1,y_1) and (x_2,y_2) and the point (x_3,y_3)
 function calculate_intersect (x_1, y_1, x_2, y_2, x_3, y_3) {
   const u = (((x_3 - x_1) * (x_2 - x_1)) + ((y_3 - y_1) * (y_2 - y_1))) / (((x_2 - x_1) * (x_2 - x_1)) + ((y_2 - y_1) * (y_2 - y_1)))
   const x = x_1 + (u * (x_2 - x_1))
@@ -584,13 +615,16 @@ function highlightEndpoint (cooridoor, adj_cooridoor, node) {
   noFill()
   stroke(0, 123, 255)
   strokeWeight(3)
+  // calculates which direction a route goes along a corridor
   const cooridoorData = corridors[cooridoor - 1]
   const prevCooridoorData = corridors[adj_cooridoor - 1]
   const current_start = myMap.latLngToPixel(cooridoorData.latitudeStart, cooridoorData.longitudeStart)
   const current_end = myMap.latLngToPixel(cooridoorData.latitudeEnd, cooridoorData.longitudeEnd)
   const prev_end = myMap.latLngToPixel(prevCooridoorData.latitudeEnd, prevCooridoorData.longitudeEnd)
+  // end points of adjacent corridor is used in this case, but the start point could also be used
   const diff_start = Math.abs(current_start.x - prev_end.x) + Math.abs(current_start.y - prev_end.y)
   const diff_end = Math.abs(current_end.x - prev_end.x) + Math.abs(current_end.y - prev_end.y)
+  // chooses point closest to the adjacent corridor on the route
   let highlight_start
   if (diff_start > diff_end) {
     highlight_start = current_end
@@ -599,12 +633,33 @@ function highlightEndpoint (cooridoor, adj_cooridoor, node) {
   }
 
   const point = myMap.latLngToPixel(node.latitude, node.longitude)
+  // calculates intersect point between room and corridor
   const highlight_middle = calculate_intersect(current_start.x, current_start.y, current_end.x, current_end.y, point.x, point.y)
 
   beginShape()
   vertex(highlight_start.x, highlight_start.y)
   vertex(highlight_middle[0], highlight_middle[1])
   vertex(point.x, point.y)
+  endShape()
+}
+// for when both navigation nodes are on the same corridor
+function highlight_small_route (corridor, node_1, node_2) {
+  noFill()
+  stroke(0, 123, 255)
+  strokeWeight(3)
+  // calcualtes intersect for both nodes and draws lines between them
+  const cooridoorData = corridors[corridor - 1]
+  const current_start = myMap.latLngToPixel(cooridoorData.latitudeStart, cooridoorData.longitudeStart)
+  const current_end = myMap.latLngToPixel(cooridoorData.latitudeEnd, cooridoorData.longitudeEnd)
+  const point_1 = myMap.latLngToPixel(node_1.latitude, node_1.longitude)
+  const point_2 = myMap.latLngToPixel(node_2.latitude, node_2.longitude)
+  const intersect_1 = calculate_intersect(current_start.x, current_start.y, current_end.x, current_end.y, point_1.x, point_1.y)
+  const intersect_2 = calculate_intersect(current_start.x, current_start.y, current_end.x, current_end.y, point_2.x, point_2.y)
+  beginShape()
+  vertex(point_1.x, point_1.y)
+  vertex(intersect_1[0], intersect_1[1])
+  vertex(intersect_2[0], intersect_2[1])
+  vertex(point_2.x, point_2.y)
   endShape()
 }
 // clears any nav routes drawn on the map
@@ -687,8 +742,10 @@ function getpopupOptions (width, height) {
   }
 }
 function placePopup (id, location, width, height) {
+  if (id.slice(0, 1) !== 'r') return
   fetch('/rooms/popupinfo/' + id)
     .then(response => {
+      removeServerErrorMessage()
       if (!response.ok) throw Error
       return response.json()
     })
@@ -707,15 +764,12 @@ function placePopup (id, location, width, height) {
       }
     })
     .catch(() => {
-      console.log('zooming on building')
+      displayServerErrorMessage()
     })
 }
 function mouseClicked () {
   checkMouseClickForLocation(mouseX, mouseY)
   // checks if mouse was clicked over any of the location nodes and zooms in on them
-}
-function mouseDragged () {
-  mouseIsDown = false
 }
 
 // function renders HTML for popup
@@ -746,7 +800,7 @@ function popupBtnFunc (id, name) {
     document.getElementById('path2').value = name // Just autofills destination for now
   })
 }
-// pathfinding algorithm copied from website
+// pathfinding algorithm sourced from https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
 // A Javascript program for Dijkstra's
 // single source shortest path
 // algorithm. The program is for
@@ -842,25 +896,73 @@ function printPath (currentVertex, parents) {
 function check_parallel (corridor_1, corridor_2) {
   const corridor_1_location = [[corridors[corridor_1 - 1].latitudeStart, corridors[corridor_1 - 1].longitudeStart], [corridors[corridor_1 - 1].latitudeEnd, corridors[corridor_1 - 1].longitudeEnd]]
   const corridor_2_location = [[corridors[corridor_2 - 1].latitudeStart, corridors[corridor_2 - 1].longitudeStart], [corridors[corridor_2 - 1].latitudeEnd, corridors[corridor_2 - 1].longitudeEnd]]
+  // calculates direction vector of each corridor
   const direction_1 = [corridor_1_location[1][0] - corridor_1_location[0][0], corridor_1_location[1][1] - corridor_1_location[0][1]]
   const direction_2 = [corridor_2_location[1][0] - corridor_2_location[0][0], corridor_2_location[1][1] - corridor_2_location[0][1]]
+  // calculates magnitude of direction vectors
   const direction_1_length = Math.sqrt(Math.pow(direction_1[0], 2) + Math.pow(direction_1[1], 2))
   const direction_2_length = Math.sqrt(Math.pow(direction_2[0], 2) + Math.pow(direction_2[1], 2))
+  // threshold value to allow flexibility on determining if corridors are parallel
+  const errorThreshold = 0.03
+  // normalises both direction vectors so length of corridor doesn't affect calculation
   let direction_1_normalised = [direction_1[0] / direction_1_length, direction_1[1] / direction_1_length]
   let direction_2_normalised = [direction_2[0] / direction_2_length, direction_2[1] / direction_2_length]
+  // rounds values to 2 d.p
   direction_1_normalised = [Number(direction_1_normalised[0].toFixed(2)), Number(direction_1_normalised[1].toFixed(2))]
   direction_2_normalised = [Number(direction_2_normalised[0].toFixed(2)), Number(direction_2_normalised[1].toFixed(2))]
-  if (Math.abs(direction_1_normalised[0] - direction_2_normalised[0]) < 0.03 && Math.abs(direction_1_normalised[1] - direction_2_normalised[1]) < 0.03) {
+  if (Math.abs(direction_1_normalised[0] - direction_2_normalised[0]) < errorThreshold && Math.abs(direction_1_normalised[1] - direction_2_normalised[1]) < errorThreshold) {
     return true
   } else {
     return false
+  }
+}
+function check_left (corridor_1, corridor_2) {
+  const corridor_1_location = [[corridors[corridor_1 - 1].latitudeStart, corridors[corridor_1 - 1].longitudeStart], [corridors[corridor_1 - 1].latitudeEnd, corridors[corridor_1 - 1].longitudeEnd]]
+  const corridor_2_location = [[corridors[corridor_2 - 1].latitudeStart, corridors[corridor_2 - 1].longitudeStart], [corridors[corridor_2 - 1].latitudeEnd, corridors[corridor_2 - 1].longitudeEnd]]
+  // calculates the distances between corridor 1 and corridor 2 for corridor 2's start and ending points
+  const distance_start = Math.sqrt(Math.pow((corridor_1_location[0][0] - corridor_2_location[0][0]), 2) + Math.pow((corridor_1_location[0][1] - corridor_2_location[0][1]), 2))
+  const distance_end = Math.sqrt(Math.pow((corridor_1_location[0][0] - corridor_2_location[1][0]), 2) + Math.pow((corridor_1_location[0][1] - corridor_2_location[1][1]), 2))
+  // choosing the closest end
+  const point_2 = distance_start < distance_end ? 0 : 1
+  // chooses the opposite end for point 3
+  const point_3 = point_2 === 1 ? 0 : 1
+  // these are the distances between point 2 and (corridor 1 start and corridor 2 end)
+  const far_distance_start = Math.sqrt(Math.pow((corridor_1_location[0][0] - corridor_2_location[point_2][0]), 2) + Math.pow((corridor_1_location[0][1] - corridor_2_location[point_2][1]), 2))
+  const far_distance_end = Math.sqrt(Math.pow((corridor_1_location[1][0] - corridor_2_location[point_2][0]), 2) + Math.pow((corridor_1_location[1][1] - corridor_2_location[point_2][1]), 2))
+  // calculates the furthest part of corriodor 1 which will be point_1
+  const point_1 = far_distance_start > far_distance_end ? 0 : 1
+  // calculates direction vector between point 1 and point 2
+  const direction_vector = [corridor_2_location[point_2][1] - corridor_1_location[point_1][1], corridor_2_location[point_2][0] - corridor_1_location[point_1][0]]
+  // calculates gradient of the line (point1) -> (point2)
+  const gradient = (corridor_2_location[point_2][0] - corridor_1_location[point_1][0]) / (corridor_2_location[point_2][1] - corridor_1_location[point_1][1])
+  // creates equation of the form y - y_1 = m(x-x_1)
+  // this rearranges to y = m(x-x_1) + y_1
+  const equation = (gradient * (corridor_2_location[point_3][1] - corridor_2_location[point_1][1])) + corridor_2_location[point_1][0]
+  // if horizontal vector is negative then any point above the line would be right turn
+  if (direction_vector[0] < 0) {
+    if (corridor_2_location[point_3][0] >= corridor_1_location[point_2][0]) {
+      return false
+    } else {
+      return true
+    }
+  } else {
+    // if horizontal vector is positive then any points above the line would be a left turn
+    if (corridor_2_location[point_3][0] >= equation) {
+      return true
+    } else {
+      return false
+    }
   }
 }
 function get_turn_type (corridor, previous) {
   if (check_parallel(corridor, previous)) {
     return 'carry straight on'
   } else {
-    return 'turn'
+    if (check_left(previous, corridor)) {
+      return 'turn left'
+    } else {
+      return 'turn right'
+    }
   }
 }
 function addRouteStep (direction, previous) {
@@ -873,11 +975,14 @@ function addRouteStep (direction, previous) {
   const label = document.createElement('p')
   if (Number(direction)) {
     if (Number(previous)) {
+      // for all intermediate route steps output value of this function
       label.innerText = get_turn_type(direction, previous)
     } else {
+      // for the first direction output this value
       label.innerText = ' turn onto corridor outside of ' + (previous !== 'pin' ? previous : 'Your location')
     }
   } else {
+    // for start and end of route, output room anmes
     label.innerText = direction
   }
 
@@ -902,7 +1007,7 @@ function addRouteStep (direction, previous) {
   element.appendChild(closeButton)
   closeButton.onclick = () => {
     element.remove()
-    if (container.childNodes.length === 4) {
+    if (container.childNodes.length <= 4) {
       speech.text = 'You have arrived at ' + dest.name
       window.speechSynthesis.speak(speech)
       clearHighlight()
@@ -929,6 +1034,7 @@ function reduce_route () {
   if (Number.isInteger(start)) {
     start = route[1]
   } else {
+    // don't shorten the route for the first step since the first step is for the starting room node
     start = route[0]
   }
   console.log(start)
@@ -939,6 +1045,10 @@ function calculate_route () {
   if (Number.isInteger(start)) {
     return navigate(graph, start, calculateNearestCorridor(dest))
   } else {
+    // if route is over one corridor then navigation function isn't necessary
+    if (calculateNearestCorridor(start) === calculateNearestCorridor(dest)) {
+      return [calculateNearestCorridor(start)]
+    }
     return navigate(graph, calculateNearestCorridor(start), calculateNearestCorridor(dest))
   }
 }
