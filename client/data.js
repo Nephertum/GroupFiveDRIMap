@@ -467,8 +467,6 @@ function saveEdit (change) {
         removeServerErrorMessage()
       if (response.ok) {
         console.log('change succesful')
-      } else {
-        throw Error
       }
     })
     .catch(() => {
@@ -498,8 +496,6 @@ function saveAdd (change) {
         removeServerErrorMessage()
       if (response.ok) {
         return response.text()
-      } else {
-        throw Error
       }
     })
     .then(result => {
@@ -525,8 +521,6 @@ function saveDelete (change) {
         removeServerErrorMessage()
       if (response.ok) {
         console.log('change succesful')
-      } else {
-        throw Error
       }
     })
     .catch(() => {

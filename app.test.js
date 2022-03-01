@@ -116,7 +116,6 @@ describe('Test POST routes', () => {
         const res = await request(app)
 	    .post('/entities/add')
         .send(params)
-        console.log(res)
 	    expect(res.statusCode).toBe(201)
     });
 
