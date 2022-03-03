@@ -52,6 +52,29 @@
   },
   {
     "type": "get",
+    "url": "/building/listInfo/:id",
+    "title": "Request Name and Room List Colour of a Building by Id",
+    "name": "GetBuildingListInfo",
+    "group": "Buildings",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "buildingListInfo",
+            "description": "<p>Name and room list colour of building.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./app.js",
+    "groupTitle": "Buildings"
+  },
+  {
+    "type": "get",
     "url": "/buildings",
     "title": "Request All Buildings",
     "name": "GetBuildings",
@@ -146,7 +169,7 @@
             "type": "Object[]",
             "optional": false,
             "field": "roompopup",
-            "description": "<p>Dictionary of the required info for creating a popup of the room.</p>"
+            "description": "<p>Dictionary of the required info for creating a popup of the room (id, name, description, opening hours, image).</p>"
           }
         ]
       }
@@ -192,7 +215,7 @@
             "type": "Object[]",
             "optional": false,
             "field": "roomsdrawing",
-            "description": "<p>List of dictionaries of the required info for drawing each room.</p>"
+            "description": "<p>List of dictionaries of the required info for drawing each room (id, name, location).</p>"
           }
         ]
       }
@@ -215,7 +238,7 @@
             "type": "Object[]",
             "optional": false,
             "field": "roomsinfo",
-            "description": "<p>List of dictionaries of the required info for listing each room.</p>"
+            "description": "<p>List of dictionaries of the required info for listing each room (id, name, location, building, level).</p>"
           }
         ]
       }
@@ -309,7 +332,7 @@
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "IdOfDelete",
+            "field": "id",
             "description": "<p>Unique id of object.</p>"
           },
           {
@@ -343,7 +366,7 @@
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "IdOfEdit",
+            "field": "id",
             "description": "<p>Unique id of object.</p>"
           },
           {
@@ -353,7 +376,8 @@
               "\"entrance\"",
               "\"building\"",
               "\"room\"",
-              "\"corridor\""
+              "\"corridor\"",
+              "\"unmarkedRoom\""
             ],
             "optional": false,
             "field": "category",
@@ -370,7 +394,7 @@
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "editNewValue",
+            "field": "NewValue",
             "description": "<p>New value for the property.</p>"
           }
         ]
@@ -393,7 +417,7 @@
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "newName",
+            "field": "name",
             "description": "<p>Name of new object.</p>"
           },
           {
@@ -403,7 +427,8 @@
               "\"entrance\"",
               "\"building\"",
               "\"room\"",
-              "\"corridor\""
+              "\"corridor\"",
+              "\"unmarkedRoom\""
             ],
             "optional": false,
             "field": "category",
@@ -413,49 +438,91 @@
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "newLocation",
-            "description": "<p>Map location of new object</p>"
+            "field": "latitude",
+            "description": "<p>Latitude of new object.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
-            "optional": true,
-            "field": "newDescription",
+            "optional": false,
+            "field": "longitude",
+            "description": "<p>Longitude of new object.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "building",
+            "description": "<p>Building where new object is located.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "level",
+            "description": "<p>Level new object is located on.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "description",
             "description": "<p>Description of new object.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
-            "optional": true,
-            "field": "newHoursWeekStart",
+            "optional": false,
+            "field": "weekdayHours",
             "description": "<p>Start of the weekday opening hours of the new object if applicable.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
-            "optional": true,
-            "field": "newHoursWeekEnd",
-            "description": "<p>End of the weekday opening hours of the new object if applicable.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": true,
-            "field": "newHoursWeekendStart",
+            "optional": false,
+            "field": "weekendHours",
             "description": "<p>Start of the weekend opening hours of the new object if applicable.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
-            "optional": true,
-            "field": "newHoursWeekendEnd",
-            "description": "<p>End of the weekend opening hours of the new object if applicable.</p>"
+            "optional": false,
+            "field": "latitudeStart",
+            "description": "<p>Latitude of starting point for corridors.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "latitudeend",
+            "description": "<p>Latitude of ending point for corridors.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "longitudeStart",
+            "description": "<p>Longitude of starting point for corridors.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "longitudeEnd",
+            "description": "<p>Longitude of ending point for corridors.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": true,
-            "field": "newImg",
+            "field": "neighbours",
+            "description": "<p>Integer list representing all neighbouring corridors.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "image",
             "description": "<p>Name of the image file for the new object if applicable.</p>"
           }
         ]

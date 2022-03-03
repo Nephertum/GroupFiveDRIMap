@@ -75,7 +75,10 @@ function checkAuthorisation (req, res, next) {
     return
   }
   if (req.session.authorised) {
-    next()
+    staffDB.get('SELECT username FROM staff WHERE username=?',[req.session.username], (err,rows) => {
+      if (rows) next()
+      if (!rows) res.status(401).redirect('/login')
+    })
   } else {
     res.status(401).redirect('/login')
   }
@@ -169,7 +172,7 @@ app.get('/rooms', function (req, resp) {
  * @apiName GetRoomsDrawingInfo
  * @apiGroup Rooms
  *
- * @apiSuccess {Object[]} roomsdrawing List of dictionaries of the required info for drawing each room.
+ * @apiSuccess {Object[]} roomsdrawing List of dictionaries of the required info for drawing each room (id, name, location).
  */
 app.get('/rooms/drawing', function (req, resp) {
   const result = []
@@ -185,7 +188,7 @@ app.get('/rooms/drawing', function (req, resp) {
  * @apiName GetRoomsListInfo
  * @apiGroup Rooms
  *
- * @apiSuccess {Object[]} roomsinfo List of dictionaries of the required info for listing each room.
+ * @apiSuccess {Object[]} roomsinfo List of dictionaries of the required info for listing each room (id, name, location, building, level).
  */
 app.get('/rooms/listinfo', function (req, resp) {
   const result = []
@@ -203,7 +206,7 @@ app.get('/rooms/listinfo', function (req, resp) {
  *
  * @apiParam {String} id Unique id of room.
  *
- * @apiSuccess {Object[]} roompopup Dictionary of the required info for creating a popup of the room.
+ * @apiSuccess {Object[]} roompopup Dictionary of the required info for creating a popup of the room (id, name, description, opening hours, image).
  */
 app.get('/rooms/popupinfo/:id', function (req, resp) {
   const id = req.params.id
@@ -233,15 +236,15 @@ app.get('/buildings', function (req, resp) {
  * @apiName GetBuildingListInfo
  * @apiGroup Buildings
  *
- * @apiSuccess {Object[]} buildingListInfo Name and Room List Colour of building.
+ * @apiSuccess {Object[]} buildingListInfo Name and room list colour of building.
  */
 app.get('/building/listInfo/:id', function (req, resp) {
-    const id = req.params.id
-    console.log(id)
-    const building = getPlace('building', id);
-    console.log(building)
-    resp.json([building.name, building.listColours]);
-});
+  const id = req.params.id
+  console.log(id)
+  const building = getPlace('building', id)
+  console.log(building)
+  resp.json([building.name, building.listColours])
+})
 
 /**
  * @api {get} /corridors Request All Corridors
@@ -290,6 +293,7 @@ app.post('/login', (req, res) => {
         const valid = await bcrypt.compare(req.body.password, user.password)
         if (valid) {
           req.session.authorised = true
+          req.session.username = req.body.username
           res.status(200).redirect('/data')
           return
         }
@@ -297,16 +301,48 @@ app.post('/login', (req, res) => {
     }
   })
 })
-app.post('/signup', checkAuthorisation, async (req, res) => {
-  if (!req.body.username || !req.body.password) res.status(400).send()
-  const salt = await bcrypt.genSalt(10)
-  const hashedPassword = await bcrypt.hash(req.body.password, salt)
-  staffDB.run('INSERT INTO staff (username, password) VALUES (?,?)', [req.body.username, hashedPassword], (err) => {
+app.post('/signup', checkAuthorisation, (req, res) => {
+  if (!req.body.username || !req.body.password) {
+    res.status(400).send()
+    return
+  }
+  staffDB.get('SELECT username FROM staff WHERE username = ?', [req.body.username], async (err, rows) => {
+    if (err) res.status(500).send()
+    if (rows) res.status(400).send('Username already exists')
+    if (!rows) {
+      const salt = await bcrypt.genSalt(10)
+      const hashedPassword = await bcrypt.hash(req.body.password, salt)
+      staffDB.run('INSERT INTO staff (username, password) VALUES (?,?)', [req.body.username, hashedPassword], (err) => {
+        if (err) {
+          console.log(err)
+          res.status(500).send()
+        }
+        if (!err) res.status(201).send()
+      })
+    }
+  })
+})
+
+app.post('/remove_account', checkAuthorisation, (req, res) => {
+  if (!req.body.username) {
+   res.status(400).send()
+   return
+  }
+  staffDB.run('DELETE FROM staff WHERE username =?', [req.body.username], (err) => {
     if (err) {
       console.log(err)
       res.status(500).send()
     }
-    if (!err) res.status(201).send()
+    if (!err) {
+      console.log(req.session.username)
+      if (req.session.username === req.body.username) {
+        req.session.destroy(() => {
+          res.status(201).send()
+        })
+      } else {
+        res.status(201).send()
+      }
+    }
   })
 })
 
@@ -503,7 +539,6 @@ app.post('/entities/edit', checkAuthorisation, function (req, res) {
           data[property] = value
         }
       }
-      
 
       res.status(201).send()
     }
@@ -627,8 +662,6 @@ app.post('/entities/restore', function (req, resp) {
     resp.status(404).send('Error finding category location belongs to.')
     return
   }
-  // resp.set('Content-Type', 'text/html');
-  // const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the property has been updated! </h1> </body> </html>';
   resp.status(201).send()
 })
 
