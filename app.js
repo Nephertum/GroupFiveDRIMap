@@ -70,7 +70,10 @@ const staffDB = require('./staffDB')
 const placesForSearch = [rooms, buildings, archive]
 
 function checkAuthorisation (req, res, next) {
-  if (TESTING) next()
+  if (TESTING) {
+    next()
+    return
+  }
   if (req.session.authorised) {
     next()
   } else {
@@ -233,8 +236,10 @@ app.get('/buildings', function (req, resp) {
  * @apiSuccess {Object[]} buildingListInfo Name and Room List Colour of building.
  */
 app.get('/building/listInfo/:id', function (req, resp) {
-    id = req.params.id;
-    building = getPlace('building', id);
+    const id = req.params.id
+    console.log(id)
+    const building = getPlace('building', id);
+    console.log(building)
     resp.json([building.name, building.listColours]);
 });
 
@@ -411,7 +416,8 @@ app.post('/entities/add', checkAuthorisation, function (req, res) {
       break
     }
     default:
-      break
+      res.status(400).send()
+      return
   }
   res.status(201).send(id)
 })
@@ -433,7 +439,6 @@ app.post('/entities/edit', checkAuthorisation, function (req, res) {
     res.status(400).send()
     return
   }
-  console.log(req.body)
   let table
   switch (category) {
     case 'room':
@@ -446,15 +451,14 @@ app.post('/entities/edit', checkAuthorisation, function (req, res) {
       table = 'entrances'
       break
     case 'unmarkedRoom':
-      console.log("unmarked")
-      console.log(req.body)
       table = 'unmarkedRooms'
       break
     case 'corridor':
       table = 'corridorIndex'
       break
     default:
-      break
+      res.status(400).send()
+      return
   }
   const property = req.body.property
   const value = req.body.NewValue
@@ -468,8 +472,7 @@ app.post('/entities/edit', checkAuthorisation, function (req, res) {
       return
     }
   }
-  const query = `UPDATE ${table} SET ${property} = ? WHERE id=?`
-  db.run(query, [value, id], (err) => {
+  db.run(`UPDATE ${table} SET ${property} = ? WHERE id=?`, [value, id], (err) => {
     if (err) {
       console.log(err)
       res.status(500).send()
@@ -500,6 +503,7 @@ app.post('/entities/edit', checkAuthorisation, function (req, res) {
           data[property] = value
         }
       }
+      
 
       res.status(201).send()
     }
@@ -546,7 +550,7 @@ app.post('/entities/delete', checkAuthorisation, function (req, res) {
       break
     default:
       res.status(400).send()
-      break
+      return
   }
   if (deleteType === 'archive') {
     // archive needs implementing
@@ -560,13 +564,16 @@ app.post('/entities/delete', checkAuthorisation, function (req, res) {
       }
       if (!err) {
         let index = 0
+        let found = false
         for (const data of searchThrough) {
           if (data.id === id) {
+            found = true
             searchThrough.splice(index, 1)
             break
           }
           index += 1
         }
+        if (!found) res.status(404).send()
         res.status(201).send()
       }
     })
