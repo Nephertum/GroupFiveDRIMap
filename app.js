@@ -169,7 +169,7 @@ app.get('/rooms', function (req, resp) {
  * @apiName GetRoomsDrawingInfo
  * @apiGroup Rooms
  *
- * @apiSuccess {Object[]} roomsdrawing List of dictionaries of the required info for drawing each room.
+ * @apiSuccess {Object[]} roomsdrawing List of dictionaries of the required info for drawing each room (id, name, location).
  */
 app.get('/rooms/drawing', function (req, resp) {
   const result = []
@@ -185,7 +185,7 @@ app.get('/rooms/drawing', function (req, resp) {
  * @apiName GetRoomsListInfo
  * @apiGroup Rooms
  *
- * @apiSuccess {Object[]} roomsinfo List of dictionaries of the required info for listing each room.
+ * @apiSuccess {Object[]} roomsinfo List of dictionaries of the required info for listing each room (id, name, location, building, level).
  */
 app.get('/rooms/listinfo', function (req, resp) {
   const result = []
@@ -203,7 +203,7 @@ app.get('/rooms/listinfo', function (req, resp) {
  *
  * @apiParam {String} id Unique id of room.
  *
- * @apiSuccess {Object[]} roompopup Dictionary of the required info for creating a popup of the room.
+ * @apiSuccess {Object[]} roompopup Dictionary of the required info for creating a popup of the room (id, name, description, opening hours, image).
  */
 app.get('/rooms/popupinfo/:id', function (req, resp) {
   const id = req.params.id
@@ -233,7 +233,7 @@ app.get('/buildings', function (req, resp) {
  * @apiName GetBuildingListInfo
  * @apiGroup Buildings
  *
- * @apiSuccess {Object[]} buildingListInfo Name and Room List Colour of building.
+ * @apiSuccess {Object[]} buildingListInfo Name and room list colour of building.
  */
 app.get('/building/listInfo/:id', function (req, resp) {
     const id = req.params.id
@@ -627,8 +627,6 @@ app.post('/entities/restore', function (req, resp) {
     resp.status(404).send('Error finding category location belongs to.')
     return
   }
-  // resp.set('Content-Type', 'text/html');
-  // const htmltext = '<html> <head> <link rel="stylesheet" href="../styles.css"></head> <body> <h1> Thanks, the property has been updated! </h1> </body> </html>';
   resp.status(201).send()
 })
 
