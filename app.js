@@ -75,7 +75,10 @@ function checkAuthorisation (req, res, next) {
     return
   }
   if (req.session.authorised) {
-    next()
+    staffDB.get('SELECT username FROM staff WHERE username=?',[req.session.username], (err,rows) => {
+      if (rows) next()
+      if (!rows) res.status(401).redirect('/login')
+    })
   } else {
     res.status(401).redirect('/login')
   }
@@ -236,12 +239,12 @@ app.get('/buildings', function (req, resp) {
  * @apiSuccess {Object[]} buildingListInfo Name and Room List Colour of building.
  */
 app.get('/building/listInfo/:id', function (req, resp) {
-    const id = req.params.id
-    console.log(id)
-    const building = getPlace('building', id);
-    console.log(building)
-    resp.json([building.name, building.listColours]);
-});
+  const id = req.params.id
+  console.log(id)
+  const building = getPlace('building', id)
+  console.log(building)
+  resp.json([building.name, building.listColours])
+})
 
 /**
  * @api {get} /corridors Request All Corridors
@@ -290,6 +293,7 @@ app.post('/login', (req, res) => {
         const valid = await bcrypt.compare(req.body.password, user.password)
         if (valid) {
           req.session.authorised = true
+          req.session.username = req.body.username
           res.status(200).redirect('/data')
           return
         }
@@ -297,16 +301,48 @@ app.post('/login', (req, res) => {
     }
   })
 })
-app.post('/signup', checkAuthorisation, async (req, res) => {
-  if (!req.body.username || !req.body.password) res.status(400).send()
-  const salt = await bcrypt.genSalt(10)
-  const hashedPassword = await bcrypt.hash(req.body.password, salt)
-  staffDB.run('INSERT INTO staff (username, password) VALUES (?,?)', [req.body.username, hashedPassword], (err) => {
+app.post('/signup', checkAuthorisation, (req, res) => {
+  if (!req.body.username || !req.body.password) {
+    res.status(400).send()
+    return
+  }
+  staffDB.get('SELECT username FROM staff WHERE username = ?', [req.body.username], async (err, rows) => {
+    if (err) res.status(500).send()
+    if (rows) res.status(400).send('Username already exists')
+    if (!rows) {
+      const salt = await bcrypt.genSalt(10)
+      const hashedPassword = await bcrypt.hash(req.body.password, salt)
+      staffDB.run('INSERT INTO staff (username, password) VALUES (?,?)', [req.body.username, hashedPassword], (err) => {
+        if (err) {
+          console.log(err)
+          res.status(500).send()
+        }
+        if (!err) res.status(201).send()
+      })
+    }
+  })
+})
+
+app.post('/remove_account', checkAuthorisation, (req, res) => {
+  if (!req.body.username) {
+   res.status(400).send()
+   return
+  }
+  staffDB.run('DELETE FROM staff WHERE username =?', [req.body.username], (err) => {
     if (err) {
       console.log(err)
       res.status(500).send()
     }
-    if (!err) res.status(201).send()
+    if (!err) {
+      console.log(req.session.username)
+      if (req.session.username === req.body.username) {
+        req.session.destroy(() => {
+          res.status(201).send()
+        })
+      } else {
+        res.status(201).send()
+      }
+    }
   })
 })
 
@@ -503,7 +539,6 @@ app.post('/entities/edit', checkAuthorisation, function (req, res) {
           data[property] = value
         }
       }
-      
 
       res.status(201).send()
     }

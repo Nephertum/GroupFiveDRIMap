@@ -145,7 +145,7 @@ function makeTable (data, type, container) {
   const addRowName = 'addRow' + container
   const addBtnName = 'plus' + container
   newHtml += '<tr>'
-  for (var j = 0; j < cols.length; j++) {
+  for (let j = 0; j < cols.length; j++) {
     newHtml += '<td></td>'
   }
   newHtml += '<td id="' + addRowName + '"><i class="fa-solid fa-circle-plus dataPlusBtn" id="' + addBtnName + '"></i></td></tr>'
@@ -431,6 +431,29 @@ function logout () {
       }
     })
 }
+function remove_account () {
+  const username = prompt('enter username of staff memeber to be removed')
+  const message = {username}
+  fetch('/remove_account',{
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(message)
+  })
+  .then(response => {
+    removeServerErrorMessage()
+    if (response.ok) {
+      alert('account removed')
+    } else {
+      alert('Field cannot be blank and username must exist')
+    }
+  })
+  .catch(() => {
+    displayServerErrorMessage()
+  })
+}
 function signup () {
   const username = prompt('enter username for new staff member')
   const password = prompt('enter password for new staff member')
@@ -444,11 +467,15 @@ function signup () {
     body: JSON.stringify(message)
   })
     .then(response => {
+      removeServerErrorMessage()
       if (response.ok) {
         alert('account created')
       } else {
-        alert('error in account creation')
+        alert('Fields cannot be blank and username must be unique')
       }
+    })
+    .catch(() => {
+      displayServerErrorMessage()
     })
 }
 function saveEdit (change) {
@@ -464,7 +491,7 @@ function saveEdit (change) {
     body: JSON.stringify(message)
   })
     .then(response => {
-        removeServerErrorMessage()
+      removeServerErrorMessage()
       if (response.ok) {
         console.log('change succesful')
       }
@@ -493,7 +520,7 @@ function saveAdd (change) {
     body: JSON.stringify(message)
   })
     .then(response => {
-        removeServerErrorMessage()
+      removeServerErrorMessage()
       if (response.ok) {
         return response.text()
       }
@@ -518,7 +545,7 @@ function saveDelete (change) {
     body: JSON.stringify(message)
   })
     .then(response => {
-        removeServerErrorMessage()
+      removeServerErrorMessage()
       if (response.ok) {
         console.log('change succesful')
       }
@@ -559,11 +586,11 @@ function saveChanges () {
   // Will go through changes and post them all
 }
 
-function displayServerErrorMessage() {
-    document.getElementById('serverError').style.display = "block"
+function displayServerErrorMessage () {
+  document.getElementById('serverError').style.display = 'block'
 }
-function removeServerErrorMessage() {
-    document.getElementById('serverError').style.display = "none"
+function removeServerErrorMessage () {
+  document.getElementById('serverError').style.display = 'none'
 }
 // FOLLOWING FUNCTIONS MAKE POPUP BOXES
 function functionConfirm (msg, del, archive, cancel) {

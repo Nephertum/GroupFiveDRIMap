@@ -272,6 +272,7 @@ function updateMap () {
 
     highlight_path(route)
   }
+  console.log(check_left(1, 4))
 }
 // changes the start and dest values for the next map update
 function setNavigation (source, destination) {
@@ -916,40 +917,50 @@ function check_parallel (corridor_1, corridor_2) {
     return false
   }
 }
-function check_left (corridor_1, corridor_2) {
-  const corridor_1_location = [[corridors[corridor_1 - 1].latitudeStart, corridors[corridor_1 - 1].longitudeStart], [corridors[corridor_1 - 1].latitudeEnd, corridors[corridor_1 - 1].longitudeEnd]]
-  const corridor_2_location = [[corridors[corridor_2 - 1].latitudeStart, corridors[corridor_2 - 1].longitudeStart], [corridors[corridor_2 - 1].latitudeEnd, corridors[corridor_2 - 1].longitudeEnd]]
+function check_left (corridor, prev_corridor) {
+  const corridor_location = [[corridors[corridor - 1].latitudeStart, corridors[corridor - 1].longitudeStart] , [corridors[corridor - 1].latitudeEnd, corridors[corridor - 1].longitudeEnd]]
+  const prev_corridor_location = [[corridors[prev_corridor - 1].latitudeStart, corridors[prev_corridor - 1].longitudeStart] , [corridors[prev_corridor - 1].latitudeEnd, corridors[prev_corridor - 1].longitudeEnd]]
   // calculates the distances between corridor 1 and corridor 2 for corridor 2's start and ending points
-  const distance_start = Math.sqrt(Math.pow((corridor_1_location[0][0] - corridor_2_location[0][0]), 2) + Math.pow((corridor_1_location[0][1] - corridor_2_location[0][1]), 2))
-  const distance_end = Math.sqrt(Math.pow((corridor_1_location[0][0] - corridor_2_location[1][0]), 2) + Math.pow((corridor_1_location[0][1] - corridor_2_location[1][1]), 2))
+  const mid = [((corridor_location[0][0] + corridor_location[1][0]) / 2), ((corridor_location[0][1] + corridor_location[1][1]) / 2)]
+  const start = myMap.latLngToPixel(prev_corridor_location[0][0],prev_corridor_location[0][1])
+  const end = myMap.latLngToPixel(prev_corridor_location[1][0],prev_corridor_location[1][1])
+  const midpoint = myMap.latLngToPixel(mid[0],mid[1])
+
+  
+  const distance_start = Math.sqrt(Math.pow((midpoint.x - start.x), 2) + Math.pow((midpoint.y - start.y), 2))
+  const distance_end = Math.sqrt(Math.pow((midpoint.x - end.x), 2) + Math.pow((midpoint.y - end.y), 2))
   // choosing the closest end
+  
   const point_2 = distance_start < distance_end ? 0 : 1
   // chooses the opposite end for point 3
   const point_3 = point_2 === 1 ? 0 : 1
   // these are the distances between point 2 and (corridor 1 start and corridor 2 end)
-  const far_distance_start = Math.sqrt(Math.pow((corridor_1_location[0][0] - corridor_2_location[point_2][0]), 2) + Math.pow((corridor_1_location[0][1] - corridor_2_location[point_2][1]), 2))
-  const far_distance_end = Math.sqrt(Math.pow((corridor_1_location[1][0] - corridor_2_location[point_2][0]), 2) + Math.pow((corridor_1_location[1][1] - corridor_2_location[point_2][1]), 2))
+  const far_distance_start = Math.sqrt(Math.pow((corridor_location[0][0] - prev_corridor_location[point_2][0]), 2) + Math.pow((corridor_location[0][1] - prev_corridor_location[point_2][1]), 2))
+  const far_distance_end = Math.sqrt(Math.pow((corridor_location[1][0] - prev_corridor_location[point_2][0]), 2) + Math.pow((corridor_location[1][1] - prev_corridor_location[point_2][1]), 2))
   // calculates the furthest part of corriodor 1 which will be point_1
   const point_1 = far_distance_start > far_distance_end ? 0 : 1
   // calculates direction vector between point 1 and point 2
-  const direction_vector = [corridor_2_location[point_2][1] - corridor_1_location[point_1][1], corridor_2_location[point_2][0] - corridor_1_location[point_1][0]]
+  const direction_vector = [prev_corridor_location[point_2][1] - prev_corridor_location[point_3][1], prev_corridor_location[point_2][0] - prev_corridor_location[point_3][0]]
   // calculates gradient of the line (point1) -> (point2)
-  const gradient = (corridor_2_location[point_2][0] - corridor_1_location[point_1][0]) / (corridor_2_location[point_2][1] - corridor_1_location[point_1][1])
+  const gradient = (prev_corridor_location[point_2][0] - prev_corridor_location[point_3][0]) / (prev_corridor_location[point_2][1] - prev_corridor_location[point_3][1])
   // creates equation of the form y - y_1 = m(x-x_1)
   // this rearranges to y = m(x-x_1) + y_1
-  const equation = (gradient * (corridor_2_location[point_3][1] - corridor_2_location[point_1][1])) + corridor_2_location[point_1][0]
+  const equation = (gradient * (corridor_location[point_3][1] - prev_corridor_location[point_1][1])) + prev_corridor_location[point_1][0]
   // if horizontal vector is negative then any point above the line would be right turn
+  console.log(direction_vector)
   if (direction_vector[0] < 0) {
-    if (corridor_2_location[point_3][0] >= corridor_1_location[point_2][0]) {
+    if (corridor_location[point_1][0] > equation) {
       return false
-    } else {
+    }
+    if (corridor_location[point_1][0] < equation) {
       return true
     }
   } else {
     // if horizontal vector is positive then any points above the line would be a left turn
-    if (corridor_2_location[point_3][0] >= equation) {
+    if (corridor_location[point_1][0] > equation) {
       return true
-    } else {
+    }
+    if (corridor_location[point_1][0] < equation) {
       return false
     }
   }
@@ -958,7 +969,9 @@ function get_turn_type (corridor, previous) {
   if (check_parallel(corridor, previous)) {
     return 'carry straight on'
   } else {
-    if (check_left(previous, corridor)) {
+    const result = check_left(corridor, previous)
+    if (result === 2) return 'turn'
+    if (result) {
       return 'turn left'
     } else {
       return 'turn right'
