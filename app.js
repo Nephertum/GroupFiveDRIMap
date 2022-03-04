@@ -25,7 +25,6 @@ let corridorIndex = []
 let buildings = []
 let rooms = []
 let unmarkedRooms = []
-let archive = []
 
 const db = new sqlite3.Database('./database/entities.db', sqlite3.OPEN_READWRITE, (err) => {
   if (err) {
@@ -56,18 +55,13 @@ const db = new sqlite3.Database('./database/entities.db', sqlite3.OPEN_READWRITE
     if (!rows) console.log('no unmarked rooms found')
     if (rows) unmarkedRooms = rows
   })
-  db.all('SELECT * FROM archive', [], (err, rows) => {
-    if (err) console.log(err)
-    if (!rows) console.log('no archives found')
-    if (rows) archive = rows
-  })
 })
 
 const staffDB = require('./staffDB')
 
 // Entities
 
-const placesForSearch = [rooms, buildings, archive]
+const placesForSearch = [rooms, buildings]
 
 function checkAuthorisation (req, res, next) {
   if (TESTING) {
@@ -92,8 +86,6 @@ function getPlace (category, id) {
     searchThrough = buildings
   } else if (category === 'room') {
     searchThrough = rooms
-  } else if (category === 'archive') {
-    searchThrough = archive
   } else {
     return undefined
   }
@@ -266,17 +258,6 @@ app.get('/corridors', function (req, resp) {
  */
 app.get('/unmarkedRooms', function (req, resp) {
   resp.json(unmarkedRooms)
-})
-
-/**
- * @api {get} /archive Request All Objects in Archive
- * @apiName GetArchive
- * @apiGroup Archive
- *
- * @apiSuccess {Object[]} archive List of all archived objects.
- */
-app.get('/archive', function (req, resp) {
-  resp.json(archive)
 })
 
 app.post('/login', (req, res) => {
@@ -555,12 +536,10 @@ app.post('/entities/edit', checkAuthorisation, function (req, res) {
  * @apiGroup entities
  *
  * @apiParam {String} id Unique id of object.
- * @apiParam {String="archive","permanent"} deleteType Type of deletion.
  */
 app.post('/entities/delete', checkAuthorisation, function (req, res) {
   const id = req.body.id
-  const deleteType = req.body.deleteType
-  if (!id || !deleteType) {
+  if (!id) {
     res.status(400).send()
     return
   }
@@ -591,10 +570,6 @@ app.post('/entities/delete', checkAuthorisation, function (req, res) {
       res.status(400).send()
       return
   }
-  if (deleteType === 'archive') {
-    // archive needs implementing
-
-  } else {
     const query = `DELETE FROM ${searchTable} WHERE id = ?`
     db.run(query, [id], (err) => {
       if (err) {
@@ -616,57 +591,6 @@ app.post('/entities/delete', checkAuthorisation, function (req, res) {
         res.status(201).send()
       }
     })
-  }
-})
-
-/**
- * @api {post} /entities/restore Restore an Entity From Archive
- * @apiName PostRestoreEntity
- * @apiGroup entities
- *
- * @apiParam {String} IdOfRestore Unique id of object.
- */
-app.post('/entities/restore', function (req, resp) {
-  const id = req.body.IdOfRestore
-  let place
-  let placeFound = false
-  for (let i = 0; i < archive.length; i++) {
-    place = archive[i]
-    if (place.id === id) {
-      // Remove place from archive
-      archive.splice(i, 1)
-      placeFound = true
-      // Move other archive id's up so there aren't gaps
-      let currentId
-      for (let j = i; j < archive.length; j++) {
-        currentId = archive[j].id
-        const newIdNumber = parseInt(currentId.substring(1)) - 1
-        archive[j].id = currentId.charAt(0).concat(newIdNumber.toString())
-      }
-      break
-    }
-  }
-  if (placeFound === false) {
-    resp.status(404).send('Place not found, check id is correct!')
-    return
-  }
-  // Add location back to its category
-  const category = id.slice(-1)
-
-  if (category === 'e') {
-    place.id = 'e' + entrances.length
-    entrances.push(place)
-  } else if (category === 'r') {
-    place.id = 'r' + rooms.length
-    rooms.push(place)
-  } else if (category === 'b') {
-    place.id = 'b' + buildings.length
-    buildings.push(place)
-  } else {
-    resp.status(404).send('Error finding category location belongs to.')
-    return
-  }
-  resp.status(201).send()
 })
 
 app.get('/entities/search/:word', function (req, resp) {

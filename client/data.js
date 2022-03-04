@@ -78,9 +78,7 @@ function getCols (data) {
 
 function getCategory (letter) {
   let category
-  if (letter === 'a') {
-    category = 'archive'
-  } else if (letter === 'b') {
+  if (letter === 'b') {
     category = 'building'
   } else if (letter === 'c') {
     category = 'corridor'
@@ -202,188 +200,17 @@ function makeTable (data, type, container) {
   })
 }
 
-// type variable should be the first letter of the ids, e.g "b" for buildings
-function makeArchiveTable (data, container) {
-  if (data.length === 0) {
-    container.innerHTML = 'Currently empty'
-  }
-  const cols = ['id', 'name']
-
-  // Make a table
-  let newHtml = ''
-  const tableName = container + 'Tbl'
-  newHtml = "<table class='dataTable' id='" + tableName + "'><tr>"
-
-  // Add headings
-  let heading
-  for (let i = 0; i < cols.length; i++) {
-    heading = '<th>' + cols[i] + '</th>' // Headings for each key
-    newHtml += heading
-  }
-  newHtml += '<th>View Info</th>' // Heading for view info buttons
-  newHtml += '<th></th>' // Heading for delete buttons
-  newHtml += '<th></th>' // Heading for restore buttons
-  newHtml += '</tr>'
-
-  // Add data as unchangeable text
-  let id
-  let property
-  let rowName
-  let textName
-  let btnName
-  for (let i = 0; i < data.length; i++) {
-    id = data[i].id
-    rowName = 'row' + data[i].id
-    newHtml += "<tr id='" + rowName + "'>"
-    for (let j = 0; j < cols.length; j++) {
-      property = cols[j]
-      textName = id + '-' + property
-      newHtml += "<td><p id='" + textName + "'>" + data[i][cols[j]] + '</p></td>'
-    }
-    btnName = 'view' + id
-    newHtml += '<td><i class="fas fa-eye dataViewBtn" id="' + btnName + '"></i></td>' // View info button
-    btnName = 'delete' + id
-    newHtml += '<td><i class="fa-solid fa-circle-xmark dataDltBtn" id="' + btnName + '"></i></td>' // Delete button
-    btnName = 'restore' + id
-    newHtml += '<td><i class="fa-solid fa-trash-arrow-up dataRestoreBtn" id="' + btnName + '"></i></td>' // Restore button
-    newHtml += '</tr>'
-  }
-
-  // Add table to document
-  newHtml += '</table>'
-  document.getElementById(container).innerHTML = newHtml
-
-  // Enable buttons
-  for (let i = 0; i < data.length; i++) {
-    id = data[i].id
-    // delete
-    btnName = 'delete' + id
-    enableDeleteButton(btnName)
-    // view
-    btnName = 'view' + id
-    enableViewButton(btnName)
-    // restore
-    btnName = 'restore' + id
-    enableRestoreButton(btnName)
-  }
-}
-
 // FOLLOWING FUNCTIONS ENABLE BUTTONS IN THE TABLES
 function enableDeleteButton (id) {
   document.getElementById(id).addEventListener('click', function (e) {
     e.preventDefault()
     const id = e.target.id.slice(6)
     const rowId = 'row' + e.target.id.slice(6)
-    if (e.target.classList.contains('new')) {
-      functionConfirm('Are you sure you want to delete this? (Note new or already-archived objects cannot be archived)',
+      functionConfirm('Are you sure you want to delete this?',
         function del () {
           document.getElementById(rowId).remove()
           // changes.push('Deleted ' + id)
         })
-    } else {
-      functionConfirm('Are you sure you want to delete this?',
-        function del () {
-          document.getElementById(rowId).remove()
-          changes.push(['DELETE', id])
-        },
-        function archive () {
-          archiveTbl = document.getElementById('archiveDataTbl')
-          if (!archiveTbl) {
-            // Make the archive table
-          }
-          const elName = document.getElementById(id + '-name').value
-          const type = document.getElementById(id + '-id').innerHTML.charAt(0)
-
-          const oldId = id
-          elNewId = 'a' + numberofNewArchives + type
-          numberofNewArchives += 1
-
-          const rowName = 'row' + oldId
-          let newRow = "<tr id='" + rowName + "'>"
-          // Add id
-          textName = oldId + '-' + oldId
-          newRow += "<td><p id='" + textName + "'>tbd</p></td>"
-          // Add name
-          textName = oldId + '-' + elName
-          newRow += "<td><p id='" + textName + "'>" + elName + '</p></td>'
-          // Add view button
-          let btnName = 'view' + oldId
-          newRow += '<td><i class="fas fa-eye dataViewBtn" id="' + btnName + '"></i></td>'
-          // Add delete button
-          btnName = 'delete' + oldId
-          newRow += '<td><i class="fa-solid fa-circle-xmark dataDltBtn" id="' + btnName + '"></i></td>'
-          // Add restore button
-          btnName = 'restore' + oldId
-          newRow += '<td><i class="fa-solid fa-trash-arrow-up dataRestoreBtn" id="' + btnName + '"></i></td>'
-          newRow += '</tr>'
-
-          document.getElementById(rowId).remove()
-
-          archiveTbl.insertAdjacentHTML('beforeend', newRow)
-          enableDeleteButton('delete' + oldId)
-          enableViewButton('view' + oldId)
-          enableRestoreButton('restore' + oldId)
-          changes.push(id + ' archived')
-        })
-    }
-  })
-}
-
-function enableViewButton (id) {
-  document.getElementById(id).addEventListener('click', function (e) {
-    elId = e.target.id.substring(4)
-    popup(elId)
-  })
-}
-
-function enableRestoreButton (id) {
-  document.getElementById(id).addEventListener('click', function (e) {
-    const elId = e.target.id.substring(7)
-    const type = elId.charAt(0)
-    const category = getCategory(type)
-    let origType = type
-    let newIdText = elId
-    let classes = ''
-    if (type === 'a') {
-      origType = elId.charAt(elId.length - 1)
-      newIdText = 'tbd'
-      classes = 'changedValue'
-      changes.push(elId + ' restored')
-    } else {
-      removeChange = elId + ' archived'
-      changes = changes.filter(function (e) { return e !== removeChange })
-    }
-    origCategory = getCategory(origType)
-
-    const tblName = origCategory + 'DataTbl'
-    tbl = document.getElementById(tblName)
-    const container = origCategory + 'Data'
-
-    fetch('/info/' + category + '/' + elId)
-      .then(response => response.json())
-      .then(function (body) {
-        cols = getCols([body])
-        rowName = 'row' + body.id
-        newRow = "<tr id='" + rowName + "'>"
-        for (let j = 0; j < cols.length; j++) {
-          property = cols[j]
-          inputName = elId + '-' + property
-          if (property === 'id') {
-            newRow += "<td><p id='" + inputName + "'>" + newIdText + '</p></td>'
-          } else {
-            newRow += "<td><input class='" + classes + "' id='" + inputName + "' value='" + body[cols[j]] + "'></input></td>"
-          }
-        }
-        // Add delete button
-        deleteBtnName = 'delete' + elId
-        newRow += '<td><i class="fa-solid fa-circle-xmark dataDltBtn" id="' + deleteBtnName + '"></i></td>'
-        newRow += '</tr>'
-        document.getElementById(rowName).remove()
-        document.getElementById('addRow' + container).parentElement.insertAdjacentHTML('beforebegin', newRow)
-        enableDeleteButton(deleteBtnName)
-      })
-
-    alert('Restored')
   })
 }
 
@@ -593,19 +420,13 @@ function removeServerErrorMessage () {
   document.getElementById('serverError').style.display = 'none'
 }
 // FOLLOWING FUNCTIONS MAKE POPUP BOXES
-function functionConfirm (msg, del, archive, cancel) {
+function functionConfirm (msg, del, cancel) {
   const confirmBox = $('#confirm')
   confirmBox.find('.message').text(msg)
-  confirmBox.find('.confirmDelete,.confirmArchive,.confirmCancel').unbind().click(function () {
+  confirmBox.find('.confirmDelete,.confirmCancel').unbind().click(function () {
     confirmBox.hide()
   })
   confirmBox.find('.confirmDelete').click(del)
-  if (archive !== undefined) {
-    confirmBox.find('.confirmArchive').click(archive)
-    confirmBox.find('.confirmArchive').show()
-  } else {
-    confirmBox.find('.confirmArchive').hide()
-  }
   confirmBox.find('.confirmCancel').click(cancel)
   confirmBox.show()
 }
@@ -620,23 +441,10 @@ function msgAndCancel (msg, cancel) {
   infoBox.show()
 }
 
-function popup (id) {
-  const type = id.charAt(0)
-  category = getCategory(type)
-  console.log(id, category)
-  fetch('/info/' + category + '/' + id)
-    .then(response => response.json())
-    .then(function (body) {
-      const send = JSON.stringify(body)
-      msgAndCancel(send)
-    })
-}
-
 // ON LOAD, MAKE ALL THE TABLES
 window.addEventListener('load', function (e) {
   // Global storage
   numberOfNewObjs = 0 // Used for unique ids
-  numberofNewArchives = 0 // Used for unique ids
   changes = [] // Used for save changes at the end
   // Make tables
   fetch('/buildings')
@@ -663,10 +471,5 @@ window.addEventListener('load', function (e) {
     .then(response => response.json())
     .then(function (body) {
       makeTable(body, 'u', 'unmarkedRoomData')
-    })
-  fetch('/archive')
-    .then(response => response.json())
-    .then(function (body) {
-      makeArchiveTable(body, 'archiveData')
     })
 })

@@ -160,5 +160,6 @@ INSERT INTO unmarkedRooms VALUES
     ('u44','Ward 23 - Department of Critical Care','East Block',7),
     ('u45','Ward 24/25','East Block',8),
     ('u46','Ward 26/27','East Block',9);
+
 INSERT INTO archive VALUES
     ('a0r','test',53.53075635514148,-1.1096998902825135,'ahhh','09:00-17:00','09:00-17:00','default.jpeg');
