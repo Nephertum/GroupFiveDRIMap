@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS `corridorIndex` (`id` VARCHAR(3),`name` VARCHAR(12), 
 CREATE TABLE IF NOT EXISTS `buildings` (`id` VARCHAR(2),`name` VARCHAR(16),`latitude` NUMERIC(18, 16),`longitude` NUMERIC(18, 16),`listColours` VARCHAR(30), PRIMARY KEY(id));
 CREATE TABLE IF NOT EXISTS `rooms` (`id` VARCHAR(3) ,`name` VARCHAR(21) ,`building` VARCHAR(11) ,`level` VARCHAR(7) ,`latitude` NUMERIC(18, 16),`longitude` NUMERIC(18, 16),`description` VARCHAR(36) ,`weekdayHours` VARCHAR(11) , `weekendHours` VARCHAR(11) ,`image` VARCHAR(12),`facilities` TEXT, `products` TEXT, PRIMARY KEY(id));
 CREATE TABLE IF NOT EXISTS `unmarkedRooms` (`id` VARCHAR(3),`name` VARCHAR(54) ,`building` VARCHAR(31) ,`level` INT, PRIMARY KEY(id));
+CREATE TABLE IF NOT EXISTS `archive` (`id` VARCHAR(3) ,`name` VARCHAR(4) ,`latitude` NUMERIC(18, 16),`longitude` NUMERIC (18, 16),`description` VARCHAR(4),`weekdayHours` VARCHAR(11),`weekendHours` VARCHAR(11) ,`image` VARCHAR(12),PRIMARY KEY (id));
 
 INSERT INTO entrances VALUES
     ('e0','entrance',53.53036036284166,-1.1127345482058217),
@@ -159,3 +160,6 @@ INSERT INTO unmarkedRooms VALUES
     ('u44','Ward 23 - Department of Critical Care','East Block',7),
     ('u45','Ward 24/25','East Block',8),
     ('u46','Ward 26/27','East Block',9);
+
+INSERT INTO archive VALUES
+    ('a0r','test',53.53075635514148,-1.1096998902825135,'ahhh','09:00-17:00','09:00-17:00','default.jpeg');
