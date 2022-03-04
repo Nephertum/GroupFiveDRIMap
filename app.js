@@ -414,9 +414,13 @@ app.post('/entities/add', checkAuthorisation, function (req, res) {
         res.status(400).send()
         return
       }
-      const { latitude, longitude } = req.body
-      db.run('INSERT INTO buildings VALUES (?,?,?,?)', [id, name, latitude, longitude], (err) => {
-        if (!err) buildings.push({ id, name, latitude, longitude })
+      const { latitude, longitude, listColours } = req.body
+      if (!listColours) {
+        res.status(400).send()
+        return
+      }
+      db.run('INSERT INTO buildings VALUES (?,?,?,?,?)', [id, name, latitude, longitude, listColours], (err) => {
+        if (!err) buildings.push({ id, name, latitude, longitude, listColours })
         if (err) res.status(500).send()
       })
       break
