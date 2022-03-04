@@ -31,7 +31,6 @@
   <div id="confirm">
     <div class="message"></div>
     <button id="confirmDelete" class="btn btn-danger confirmDelete">Permanently Delete</button>
-    <button id="confirmArchive" class="btn btn-danger confirmArchive">Move to Archive</button>
     <button id="confirmCancel" class="btn btn-info confirmCancel">Cancel</button>
  </div>
  <div id="info">
@@ -54,14 +53,14 @@
       </span>
     </div>
   </div>
-  <h6>Changes are stored in an array but not actually posted to server yet (they are now but not for archive). If an item is taken out of archive, can't put it back in. Otherwise everything works.</h6>
   <div id="mapMenu">
     <div id="minimap"></div>
     <div id='coordinates'>
-      <p id="latitude">latitude: </p>
-      <p id="longitude">longitude: </p>
+      <p id="latitude">Latitude: </p>
+      <p id="longitude">Longitude: </p>
     </div>
   </div>
+  <h6>Small bug to fix: if you make 2 new objects e.g 'b9' and 'b10' then delete the first, the second id should move up to b9 now</h6>
   <h4>Buildings</h4>
   <div id="buildingData"></div><br>
   <h4>Rooms - Marked</h4>
@@ -71,10 +70,7 @@
   <h4>Entrances</h4>
   <div id="entranceData"></div><br>
   <h4>Corridors</h4>
-  <p>Going to need id's for corridor table to work</p>
   <div id="corridorData"></div><br>
-  <h4>Archive</h4>
-  <div id="archiveData"></div><br>
 </div>
   <script src="data.js"></script>
 
