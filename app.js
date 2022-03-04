@@ -13,9 +13,9 @@ app.use(cors())
 app.use(express.static('body-parser'))
 app.use(express.urlencoded({ extended: true })) // Parse URL-encoded bodies
 !TESTING && app.use(session({
-  secret: 'hospitals are cool',
-  resave: true,
-  saveUninitialized: true,
+  secret: 'DRI hospital',
+  resave: false,
+  saveUninitialized: false,
   cookie: { maxAge: 1000 * 60 * 60 },
   store: new Sqlitestore()
 }))
@@ -70,6 +70,7 @@ function checkAuthorisation (req, res, next) {
   }
   if (req.session.authorised) {
     staffDB.get('SELECT username FROM staff WHERE username=?',[req.session.username], (err,rows) => {
+      if (err) res.status(500).redirect('/login')
       if (rows) next()
       if (!rows) res.status(401).redirect('/login')
     })
