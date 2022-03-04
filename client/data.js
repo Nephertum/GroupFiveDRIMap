@@ -208,8 +208,8 @@ function enableDeleteButton (id) {
     const rowId = 'row' + e.target.id.slice(6)
       functionConfirm('Are you sure you want to delete this?',
         function del () {
-          document.getElementById(rowId).remove()
-          // changes.push('Deleted ' + id)
+          document.getElementById(rowId).remove();
+          changes.push(['DELETE', id]);
         })
   })
 }
