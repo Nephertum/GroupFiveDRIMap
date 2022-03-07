@@ -69,7 +69,7 @@ function checkAuthorisation (req, res, next) {
     return
   }
   if (req.session.authorised) {
-    staffDB.get('SELECT username FROM staff WHERE username=?',[req.session.username], (err,rows) => {
+    staffDB.get('SELECT username FROM staff WHERE username=?', [req.session.username], (err, rows) => {
       if (err) res.status(500).redirect('/login')
       if (rows) next()
       if (!rows) res.status(401).redirect('/login')
@@ -97,6 +97,13 @@ function getPlace (category, id) {
   }
   return undefined
 }
+/**
+ * @api {get} /login Requests login page, if already authorised then redirects to data page
+ * @apiName GetLogin
+ * @apiGroup Login
+ *
+ * @apiSuccess {File} Response HTML file for login or data page
+ */
 app.get('/login', (req, res) => {
   if (req.session.authorised) {
     res.redirect('/data')
