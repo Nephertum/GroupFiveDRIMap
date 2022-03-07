@@ -98,7 +98,8 @@ function getPlace (category, id) {
   return undefined
 }
 /**
- * @api {get} /login Requests login page, if already authorised then redirects to data page
+ * @api {get} /login Request Login Page
+ * @apiDescription Requests login page. If already authorised, redirects to data page.
  * @apiName GetLogin
  * @apiGroup Login
  *
@@ -121,9 +122,10 @@ app.get('/logout', (req, res) => {
 
 // Routes
 /**
- * @api {get} /info/:category/:id Request an Object by its id and Category
+ * @api {get} /info/:category/:id Request an Object
+ * @apiDescription Given an id and catgeory, returns the object from the database.
  * @apiName GetInfo
- * @apiGroup entities
+ * @apiGroup Entities
  *
  * @apiParam {String="entrance","building","room","corridor"} category Category of object.
  * @apiParam {String} id Unique id of object (first letter of category followed by a number).
@@ -169,10 +171,11 @@ app.get('/rooms', function (req, resp) {
 
 /**
  * @api {get} /rooms/drawing Request Info for Drawing Rooms
+ * @apiDescription Returns the id, name and location of each room.
  * @apiName GetRoomsDrawingInfo
  * @apiGroup Rooms
  *
- * @apiSuccess {Object[]} roomsdrawing List of dictionaries of the required info for drawing each room (id, name, location).
+ * @apiSuccess {Object[]} roomsdrawing List of dictionaries of the required info for drawing the rooms.
  */
 app.get('/rooms/drawing', function (req, resp) {
   const result = []
@@ -185,10 +188,11 @@ app.get('/rooms/drawing', function (req, resp) {
 
 /**
  * @api {get} /rooms/listinfo Request Info for Writing a List of Rooms
+ * @apiDescription Returns the id, name, latitude, longitude, building and level of each room.
  * @apiName GetRoomsListInfo
  * @apiGroup Rooms
  *
- * @apiSuccess {Object[]} roomsinfo List of dictionaries of the required info for listing each room (id, name, location, building, level).
+ * @apiSuccess {Object[]} roomsinfo List of dictionaries of the required info for listing each room.
  */
 app.get('/rooms/listinfo', function (req, resp) {
   const result = []
@@ -201,12 +205,13 @@ app.get('/rooms/listinfo', function (req, resp) {
 
 /**
  * @api {get} /rooms/popupinfo/:id Request Info for Creating a Popup of a Room
+ * @apiDescription Given a room id, returns the id, name, description, weekday opening hours, weekend opening hours and image name for that room.
  * @apiName GetARoomsPopupInfo
  * @apiGroup Rooms
  *
  * @apiParam {String} id Unique id of room.
  *
- * @apiSuccess {Object[]} roompopup Dictionary of the required info for creating a popup of the room (id, name, description, opening hours, image).
+ * @apiSuccess {Object[]} roompopup Dictionary of the required info for creating a popup of the room.
  */
 app.get('/rooms/popupinfo/:id', function (req, resp) {
   const id = req.params.id
@@ -232,9 +237,12 @@ app.get('/buildings', function (req, resp) {
 })
 
 /**
- * @api {get} /building/listInfo/:id Request Name and Room List Colour of a Building by Id
+ * @api {get} /building/listInfo/:id Request Name and Room List Colour
+ * @apiDescription Given a building id, returns the name and room list colour for that building.
  * @apiName GetBuildingListInfo
  * @apiGroup Buildings
+ * 
+ * @apiParam {String} id Unique id of building.
  *
  * @apiSuccess {Object[]} buildingListInfo Name and room list colour of building.
  */
@@ -338,7 +346,7 @@ app.post('/remove_account', checkAuthorisation, (req, res) => {
 /**
  * @api {post} /entities/add Add a New Entity
  * @apiName PostNewEntity
- * @apiGroup entities
+ * @apiGroup Entities
  *
  * @apiParam {String} name Name of new object.
  * @apiParam {String="entrance","building","room","corridor","unmarkedRoom",} category Category of new object.
@@ -453,8 +461,9 @@ app.post('/entities/add', checkAuthorisation, function (req, res) {
 
 /**
  * @api {post} /entities/edit Edit an Existing Entity
+ * @apiDescription Updates a given property of an existing entity to a given value.
  * @apiName PostEditEntity
- * @apiGroup entities
+ * @apiGroup Entities
  *
  * @apiParam {String} id Unique id of object.
  * @apiParam {String="entrance","building","room","corridor","unmarkedRoom"} category Category of object.
@@ -541,7 +550,7 @@ app.post('/entities/edit', checkAuthorisation, function (req, res) {
 /**
  * @api {post} /entities/delete Delete an Existing Entity
  * @apiName PostDeleteEntity
- * @apiGroup entities
+ * @apiGroup Entities
  *
  * @apiParam {String} id Unique id of object.
  */
@@ -601,7 +610,7 @@ app.post('/entities/delete', checkAuthorisation, function (req, res) {
   })
 })
 
-app.get('/entities/search/:word', function (req, resp) {
+/*app.get('/entities/search/:word', function (req, resp) {
   const word = req.params.word.toLowerCase().replace(/[^\w]|_/g, '')
   const matches = []
   let name
@@ -616,6 +625,8 @@ app.get('/entities/search/:word', function (req, resp) {
   }
   resp.json(matches)
 })
+*/
+
 app.post('/info', (req, resp) => {
   const location = req.body.location
   const question = req.body.Question

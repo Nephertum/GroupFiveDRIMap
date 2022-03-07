@@ -29,33 +29,24 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/archive",
-    "title": "Request All Objects in Archive",
-    "name": "GetArchive",
-    "group": "Archive",
-    "success": {
+    "url": "/building/listInfo/:id",
+    "title": "Request Name and Room List Colour",
+    "description": "<p>Given a building id, returns the name and room list colour for that building.</p>",
+    "name": "GetBuildingListInfo",
+    "group": "Buildings",
+    "parameter": {
       "fields": {
-        "Success 200": [
+        "Parameter": [
           {
-            "group": "Success 200",
-            "type": "Object[]",
+            "group": "Parameter",
+            "type": "String",
             "optional": false,
-            "field": "archive",
-            "description": "<p>List of all archived objects.</p>"
+            "field": "id",
+            "description": "<p>Unique id of building.</p>"
           }
         ]
       }
     },
-    "version": "0.0.0",
-    "filename": "./app.js",
-    "groupTitle": "Archive"
-  },
-  {
-    "type": "get",
-    "url": "/building/listInfo/:id",
-    "title": "Request Name and Room List Colour of a Building by Id",
-    "name": "GetBuildingListInfo",
-    "group": "Buildings",
     "success": {
       "fields": {
         "Success 200": [
@@ -121,161 +112,11 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/entrances",
-    "title": "Request All Entrances",
-    "name": "GetEntrances",
-    "group": "Entrances",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "entrances",
-            "description": "<p>List of all entrance objects.</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "./app.js",
-    "groupTitle": "Entrances"
-  },
-  {
-    "type": "get",
-    "url": "/rooms/popupinfo/:id",
-    "title": "Request Info for Creating a Popup of a Room",
-    "name": "GetARoomsPopupInfo",
-    "group": "Rooms",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>Unique id of room.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "roompopup",
-            "description": "<p>Dictionary of the required info for creating a popup of the room (id, name, description, opening hours, image).</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "./app.js",
-    "groupTitle": "Rooms"
-  },
-  {
-    "type": "get",
-    "url": "/rooms",
-    "title": "Request All Rooms",
-    "name": "GetRooms",
-    "group": "Rooms",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "rooms",
-            "description": "<p>List of all room objects.</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "./app.js",
-    "groupTitle": "Rooms"
-  },
-  {
-    "type": "get",
-    "url": "/rooms/drawing",
-    "title": "Request Info for Drawing Rooms",
-    "name": "GetRoomsDrawingInfo",
-    "group": "Rooms",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "roomsdrawing",
-            "description": "<p>List of dictionaries of the required info for drawing each room (id, name, location).</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "./app.js",
-    "groupTitle": "Rooms"
-  },
-  {
-    "type": "get",
-    "url": "/rooms/listinfo",
-    "title": "Request Info for Writing a List of Rooms",
-    "name": "GetRoomsListInfo",
-    "group": "Rooms",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "roomsinfo",
-            "description": "<p>List of dictionaries of the required info for listing each room (id, name, location, building, level).</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "./app.js",
-    "groupTitle": "Rooms"
-  },
-  {
-    "type": "get",
-    "url": "/unmarkedRooms",
-    "title": "Request All Rooms That are Not Marked on Map",
-    "name": "GetUnmarkedRooms",
-    "group": "UnmarkedRooms",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "unmarkedRooms",
-            "description": "<p>List of all unmarked room objects.</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "./app.js",
-    "groupTitle": "UnmarkedRooms"
-  },
-  {
-    "type": "get",
     "url": "/info/:category/:id",
-    "title": "Request an Object by its id and Category",
+    "title": "Request an Object",
+    "description": "<p>Given an id and catgeory, returns the object from the database.</p>",
     "name": "GetInfo",
-    "group": "entities",
+    "group": "Entities",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -317,14 +158,14 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "./app.js",
-    "groupTitle": "entities"
+    "groupTitle": "Entities"
   },
   {
     "type": "post",
     "url": "/entities/delete",
     "title": "Delete an Existing Entity",
     "name": "PostDeleteEntity",
-    "group": "entities",
+    "group": "Entities",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -334,31 +175,21 @@ define({ "api": [
             "optional": false,
             "field": "id",
             "description": "<p>Unique id of object.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "allowedValues": [
-              "\"archive\"",
-              "\"permanent\""
-            ],
-            "optional": false,
-            "field": "deleteType",
-            "description": "<p>Type of deletion.</p>"
           }
         ]
       }
     },
     "version": "0.0.0",
     "filename": "./app.js",
-    "groupTitle": "entities"
+    "groupTitle": "Entities"
   },
   {
     "type": "post",
     "url": "/entities/edit",
     "title": "Edit an Existing Entity",
+    "description": "<p>Updates a given property of an existing entity to a given value.</p>",
     "name": "PostEditEntity",
-    "group": "entities",
+    "group": "Entities",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -402,14 +233,14 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "./app.js",
-    "groupTitle": "entities"
+    "groupTitle": "Entities"
   },
   {
     "type": "post",
     "url": "/entities/add",
     "title": "Add a New Entity",
     "name": "PostNewEntity",
-    "group": "entities",
+    "group": "Entities",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -530,14 +361,62 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "./app.js",
-    "groupTitle": "entities"
+    "groupTitle": "Entities"
   },
   {
-    "type": "post",
-    "url": "/entities/restore",
-    "title": "Restore an Entity From Archive",
-    "name": "PostRestoreEntity",
-    "group": "entities",
+    "type": "get",
+    "url": "/entrances",
+    "title": "Request All Entrances",
+    "name": "GetEntrances",
+    "group": "Entrances",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "entrances",
+            "description": "<p>List of all entrance objects.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./app.js",
+    "groupTitle": "Entrances"
+  },
+  {
+    "type": "get",
+    "url": "/login",
+    "title": "Request Login Page",
+    "description": "<p>Requests login page. If already authorised, redirects to data page.</p>",
+    "name": "GetLogin",
+    "group": "Login",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "File",
+            "optional": false,
+            "field": "Response",
+            "description": "<p>HTML file for login or data page</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./app.js",
+    "groupTitle": "Login"
+  },
+  {
+    "type": "get",
+    "url": "/rooms/popupinfo/:id",
+    "title": "Request Info for Creating a Popup of a Room",
+    "description": "<p>Given a room id, returns the id, name, description, weekday opening hours, weekend opening hours and image name for that room.</p>",
+    "name": "GetARoomsPopupInfo",
+    "group": "Rooms",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -545,14 +424,121 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "IdOfRestore",
-            "description": "<p>Unique id of object.</p>"
+            "field": "id",
+            "description": "<p>Unique id of room.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "roompopup",
+            "description": "<p>Dictionary of the required info for creating a popup of the room.</p>"
           }
         ]
       }
     },
     "version": "0.0.0",
     "filename": "./app.js",
-    "groupTitle": "entities"
+    "groupTitle": "Rooms"
+  },
+  {
+    "type": "get",
+    "url": "/rooms",
+    "title": "Request All Rooms",
+    "name": "GetRooms",
+    "group": "Rooms",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "rooms",
+            "description": "<p>List of all room objects.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./app.js",
+    "groupTitle": "Rooms"
+  },
+  {
+    "type": "get",
+    "url": "/rooms/drawing",
+    "title": "Request Info for Drawing Rooms",
+    "description": "<p>Returns the id, name and location of each room.</p>",
+    "name": "GetRoomsDrawingInfo",
+    "group": "Rooms",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "roomsdrawing",
+            "description": "<p>List of dictionaries of the required info for drawing the rooms.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./app.js",
+    "groupTitle": "Rooms"
+  },
+  {
+    "type": "get",
+    "url": "/rooms/listinfo",
+    "title": "Request Info for Writing a List of Rooms",
+    "description": "<p>Returns the id, name, latitude, longitude, building and level of each room.</p>",
+    "name": "GetRoomsListInfo",
+    "group": "Rooms",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "roomsinfo",
+            "description": "<p>List of dictionaries of the required info for listing each room.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./app.js",
+    "groupTitle": "Rooms"
+  },
+  {
+    "type": "get",
+    "url": "/unmarkedRooms",
+    "title": "Request All Rooms That are Not Marked on Map",
+    "name": "GetUnmarkedRooms",
+    "group": "UnmarkedRooms",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "unmarkedRooms",
+            "description": "<p>List of all unmarked room objects.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./app.js",
+    "groupTitle": "UnmarkedRooms"
   }
 ] });
