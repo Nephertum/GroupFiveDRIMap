@@ -92,7 +92,7 @@ function getCategory (letter) {
   return category
 }
 
-// FOLLOWING TWO FUNCTIONS MAKE THE TABLES ON THE PAGE
+// FOLLOWING FUNCTION MAKES THE TABLES ON THE PAGE
 // type variable should be the first letter of the ids, e.g "b" for buildings
 function makeTable (data, type, container) {
   if (data.length === 0) {
@@ -130,7 +130,7 @@ function makeTable (data, type, container) {
       if (property === 'id') {
         newHtml += "<td><p id='" + inputName + "'>" + data[i][cols[j]] + '</p></td>'
       } else {
-        newHtml += "<td><input id='" + inputName + "' value='" + data[i][cols[j]] + "'></input></td>"
+        newHtml += '<td><input id="' + inputName + '" value="' + data[i][cols[j]] + '"></input></td>'
       }
     }
     // Add delete button
@@ -206,11 +206,11 @@ function enableDeleteButton (id) {
     e.preventDefault()
     const id = e.target.id.slice(6)
     const rowId = 'row' + e.target.id.slice(6)
-      functionConfirm('Are you sure you want to delete this?',
-        function del () {
-          document.getElementById(rowId).remove();
-          changes.push(['DELETE', id]);
-        })
+    functionConfirm('Are you sure you want to delete this?',
+      function del () {
+        document.getElementById(rowId).remove()
+        changes.push(['DELETE', id])
+      })
   })
 }
 
@@ -260,8 +260,8 @@ function logout () {
 }
 function remove_account () {
   const username = prompt('enter username of staff memeber to be removed')
-  const message = {username}
-  fetch('/remove_account',{
+  const message = { username }
+  fetch('/remove_account', {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -269,17 +269,17 @@ function remove_account () {
     },
     body: JSON.stringify(message)
   })
-  .then(response => {
-    removeServerErrorMessage()
-    if (response.ok) {
-      alert('account removed')
-    } else {
-      alert('Field cannot be blank and username must exist')
-    }
-  })
-  .catch(() => {
-    displayServerErrorMessage()
-  })
+    .then(response => {
+      removeServerErrorMessage()
+      if (response.ok) {
+        alert('account removed')
+      } else {
+        alert('Field cannot be blank and username must exist')
+      }
+    })
+    .catch(() => {
+      displayServerErrorMessage()
+    })
 }
 function signup () {
   const username = prompt('enter username for new staff member')

@@ -918,19 +918,18 @@ function check_parallel (corridor_1, corridor_2) {
   }
 }
 function check_left (corridor, prev_corridor) {
-  const corridor_location = [[corridors[corridor - 1].latitudeStart, corridors[corridor - 1].longitudeStart] , [corridors[corridor - 1].latitudeEnd, corridors[corridor - 1].longitudeEnd]]
-  const prev_corridor_location = [[corridors[prev_corridor - 1].latitudeStart, corridors[prev_corridor - 1].longitudeStart] , [corridors[prev_corridor - 1].latitudeEnd, corridors[prev_corridor - 1].longitudeEnd]]
+  const corridor_location = [[corridors[corridor - 1].latitudeStart, corridors[corridor - 1].longitudeStart], [corridors[corridor - 1].latitudeEnd, corridors[corridor - 1].longitudeEnd]]
+  const prev_corridor_location = [[corridors[prev_corridor - 1].latitudeStart, corridors[prev_corridor - 1].longitudeStart], [corridors[prev_corridor - 1].latitudeEnd, corridors[prev_corridor - 1].longitudeEnd]]
   // calculates the distances between corridor 1 and corridor 2 for corridor 2's start and ending points
   const mid = [((corridor_location[0][0] + corridor_location[1][0]) / 2), ((corridor_location[0][1] + corridor_location[1][1]) / 2)]
-  const start = myMap.latLngToPixel(prev_corridor_location[0][0],prev_corridor_location[0][1])
-  const end = myMap.latLngToPixel(prev_corridor_location[1][0],prev_corridor_location[1][1])
-  const midpoint = myMap.latLngToPixel(mid[0],mid[1])
+  const start = myMap.latLngToPixel(prev_corridor_location[0][0], prev_corridor_location[0][1])
+  const end = myMap.latLngToPixel(prev_corridor_location[1][0], prev_corridor_location[1][1])
+  const midpoint = myMap.latLngToPixel(mid[0], mid[1])
 
-  
   const distance_start = Math.sqrt(Math.pow((midpoint.x - start.x), 2) + Math.pow((midpoint.y - start.y), 2))
   const distance_end = Math.sqrt(Math.pow((midpoint.x - end.x), 2) + Math.pow((midpoint.y - end.y), 2))
   // choosing the closest end
-  
+
   const point_2 = distance_start < distance_end ? 0 : 1
   // chooses the opposite end for point 3
   const point_3 = point_2 === 1 ? 0 : 1

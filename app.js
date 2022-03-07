@@ -314,8 +314,8 @@ app.post('/signup', checkAuthorisation, (req, res) => {
 
 app.post('/remove_account', checkAuthorisation, (req, res) => {
   if (!req.body.username) {
-   res.status(400).send()
-   return
+    res.status(400).send()
+    return
   }
   staffDB.run('DELETE FROM staff WHERE username =?', [req.body.username], (err) => {
     if (err) {
@@ -578,27 +578,27 @@ app.post('/entities/delete', checkAuthorisation, function (req, res) {
       res.status(400).send()
       return
   }
-    const query = `DELETE FROM ${searchTable} WHERE id = ?`
-    db.run(query, [id], (err) => {
-      if (err) {
-        console.log(err)
-        res.status(500).send()
-      }
-      if (!err) {
-        let index = 0
-        let found = false
-        for (const data of searchThrough) {
-          if (data.id === id) {
-            found = true
-            searchThrough.splice(index, 1)
-            break
-          }
-          index += 1
+  const query = `DELETE FROM ${searchTable} WHERE id = ?`
+  db.run(query, [id], (err) => {
+    if (err) {
+      console.log(err)
+      res.status(500).send()
+    }
+    if (!err) {
+      let index = 0
+      let found = false
+      for (const data of searchThrough) {
+        if (data.id === id) {
+          found = true
+          searchThrough.splice(index, 1)
+          break
         }
-        if (!found) res.status(404).send()
-        res.status(201).send()
+        index += 1
       }
-    })
+      if (!found) res.status(404).send()
+      res.status(201).send()
+    }
+  })
 })
 
 app.get('/entities/search/:word', function (req, resp) {
