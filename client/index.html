@@ -70,7 +70,7 @@
           <a class="btn btn-outline-success" href="login" role="button">Login</a>
         </li>
         <li class="nav-item">
-          <button class="btn btn-outline-primary" data-bs-toggle="offcanvas" href="#offcanvasNavigation" role="button" aria-controls="offcanvasNavigation">Navigate </button>
+          <button class="btn btn-outline-primary" id="openNavigateBtn" >Navigate </button>
         </li>
     </ul>
     </div>
@@ -86,6 +86,7 @@
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
+      <p class="errorText" id="roomError">Invalid Locations</p>
       <input id="path1" type="text" placeholder="Enter your current location e.g. Fracture Clinic" />
       <div class="navColumn">
         <button class="btn btn-primary" id="startSpeech1">Start <i class="fa fa-microphone"></i></button>
@@ -98,7 +99,7 @@
         <button class="btn btn-primary" id="startSpeech2">Start <i class="fa fa-microphone"></i></button>
         <button class="btn btn-primary" id="stopSpeech2" style="display:none;">Stop <i class="fa fa-microphone"></i></button>
       </div>
-      <button id="navigateBtn" class="btn btn-primary navBtn"  data-bs-toggle="offcanvas" href="#offcanvasDirections" role="button" aria-controls="offcanvasDirections">Navigate</button>
+      <button id="navigateBtn" class="btn btn-primary navBtn" >Navigate</button>
       <button id="clearNavBtn" class="btn btn-outline-secondary navBtn" data-bs-dismiss="offcanvas"> Clear Route</button>
     </div>
   </div>

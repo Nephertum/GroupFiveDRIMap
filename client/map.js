@@ -34,6 +34,12 @@ const pin = {
   longitude: 0
 }
 let graph
+
+const direction_list = document.getElementById('offcanvasDirections')
+const direction_canvas = new bootstrap.Offcanvas(direction_list)
+
+const navigation_menu = document.getElementById('offcanvasNavigation')
+const navigation_canvas = new bootstrap.Offcanvas(navigation_menu)
 // pin handling
 window.addEventListener('mousedown', function () {
   mouseIsDown = true
@@ -191,7 +197,10 @@ function setupButton () {
       document.getElementById('searchError').style.display = 'block'
     }
   })
-
+  const open_navigate_button = document.getElementById('openNavigateBtn')
+  open_navigate_button.addEventListener('click', () => {
+    navigation_canvas.show()
+  })
   const navigateButton = document.getElementById('navigateBtn')
   const input1 = document.getElementById('path1')
   const input2 = document.getElementById('path2')
@@ -199,13 +208,17 @@ function setupButton () {
     document.querySelectorAll('.routeStep').forEach(element => {
       element.remove()
     })
-    setNavigation(input1.value, input2.value)
-    input1.value = ''
-    input2.value = ''
-    updateMap()
+    if (setNavigation(input1.value, input2.value)) {
+      document.getElementById('roomError').style.display = 'none'
+      input1.value = ''
+      input2.value = ''
+      direction_canvas.show()
+      navigation_canvas.hide()
+      updateMap()
+    } else {
+      document.getElementById('roomError').style.display = 'block'
+    }
   })
-  
-  
   const usePinBtn = document.getElementById('usePinToggle')
   usePinBtn.addEventListener('click', () => {
     if (pin.latitude !== 0) {
@@ -215,8 +228,6 @@ function setupButton () {
       document.getElementById('pinError').style.display = 'block'
     }
   })
-  
-  
   const clearButton = document.getElementById('clearNavBtn')
   clearButton.addEventListener('click', () => {
     clearHighlight()
@@ -297,13 +308,20 @@ function setNavigation (source, destination) {
   } else {
     newStart = getNodeByName(source)
   }
+  if (destination.toLowerCase() === 'pin') {
+    return false
+  }
   newDest = getNodeByName(destination)
   if (newStart === 0 || newDest === 0) {
-    alert('invalid locations')
+    return false
   } else {
+    if (newStart.name === newDest.name) {
+      return false
+    }
     start = newStart
     dest = newDest
     navigation_loaded = false
+    return true
   }
 }
 function getNodeByName (name) {
@@ -1040,6 +1058,7 @@ function addRouteStep (direction, previous) {
       speech.text = 'You have arrived at ' + dest.name
       window.speechSynthesis.speak(speech)
       clearHighlight()
+      direction_canvas.hide()
     } else {
       container.childNodes[3].className += ' top'
       reduce_route()
