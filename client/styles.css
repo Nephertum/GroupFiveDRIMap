@@ -409,6 +409,9 @@ input[type=text] {
 #serverError {
     display: none;
 }
+#changeError {
+    display: none;
+}
 #tutorial_container {
     display: none;
     width: 100%;

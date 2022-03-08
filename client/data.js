@@ -308,7 +308,10 @@ function signup () {
 }
 function saveEdit (change) {
   const message = { id: change[1], category: getCategory(change[1].slice(0, 1)), property: change[2], NewValue: change[3] }
-  if (change[3] === '') return
+  if (change[3] === '') {
+    displayChangeErrorMessage()
+    return
+  }
   console.log(message)
   fetch('/entities/edit', {
     method: 'POST',
@@ -321,45 +324,54 @@ function saveEdit (change) {
     .then(response => {
       removeServerErrorMessage()
       if (response.ok) {
+        removeChangeErrorMessage()
         console.log('change succesful')
+      } else {
+        displayChangeErrorMessage()
       }
     })
     .catch(() => {
       displayServerErrorMessage()
     })
 }
-function saveAdd (change) {
+async function saveAdd (change) {
   const newId = change[1].slice(3)
   const values = document.querySelectorAll(`.${newId}`)
-  if (values.length === 0) return
+  if (values.length === 0) {
+    displayChangeErrorMessage()
+    return
+  }
   const message = {}
   for (const input of values) {
     const property = input.id.split('-')[1]
-    if (input.value === '') return
+    if (input.value === '') {
+      displayChangeErrorMessage()
+      return
+    }
     message[property] = input.value
   }
   message.category = getCategory(newId.slice(0, 1))
-  fetch('/entities/add', {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(message)
-  })
-    .then(response => {
-      removeServerErrorMessage()
-      if (response.ok) {
-        return response.text()
-      }
+  try {
+    const res = await fetch('/entities/add', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(message)
     })
-    .then(result => {
+    if (res.ok) {
+      removeChangeErrorMessage()
+      const result = await res.text()
       document.getElementById(newId).id = result
       document.getElementById(result).innerText = result
-    })
-    .catch(() => {
-      displayServerErrorMessage()
-    })
+    }
+    else {
+      displayChangeErrorMessage()
+    }
+  } catch (error) {
+    displayServerErrorMessage()
+  }
 }
 function saveDelete (change) {
   const id = change[1]
@@ -383,11 +395,11 @@ function saveDelete (change) {
     })
 }
 
-function saveChanges () {
+async function saveChanges () {
   for (const change of changes) {
     switch (change[0]) {
       case 'ADD':
-        saveAdd(change)
+        await saveAdd(change)
         break
       case 'CHANGE':
         saveEdit(change)
@@ -419,6 +431,12 @@ function displayServerErrorMessage () {
 }
 function removeServerErrorMessage () {
   document.getElementById('serverError').style.display = 'none'
+}
+function displayChangeErrorMessage () {
+  document.getElementById('changeError').style.display = 'block'
+}
+function removeChangeErrorMessage () {
+  document.getElementById('changeError').style.display = 'none'
 }
 // FOLLOWING FUNCTIONS MAKE POPUP BOXES
 function functionConfirm (msg, del, cancel) {

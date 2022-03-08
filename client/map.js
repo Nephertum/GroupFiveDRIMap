@@ -484,6 +484,8 @@ function updatePinLocation () {
   const newlocation = myMap.pixelToLatLng(mouseX, mouseY)
   pin.latitude = newlocation.lat
   pin.longitude = newlocation.lng
+  navigation_loaded = false
+  clearDirections()
   updateMap()
 }
 function placePin () {
@@ -702,6 +704,9 @@ function clearHighlight () {
   start = 0
   dest = 0
   updateMap()
+  clearDirections()
+}
+function clearDirections () {
   document.querySelectorAll('.routeStep').forEach(element => {
     element.remove()
   })

@@ -275,7 +275,15 @@ app.get('/corridors', function (req, resp) {
 app.get('/unmarkedRooms', function (req, resp) {
   resp.json(unmarkedRooms)
 })
-
+/**
+ * @api {post} /login send request to log in
+ * @apiName PostLogin
+ * @apiGroup Login
+ *
+ * @apiParam {String} username Username of user attempting to log in
+ * @apiParam {String} password Password of user attempting to log in
+ *
+ */
 app.post('/login', (req, res) => {
   console.log('login received')
   if (!req.body.username || !req.body.password) res.status(400).send()
@@ -298,6 +306,14 @@ app.post('/login', (req, res) => {
     }
   })
 })
+/**
+ * @api {post} /signup send request to create a new staff account
+ * @apiName PostSignup
+ * @apiGroup Login
+ *
+ * @apiParam {String} username Username of new user
+ * @apiParam {String} password Password of new user
+ */
 app.post('/signup', checkAuthorisation, (req, res) => {
   if (!req.body.username || !req.body.password) {
     res.status(400).send()
@@ -319,26 +335,38 @@ app.post('/signup', checkAuthorisation, (req, res) => {
     }
   })
 })
-
+/**
+ * @api {post} /remove_account send request to remove a staff account
+ * @apiName PostRemoveAccount
+ * @apiGroup Login
+ *
+ * @apiParam {String} username Username of account to be deleted
+ */
 app.post('/remove_account', checkAuthorisation, (req, res) => {
   if (!req.body.username) {
     res.status(400).send()
     return
   }
-  staffDB.run('DELETE FROM staff WHERE username =?', [req.body.username], (err) => {
-    if (err) {
-      console.log(err)
-      res.status(500).send()
-    }
-    if (!err) {
-      console.log(req.session.username)
-      if (req.session.username === req.body.username) {
-        req.session.destroy(() => {
-          res.status(201).send()
-        })
-      } else {
-        res.status(201).send()
-      }
+  staffDB.get('SELECT username FROM staff WHERE username=?', [req.body.username], (err, rows) => {
+    if (err) res.status(500).send()
+    if (!rows) res.status(404).send()
+    if (rows) {
+      staffDB.run('DELETE FROM staff WHERE username =?', [req.body.username], (err) => {
+        if (err) {
+          console.log(err)
+          res.status(500).send()
+        }
+        if (!err) {
+          console.log(req.session.username)
+          if (req.session.username === req.body.username) {
+            req.session.destroy(() => {
+              res.status(201).send()
+            })
+          } else {
+            res.status(201).send()
+          }
+        }
+      })
     }
   })
 })
