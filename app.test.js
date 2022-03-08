@@ -119,7 +119,7 @@ describe('Test POST routes', () => {
     expect(res.statusCode).toBe(201)
   })
 
-  test('POST /entities/add fails', async () => {
+  test('POST /entities/add fails for insufficient information', async () => {
     const params = {
       name: 'New room',
       category: 'unmarkedRoom',
