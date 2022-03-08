@@ -16,6 +16,7 @@ const options = {
   bearing: -22,
   style: 'mapbox://styles/mapbox/streets-v10'
 }
+// GLOBAL VARIABLES
 // Create an instance of MapboxGL
 const mappa = new Mappa('MapboxGL', key)
 let myMap
@@ -33,6 +34,7 @@ const pin = {
   longitude: 0
 }
 let graph
+// pin handling
 window.addEventListener('mousedown', function () {
   mouseIsDown = true
   interval = setInterval(() => {
@@ -61,6 +63,8 @@ window.addEventListener('touchstart', function () {
 window.addEventListener('touchend', function () {
   mouseIsDown = false
 })
+
+// fetch on load
 window.addEventListener('load', async () => {
   try {
     let res = await fetch('/rooms/listinfo')
@@ -71,6 +75,7 @@ window.addEventListener('load', async () => {
     result = await res.json()
     const unmarked_room_list = result
     populate_list(room_list, unmarked_room_list)
+    // tutorial setup
     if (!localStorage.visited) {
       document.getElementById('tutorial_container').style.display = 'block'
       document.getElementById('end_tutorial').addEventListener('click', () => {
@@ -199,6 +204,8 @@ function setupButton () {
     input2.value = ''
     updateMap()
   })
+  
+  
   const usePinBtn = document.getElementById('usePinToggle')
   usePinBtn.addEventListener('click', () => {
     if (pin.latitude !== 0) {
@@ -208,6 +215,8 @@ function setupButton () {
       document.getElementById('pinError').style.display = 'block'
     }
   })
+  
+  
   const clearButton = document.getElementById('clearNavBtn')
   clearButton.addEventListener('click', () => {
     clearHighlight()
@@ -218,6 +227,7 @@ function AI_navigate () {
   let latest_message = ''
   // every second the DOM is checked to see if new chatbot conversation nodes have appeared
   setInterval(() => {
+    // gets all messages form chatbot
     const messages = document.querySelectorAll('.WACWidget__MarkdownP')
     let navigation_messages_count = 0
     for (const message of messages) {
@@ -236,8 +246,7 @@ function AI_navigate () {
       document.querySelectorAll('.routeStep').forEach(element => {
         element.remove()
       })
-      console.log(locations[0])
-      console.log(locations[1])
+      // displays directions list
       const directionMenu = document.getElementById('offcanvasDirections')
       const canvas = new bootstrap.Offcanvas(directionMenu)
       canvas.show()
@@ -254,6 +263,8 @@ function AI_navigate () {
 
 // main update loop for the map, this is where any additional drawing functionality should be added
 function updateMap () {
+  // disables pitch change
+  // myMap.map.setPitch(0)
   // on initial load, add interaction controls to map
   if (!loaded) {
     myMap.map.addControl(new mapboxgl.FullscreenControl())
@@ -297,11 +308,13 @@ function setNavigation (source, destination) {
 }
 function getNodeByName (name) {
   let result = 0
+  // looks at all room nodes
   rooms.forEach(element => {
     if (element.name.toLowerCase() === name.toLowerCase()) {
       result = element
     }
   })
+  // looks at all building 
   buildings.forEach(element => {
     if (element.name.toLowerCase() === name.toLowerCase()) {
       result = element
@@ -449,8 +462,6 @@ function drawRoute (node) {
   endShape()
 }
 
-// text(node.name,(start.x + end.x) / 2,(start.y + end.y) / 2)
-
 function updatePinLocation () {
   const newlocation = myMap.pixelToLatLng(mouseX, mouseY)
   pin.latitude = newlocation.lat
@@ -560,11 +571,12 @@ function removeServerErrorMessage () {
 // highlights a cooridoor red, to be used for navigation
 function highlight_path (cooridoor_list) {
   console.log(cooridoor_list)
-  // !navigation_loaded && addRouteStep(start.name,-1)
+  // when the route is only over one corridor
   if (cooridoor_list.length === 1) {
     highlight_small_route(cooridoor_list[0], start, dest)
   }
   cooridoor_list.length > 1 && cooridoor_list.forEach((path, index) => {
+    // when route is first drawn, add all steps to direction list
     if (!navigation_loaded) {
       if (index > 0) {
         addRouteStep(path, cooridoor_list[index - 1])
@@ -573,6 +585,7 @@ function highlight_path (cooridoor_list) {
       }
     }
     switch (index) {
+      // for the first part of the route, either highlight corridor or link corridor to node
       case 0:
         if (Number.isInteger(start)) {
           highlight_cooridoor(path)
@@ -580,6 +593,7 @@ function highlight_path (cooridoor_list) {
           highlightEndpoint(path, cooridoor_list[1], start)
         }
         break
+      // for the last part of the route, link corridor to destination node
       case cooridoor_list.length - 1:
         highlightEndpoint(path, cooridoor_list[cooridoor_list.length - 2], dest)
         break
@@ -588,7 +602,9 @@ function highlight_path (cooridoor_list) {
         break
     }
   })
+  // add destination to direction list
   !navigation_loaded && addRouteStep(dest.name, -1)
+  // speak first step of route
   !navigation_loaded && speak_next_step()
   navigation_loaded = true
 }
@@ -1055,6 +1071,7 @@ function reduce_route () {
 }
 
 function calculate_route () {
+  // if the starting point is a corridor
   if (Number.isInteger(start)) {
     return navigate(graph, start, calculateNearestCorridor(dest))
   } else {
@@ -1062,6 +1079,7 @@ function calculate_route () {
     if (calculateNearestCorridor(start) === calculateNearestCorridor(dest)) {
       return [calculateNearestCorridor(start)]
     }
+    // if the starting point is a room
     return navigate(graph, calculateNearestCorridor(start), calculateNearestCorridor(dest))
   }
 }

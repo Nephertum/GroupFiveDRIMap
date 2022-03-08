@@ -94,7 +94,7 @@ function getCategory (letter) {
 
 // FOLLOWING TWO FUNCTIONS MAKE THE TABLES ON THE PAGE
 // type variable should be the first letter of the ids, e.g "b" for buildings
-function makeTable (data, type, container) {
+function makeTable (data, typdche, container) {
   if (data.length === 0) {
     container.innerHTML = 'Currently empty'
     return
@@ -228,6 +228,7 @@ function checkChange (id) {
       box.className += ' changedValue'
       changes.push(change)
       console.log(change)
+      // creates undo button if it doesn't already exist
       if (!document.getElementById('undo-' + box.id)) {
         const undoBtn = document.createElement('i')
         undoBtn.id = 'undo-' + box.id
