@@ -248,9 +248,7 @@ app.get('/buildings', function (req, resp) {
  */
 app.get('/building/listInfo/:id', function (req, resp) {
   const id = req.params.id
-  console.log(id)
   const building = getPlace('building', id)
-  console.log(building)
   resp.json([building.name, building.listColours])
 })
 
