@@ -59,15 +59,19 @@ window.addEventListener('mouseup', function () {
 })
 window.addEventListener('touchstart', function () {
   mouseIsDown = true
-  setTimeout(function () {
+  interval = setInterval(() => {
     if (mouseIsDown) {
-      // mouse was held down for > 3 seconds
-      updatePinLocation()
+      count += 1
+      if (count === 3) {
+        updatePinLocation()
+      }
     }
-  }, 2000)
+  }, 1000)
 })
 window.addEventListener('touchend', function () {
   mouseIsDown = false
+  count = 0
+  clearInterval(interval)
 })
 
 // fetch on load
