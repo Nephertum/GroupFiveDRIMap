@@ -255,6 +255,22 @@ function AI_navigate () {
     }
     // if there are new messages
     if (navigation_messages_count !== previous_length) {
+      const sent_messages = document.querySelectorAll('.WAC__sent')
+      const last_sent = sent_messages[sent_messages.length - 1].childNodes[1].childNodes[0].innerText.split(' ')
+      let indexFrom = -1
+      let indexTo = -1
+      let swap = false
+      last_sent.forEach((element, index) => {
+        if (element.toLowerCase() === 'from') {
+          indexFrom = index
+        }
+        if (element.toLowerCase() === 'to') {
+          indexTo = index
+        }
+      })
+      if (indexFrom < indexTo) {
+        swap = true
+      }
       const data = latest_message.split(':')
       const locations = data[1].split(',')
       previous_length = navigation_messages_count
@@ -266,7 +282,7 @@ function AI_navigate () {
       const canvas = new bootstrap.Offcanvas(directionMenu)
       canvas.show()
       // realistically, a user will want to navigate from the pin as opposed to towards it
-      if (locations[1] === 'pin') {
+      if (locations[1] === 'pin' || swap) {
         setNavigation(locations[1], locations[0])
       } else {
         setNavigation(locations[0], locations[1])
