@@ -280,6 +280,9 @@ function AI_navigate () {
 function updateMap () {
   // disables pitch change
   // myMap.map.setPitch(0)
+  if (myMap.map.getPitch() > 25) {
+    myMap.map.setPitch(25)
+}
   // on initial load, add interaction controls to map
   if (!loaded) {
     myMap.map.addControl(new mapboxgl.FullscreenControl())
