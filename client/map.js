@@ -1028,14 +1028,14 @@ function check_left (corridor, prev_corridor) {
 }
 function get_turn_type (corridor, previous) {
   if (check_parallel(corridor, previous)) {
-    return 'carry straight on'
+    return 'Carry straight on'
   } else {
     const result = check_left(corridor, previous)
     if (result === 2) return 'turn'
     if (result) {
-      return 'turn left'
+      return 'Turn left'
     } else {
-      return 'turn right'
+      return 'Turn right'
     }
   }
 }
@@ -1053,7 +1053,7 @@ function addRouteStep (direction, previous) {
       label.innerText = get_turn_type(direction, previous)
     } else {
       // for the first direction output this value
-      label.innerText = ' turn onto corridor outside of ' + (previous !== 'pin' ? previous : 'Your location')
+      label.innerText = ' Turn onto corridor outside of ' + (previous !== 'pin' ? previous : 'Your location')
     }
   } else {
     // for start and end of route, output room anmes
