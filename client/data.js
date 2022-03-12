@@ -55,12 +55,20 @@ function draw () {
 function mouseClicked () {
   if (mouseX >= 0 && mouseX <= 400 && mouseY >= 0 && mouseY <= 150) {
     const position = myMap.pixelToLatLng(mouseX, mouseY)
-    document.getElementById('latitude').innerText = 'Latitude: ' + position.lat
-    document.getElementById('longitude').innerText = 'Longitude: ' + position.lng
+    document.getElementById('lat-val').innerHTML = position.lat
+    document.getElementById('long-val').innerHTML = position.lng
   }
 
   // checks if mouse was clicked over any of the location nodes and zooms in on them
 }
+
+function copyText(id){
+  let copyText = document.getElementById(id).innerHTML;
+  navigator.clipboard.writeText(copyText);
+}
+
+document.getElementById("copy-lat").addEventListener('click', function(e){copyText("lat-val")});
+document.getElementById("copy-long").addEventListener('click', function(e){copyText("long-val")});
 
 // THESE FIRST FUNCTIONS ARE JUST FOR SHORTENING CODE
 function getCols (data) {

@@ -520,4 +520,6 @@ p.unmarked {
     }
   }
 
-
+.copy-title, .copy-value, .copy-btn{
+    display: inline-block;
+}
