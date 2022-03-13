@@ -277,12 +277,12 @@ app.get('/unmarkedRooms', function (req, resp) {
   resp.json(unmarkedRooms)
 })
 /**
- * @api {post} /login send request to log in
+ * @api {post} /login Send request to log in
  * @apiName PostLogin
  * @apiGroup Login
  *
- * @apiParam {String} username Username of user attempting to log in
- * @apiParam {String} password Password of user attempting to log in
+ * @apiParam {String} username Username of user attempting to log in.
+ * @apiParam {String} password Password of user attempting to log in.
  *
  */
 app.post('/login', (req, res) => {
@@ -308,12 +308,12 @@ app.post('/login', (req, res) => {
   })
 })
 /**
- * @api {post} /signup send request to create a new staff account
+ * @api {post} /signup Send request to create a new staff account
  * @apiName PostSignup
  * @apiGroup Login
  *
- * @apiParam {String} username Username of new user
- * @apiParam {String} password Password of new user
+ * @apiParam {String} username Username of new user.
+ * @apiParam {String} password Password of new user.
  */
 app.post('/signup', checkAuthorisation, (req, res) => {
   if (!req.body.username || !req.body.password) {
@@ -337,11 +337,11 @@ app.post('/signup', checkAuthorisation, (req, res) => {
   })
 })
 /**
- * @api {post} /remove_account send request to remove a staff account
+ * @api {post} /remove_account Send request to remove a staff account
  * @apiName PostRemoveAccount
  * @apiGroup Login
  *
- * @apiParam {String} username Username of account to be deleted
+ * @apiParam {String} username Username of account to be deleted.
  */
 app.post('/remove_account', checkAuthorisation, (req, res) => {
   if (!req.body.username) {

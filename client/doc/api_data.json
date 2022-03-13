@@ -23,8 +23,8 @@
     "url": "",
     "version": "0.0.0",
     "filename": "./client/client/doc/main.js",
-    "group": "/Users/jackrathbone/Documents/second year/Software Engineering/softwareProject/GroupFiveDRIMap/client/client/doc/main.js",
-    "groupTitle": "/Users/jackrathbone/Documents/second year/Software Engineering/softwareProject/GroupFiveDRIMap/client/client/doc/main.js",
+    "group": "/Users/emily/Documents/GroupFiveDRIMap/client/client/doc/main.js",
+    "groupTitle": "/Users/emily/Documents/GroupFiveDRIMap/client/client/doc/main.js",
     "name": ""
   },
   {
@@ -51,8 +51,8 @@
     "url": "",
     "version": "0.0.0",
     "filename": "./client/doc/main.js",
-    "group": "/Users/jackrathbone/Documents/second year/Software Engineering/softwareProject/GroupFiveDRIMap/client/doc/main.js",
-    "groupTitle": "/Users/jackrathbone/Documents/second year/Software Engineering/softwareProject/GroupFiveDRIMap/client/doc/main.js",
+    "group": "/Users/emily/Documents/GroupFiveDRIMap/client/doc/main.js",
+    "groupTitle": "/Users/emily/Documents/GroupFiveDRIMap/client/doc/main.js",
     "name": ""
   },
   {
@@ -441,7 +441,7 @@
   {
     "type": "post",
     "url": "/login",
-    "title": "send request to log in",
+    "title": "Send request to log in",
     "name": "PostLogin",
     "group": "Login",
     "parameter": {
@@ -452,14 +452,14 @@
             "type": "String",
             "optional": false,
             "field": "username",
-            "description": "<p>Username of user attempting to log in</p>"
+            "description": "<p>Username of user attempting to log in.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p>Password of user attempting to log in</p>"
+            "description": "<p>Password of user attempting to log in.</p>"
           }
         ]
       }
@@ -471,7 +471,7 @@
   {
     "type": "post",
     "url": "/remove_account",
-    "title": "send request to remove a staff account",
+    "title": "Send request to remove a staff account",
     "name": "PostRemoveAccount",
     "group": "Login",
     "parameter": {
@@ -482,7 +482,7 @@
             "type": "String",
             "optional": false,
             "field": "username",
-            "description": "<p>Username of account to be deleted</p>"
+            "description": "<p>Username of account to be deleted.</p>"
           }
         ]
       }
@@ -494,7 +494,7 @@
   {
     "type": "post",
     "url": "/signup",
-    "title": "send request to create a new staff account",
+    "title": "Send request to create a new staff account",
     "name": "PostSignup",
     "group": "Login",
     "parameter": {
@@ -505,14 +505,14 @@
             "type": "String",
             "optional": false,
             "field": "username",
-            "description": "<p>Username of new user</p>"
+            "description": "<p>Username of new user.</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p>Password of new user</p>"
+            "description": "<p>Password of new user.</p>"
           }
         ]
       }
