@@ -277,7 +277,7 @@ app.get('/unmarkedRooms', function (req, resp) {
   resp.json(unmarkedRooms)
 })
 /**
- * @api {post} /login Send request to log in
+ * @api {post} /login Send Request to Log in
  * @apiName PostLogin
  * @apiGroup Login
  *
@@ -308,7 +308,7 @@ app.post('/login', (req, res) => {
   })
 })
 /**
- * @api {post} /signup Send request to create a new staff account
+ * @api {post} /signup Send Request to Create a New Staff Account
  * @apiName PostSignup
  * @apiGroup Login
  *
@@ -337,7 +337,7 @@ app.post('/signup', checkAuthorisation, (req, res) => {
   })
 })
 /**
- * @api {post} /remove_account Send request to remove a staff account
+ * @api {post} /remove_account Send Request to Remove a Staff Account
  * @apiName PostRemoveAccount
  * @apiGroup Login
  *

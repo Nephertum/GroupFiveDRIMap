@@ -441,7 +441,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/login",
-    "title": "Send request to log in",
+    "title": "Send Request to Log in",
     "name": "PostLogin",
     "group": "Login",
     "parameter": {
@@ -471,7 +471,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/remove_account",
-    "title": "Send request to remove a staff account",
+    "title": "Send Request to Remove a Staff Account",
     "name": "PostRemoveAccount",
     "group": "Login",
     "parameter": {
@@ -494,7 +494,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/signup",
-    "title": "Send request to create a new staff account",
+    "title": "Send Request to Create a New Staff Account",
     "name": "PostSignup",
     "group": "Login",
     "parameter": {
