@@ -2053,6 +2053,9 @@
           "text": "How long until Ward A closes?"
         },
         {
+          "text": "how many beds are in the hospital?"
+        },
+        {
           "text": "Is there a toilet at Ward A"
         },
         {
@@ -2072,6 +2075,9 @@
         },
         {
           "text": "What do you know about ward A?"
+        },
+        {
+          "text": "what facilities are in the library?"
         },
         {
           "text": "What facilities does the cafe have"
@@ -3012,7 +3018,7 @@
       "output": {
         "text": {
           "values": [
-            "Route:$location1,$location2"
+            "Route:$location2,$location1"
           ],
           "selection_policy": "sequential"
         }
