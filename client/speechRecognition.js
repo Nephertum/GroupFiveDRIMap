@@ -18,19 +18,6 @@ if ('webkitSpeechRecognition' in window) {
 
   speechRecognition.lang = 'English'
 
-  speechRecognition.onstart = () => {
-    document.querySelector('#status').style.display = 'block'
-    final_transcript = ''
-  }
-  speechRecognition.onerror = () => {
-    document.querySelector('#status').style.display = 'none'
-    console.log('Speech Recognition Error')
-  }
-  speechRecognition.onend = () => {
-    document.querySelector('#status').style.display = 'none'
-    console.log('Speech Recognition Ended')
-  }
-
   speechRecognition.onresult = (event) => {
     let interim_transcript = ''
 
