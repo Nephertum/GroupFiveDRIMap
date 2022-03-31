@@ -2,6 +2,14 @@
 
 This webpage is an interactive map of the Doncaster Royal Infirmary Hospital. It includes a page for users and a page for admins.
 
+## Frameworks/Libraries Used
+- jQuery (https://jquery.com/)
+- Bootstrap (https://getbootstrap.com/)
+- Font Awesome (https://fontawesome.com/)
+- Mappa (https://mappa.js.org/)
+- Mapbox GL (https://docs.mapbox.com/mapbox-gl-js/api/)
+- Express (https://expressjs.com/)
+
 ## How To Execute Code
 
 All files should be deployed to the same directory. Go to the correct directory in your terminal and install the required node modules by typing "npm install". Start the server by typing "npm start" and then visit http://127.0.0.1:3000 or localhost:3000 in a browser.
