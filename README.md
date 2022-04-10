@@ -3,12 +3,12 @@
 This webpage is an interactive map of the Doncaster Royal Infirmary Hospital. It includes a page for users and a page for admins.
 
 ## Built With
-* [JQuery] (https://jquery.com/)
-* [Bootstrap] (https://getbootstrap.com/)
-* [Font Awesome] (https://fontawesome.com/)
-* [Mappa] (https://mappa.js.org/)
-* [Mapbox GL] (https://docs.mapbox.com/mapbox-gl-js/api/)
-* [Express] (https://expressjs.com/)
+* [JQuery](https://jquery.com/)
+* [Bootstrap](https://getbootstrap.com/)
+* [Font Awesome](https://fontawesome.com/)
+* [Mappa](https://mappa.js.org/)
+* [Mapbox GL](https://docs.mapbox.com/mapbox-gl-js/api/)
+* [Express](https://expressjs.com/)
 
 ## Installation
 
