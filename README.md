@@ -43,9 +43,9 @@ The admin page can be accessed by clicking the "Login" button.
 
 Full usage instructions are in the user manual.
 
-![Image of Map Display](/examples/map.png?raw=true "Map Display")
-![Image of Navigation](/examples/navigation.png?raw=true "Navigation")
-![Image of Admin Menu](/examples/admin.png?raw=true "Admin Menu")
+Map Display             |  Navigation             |  Admin Menu
+:-------------------------:|:-------------------------:
+![Image of Map Display](/examples/map.png?raw=true)  |  ![Image of Navigation](/examples/navigation.png?)  |   ![Image of Admin Menu](/examples/admin.png)
 
 ## Authentication
 The current admin username is "admin" with password "test".  
