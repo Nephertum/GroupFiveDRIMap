@@ -298,7 +298,7 @@ function updateMap () {
   // myMap.map.setPitch(0)
   if (myMap.map.getPitch() > 25) {
     myMap.map.setPitch(25)
-}
+  }
   // on initial load, add interaction controls to map
   if (!loaded) {
     myMap.map.addControl(new mapboxgl.FullscreenControl())
@@ -355,7 +355,7 @@ function getNodeByName (name) {
       result = element
     }
   })
-  // looks at all building 
+  // looks at all building
   buildings.forEach(element => {
     if (element.name.toLowerCase() === name.toLowerCase()) {
       result = element

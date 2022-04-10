@@ -1,7 +1,5 @@
 const TESTING = false
 
-
-
 const express = require('express')
 const sqlite3 = require('sqlite3')
 const path = require('path')
@@ -63,8 +61,6 @@ const db = new sqlite3.Database('./database/entities.db', sqlite3.OPEN_READWRITE
 const staffDB = require('./staffDB')
 
 // Entities
-
-const placesForSearch = [rooms, buildings]
 
 function checkAuthorisation (req, res, next) {
   if (TESTING) {
@@ -244,7 +240,7 @@ app.get('/buildings', function (req, resp) {
  * @apiDescription Given a building id, returns the name and room list colour for that building.
  * @apiName GetBuildingListInfo
  * @apiGroup Buildings
- * 
+ *
  * @apiParam {String} id Unique id of building.
  *
  * @apiSuccess {Object[]} buildingListInfo Name and room list colour of building.
@@ -639,7 +635,7 @@ app.post('/entities/delete', checkAuthorisation, function (req, res) {
   })
 })
 
-/*app.get('/entities/search/:word', function (req, resp) {
+/* app.get('/entities/search/:word', function (req, resp) {
   const word = req.params.word.toLowerCase().replace(/[^\w]|_/g, '')
   const matches = []
   let name

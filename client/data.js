@@ -62,13 +62,13 @@ function mouseClicked () {
   // checks if mouse was clicked over any of the location nodes and zooms in on them
 }
 
-function copyText(id){
-  let copyText = document.getElementById(id).innerHTML;
-  navigator.clipboard.writeText(copyText);
+function copyText (id) {
+  const copyText = document.getElementById(id).innerHTML
+  navigator.clipboard.writeText(copyText)
 }
 
-document.getElementById("copy-lat").addEventListener('click', function(e){copyText("lat-val")});
-document.getElementById("copy-long").addEventListener('click', function(e){copyText("long-val")});
+document.getElementById('copy-lat').addEventListener('click', function (e) { copyText('lat-val') })
+document.getElementById('copy-long').addEventListener('click', function (e) { copyText('long-val') })
 
 // THESE FIRST FUNCTIONS ARE JUST FOR SHORTENING CODE
 function getCols (data) {
@@ -373,8 +373,7 @@ async function saveAdd (change) {
       const result = await res.text()
       document.getElementById(newId).id = result
       document.getElementById(result).innerText = result
-    }
-    else {
+    } else {
       displayChangeErrorMessage()
     }
   } catch (error) {
