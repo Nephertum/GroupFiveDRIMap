@@ -59,9 +59,9 @@ To update the documentation:
 1. Update the comments in `app.js` (see https://apidocjs.com/ for guidance)
 2. Delete the node_modules folder if it exists
 3. Regenerate documentation
-  ```sh
-  apidoc -i . src -o client/doc
-  ```
+   ```sh
+   apidoc -i . src -o client/doc
+   ```
 
 ## API Testing
 
