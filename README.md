@@ -1,6 +1,6 @@
 # GroupFiveDRIMap
 
-This webpage is an interactive map of the Doncaster Royal Infirmary Hospital. It includes a page for users and a page for admins.
+An interactive map webpage of the Doncaster Royal Infirmary Hospital.
 
 ## Built With
 * [JQuery](https://jquery.com/)
@@ -14,19 +14,19 @@ This webpage is an interactive map of the Doncaster Royal Infirmary Hospital. It
 ## Installation
 
 1. Clone the repository
-  ```sh
-  git clone https://github.com/Nephertum/GroupFiveDRIMap.git
-  ```
+   ```sh
+   git clone https://github.com/Nephertum/GroupFiveDRIMap.git
+   ```
 
 2. Install NPM packages
-  ```sh
-  npm install
-  ```
+   ```sh
+   npm install
+   ```
 
 3. Start the server
-  ```sh
-  npm start
-  ```
+   ```sh
+   npm start
+   ```
 
 4. Visit http://127.0.0.1:3000 or localhost:3000 in a browser.
 
