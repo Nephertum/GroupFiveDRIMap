@@ -36,7 +36,7 @@ When the server is running, the app can be found at http://18.168.221.136:3000.
 
 The website has been tested using Chrome and no errors are known to exist with other browsers.
 
-## Features
+### Features
 The webpage features a map of the hospital with a navigation system and chatbot. There is also an admin menu with a secure login to update the map.
 
 The navigation system can be accessed by clicking the "Navigation" and "Directions" buttons.
