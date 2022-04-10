@@ -38,7 +38,7 @@ The website has been tested using Chrome and no errors are known to exist with o
 
 ## API Documentation
 
-See app.js documentation at http://127.0.0.1:3000/doc/index.html when the sever is running.
+See `app.js` documentation at http://127.0.0.1:3000/doc/index.html when the sever is running.
 
 To update the documentation:
 1. Update the comments in `app.js` (see https://apidocjs.com/ for guidance)
