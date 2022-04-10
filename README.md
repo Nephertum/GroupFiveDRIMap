@@ -43,8 +43,8 @@ The admin page can be accessed by clicking the "Login" button.
 
 Full usage instructions are in the user manual.
 
-Map Display             |  Navigation             |  Admin Menu
-:-------------------------:|:-------------------------:
+Map Display                |  Navigation               |  Admin Menu
+:-------------------------:|:-------------------------:|:-------------------------:
 ![Image of Map Display](/examples/map.png?raw=true)  |  ![Image of Navigation](/examples/navigation.png?)  |   ![Image of Admin Menu](/examples/admin.png)
 
 ## Authentication
