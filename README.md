@@ -62,7 +62,7 @@ To update the documentation:
 ## License
 
 ## Contact
-Jack Rathbone - jack.rathbone.durham.ac.uk  
+Jack Rathbone - jack.rathbone@durham.ac.uk  
 Emily Brown - emily.p.brown@durham.ac.uk  
 Ibrahim Ganidagli - ibrahim.ganidagli@durham.ac.uk  
 Daniel Atkinson - daniel.j.atkinson2@durham.ac.uk  
