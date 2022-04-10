@@ -9,6 +9,7 @@ This webpage is an interactive map of the Doncaster Royal Infirmary Hospital. It
 * [Mappa](https://mappa.js.org/)
 * [Mapbox GL](https://docs.mapbox.com/mapbox-gl-js/api/)
 * [Express](https://expressjs.com/)
+* [apiDoc](https://apidocjs.com/)
 
 ## Installation
 
@@ -37,7 +38,15 @@ The website has been tested using Chrome and no errors are known to exist with o
 
 ## API Documentation
 
-See app.js documentation at http://127.0.0.1:3000/doc/index.html when sever running. To regenerate app.js documentation, first delete the node_modules folder if it exists then run "apidoc -i . src -o client/doc".
+See app.js documentation at http://127.0.0.1:3000/doc/index.html when the sever is running.
+
+To update the documentation:
+1. Update the comments in `app.js` (see https://apidocjs.com/ for guidance)
+2. Delete the node_modules folder if it exists
+3. Regenerate documentation
+  ```sh
+  apidoc -i . src -o client/doc
+  ```
 
 ## API Testing
 
@@ -45,7 +54,6 @@ See app.js documentation at http://127.0.0.1:3000/doc/index.html when sever runn
    ```js
    const TESTING = true;
    ```
-
 2. Run tests
   ```sh
   npm test
