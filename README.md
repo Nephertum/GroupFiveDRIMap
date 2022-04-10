@@ -25,10 +25,10 @@ This webpage is an interactive map of the Doncaster Royal Infirmary Hospital. It
 
 3. Start the server
   ```sh
-  npm install
+  npm start
   ```
 
-Visit http://127.0.0.1:3000 or localhost:3000 in a browser.
+4. Visit http://127.0.0.1:3000 or localhost:3000 in a browser.
 
 When the server is running, the app can be found at http://18.168.221.136:3000.
 
@@ -55,18 +55,18 @@ To update the documentation:
    const TESTING = true;
    ```
 2. Run tests
-  ```sh
-  npm test
-  ```
+   ```sh
+   npm test
+   ```
 
 ## License
 
 ## Contact
-Jack Rathbone - jack.rathbone.durham.ac.uk
-Emily Brown - emily.p.brown@durham.ac.uk
-Ibrahim Ganidagli - ibrahim.ganidagli@durham.ac.uk
-Daniel Atkinson - daniel.j.atkinson2@durham.ac.uk
-Hetu Lu - hetu.lu@durham.ac.uk
+Jack Rathbone - jack.rathbone.durham.ac.uk  
+Emily Brown - emily.p.brown@durham.ac.uk  
+Ibrahim Ganidagli - ibrahim.ganidagli@durham.ac.uk  
+Daniel Atkinson - daniel.j.atkinson2@durham.ac.uk  
+Hetu Lu - hetu.lu@durham.ac.uk  
 Project link: https://github.com/Nephertum/GroupFiveDRIMap
 
 ## Aknowledgements
