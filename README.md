@@ -34,7 +34,22 @@ When the server is running, the app can be found at http://18.168.221.136:3000.
 
 The website has been tested using Chrome and no errors are known to exist with other browsers.
 
-## Usage
+## Usage / Features
+The webpage features a map of the hospital with a navigation system and chatbot. There is also an admin menu with a secure login to update the map.
+
+The navigation system can be accessed by clicking the "Navigation" and "Directions" buttons.
+The chatbot can be accessed by clicking the blue speech bubble button in the bottom right corner.
+The admin page can be accessed by clicking the "Login" button.
+
+Full usage instructions are in the user manual.
+
+![Image of Map Display](/examples/map.png?raw=true "Map Display")
+![Image of Navigation](/examples/navigation.png?raw=true "Navigation")
+![Image of Admin Menu](/examples/admin.png?raw=true "Admin Menu")
+
+## Authentication
+The current admin username is "admin" with password "test".  
+Logins can be updated using the "Add Staff Member" and "Remove Staff Member" buttons on the admin page.
 
 ## API Documentation
 
