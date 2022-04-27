@@ -77,6 +77,7 @@ To update the documentation:
    ```
 
 ## License
+Distributed under the MIT License. See ```LICENSE.txt``` for more information.
 
 ## Contact
 Jack Rathbone - jack.rathbone@durham.ac.uk  
