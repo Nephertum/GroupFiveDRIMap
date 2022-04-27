@@ -1,4 +1,4 @@
-# GroupFiveDRIMap
+# DRI Hospital Map - Group 5
 
 An interactive map webpage of the Doncaster Royal Infirmary Hospital.
 
@@ -34,7 +34,7 @@ On a local machine:
 On a hosted server:
 1. The project can be found at http://18.168.221.136:3000 .
 
-Note hosting the app locally removes some chatbot functionality - full details are in the user manual.
+Note hosting the app locally removes some chatbot functionality - full details are in the user manual (```User Manual.pdf```).
 
 The website has been tested using Chrome and no errors are known to exist with other browsers.
 
@@ -45,7 +45,7 @@ The navigation system can be accessed by clicking the "Navigation" and "Directio
 The chatbot can be accessed by clicking the blue speech bubble button in the bottom right corner.
 The admin page can be accessed by clicking the "Login" button.
 
-Full usage instructions are in the user manual.
+Full usage instructions are in the user manual (```User Manual.pdf```).
 
 Map Display                |  Navigation               |  Admin Menu
 :-------------------------:|:-------------------------:|:-------------------------:
