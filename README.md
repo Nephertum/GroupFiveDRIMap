@@ -12,7 +12,6 @@ An interactive map webpage of the Doncaster Royal Infirmary Hospital.
 * [apiDoc](https://apidocjs.com/)
 
 ## Installation
-
 1. Clone the repository
    ```sh
    git clone https://github.com/Nephertum/GroupFiveDRIMap.git
@@ -24,7 +23,7 @@ An interactive map webpage of the Doncaster Royal Infirmary Hospital.
    ```
 
 ## Usage
-
+On a local machine:
 1. Start the server
    ```sh
    npm start
@@ -32,7 +31,10 @@ An interactive map webpage of the Doncaster Royal Infirmary Hospital.
 
 2. Visit http://127.0.0.1:3000 or localhost:3000 in a browser.
 
-When the server is running, the app can be found at http://18.168.221.136:3000.
+On a hosted server:
+1. The project can be found at http://18.168.221.136:3000 .
+
+Note hosting the app locally removes some chatbot functionality - full details are in the user manual.
 
 The website has been tested using Chrome and no errors are known to exist with other browsers.
 
