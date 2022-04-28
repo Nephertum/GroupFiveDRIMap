@@ -32,7 +32,7 @@ On a local machine:
 2. Visit http://127.0.0.1:3000 or localhost:3000 in a browser.
 
 On a hosted server:
-1. The project can be found at http://18.168.221.136:3000 .
+1. The project is currently hosted at http://18.168.221.136:3000 .
 
 Note hosting the app locally removes some chatbot functionality - full details are in the user manual (```User Manual.pdf```).
 
