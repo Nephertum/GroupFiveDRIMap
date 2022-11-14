@@ -1,5 +1,7 @@
 # DRI Hospital Map - Group 5
 
+**This repo is now archived and read-only.**
+
 An interactive map webpage of the Doncaster Royal Infirmary Hospital.
 
 ## Built With
